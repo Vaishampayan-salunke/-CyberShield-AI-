@@ -2,6 +2,527 @@
   {
     "user_id": null,
     "user_email": "guest@cybershield.ai",
+    "title": "http://netflix-billing-update.club/renew",
+    "url": "http://netflix-billing-update.club/renew",
+    "domain": "netflix-billing-update.club",
+    "is_https": false,
+    "entropy": 3.84,
+    "threat_score": 100,
+    "threat_level": "Critical",
+    "confidence_score": 100,
+    "detected_indicators": [
+      {
+        "type": "High-Risk Top-Level Domain (TLD)",
+        "detail": "Domain utilizes an abusive/disposable TLD (.club) frequently associated with cyber campaigns.",
+        "severity": "high"
+      },
+      {
+        "type": "Targeted Brand Impersonation (Typosquatting)",
+        "detail": "Domain spoofing brand keyword 'netflix' on an unauthorized host (netflix-billing-update.club).",
+        "severity": "critical"
+      },
+      {
+        "type": "Multiple Hyphen Delimiters",
+        "detail": "Domain contains 2 hyphens, a signature of deceptive homograph clones.",
+        "severity": "medium"
+      },
+      {
+        "type": "Unencrypted HTTP Transmission",
+        "detail": "Connection is unencrypted (HTTP), exposing credentials to Man-in-the-Middle (MitM) interception.",
+        "severity": "medium"
+      },
+      {
+        "type": "Machine Learning Model Classification",
+        "detail": "Random Forest & TF-IDF character n-gram model scored payload at 100.0% malicious probability.",
+        "severity": "critical"
+      }
+    ],
+    "ml_probability": 100.0,
+    "potential_impact": "Credential theft, credential stuffing, banking account hijack, or session token interception.",
+    "recommended_actions": [
+      "Do NOT enter passwords, phone numbers, or credit card details.",
+      "Verify the official URL by searching for the service independently on a search engine.",
+      "Report this domain to Google Safe Browsing and your organization's SOC."
+    ],
+    "id": "cce6b919-2685-4da9-8b83-70bdf54506ff",
+    "timestamp": "2026-10-09T10:27:58.301086"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Dear customer, your electricity power will be disconnected t...",
+    "text": "Dear customer, your electricity power will be disconnected tonight at 9:30 PM. Call officer at 9876543210.",
+    "threat_score": 55,
+    "threat_level": "Medium Risk",
+    "confidence_score": 90,
+    "scam_type": [
+      "Urgent Utility Disconnection Scam"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Utility Disconnection Scam",
+        "detail": "Fabricates imminent power/water disconnection to induce panic and force an unauthorized phone call.",
+        "severity": "critical"
+      },
+      {
+        "type": "Unverified Contact Trap",
+        "detail": "Urges direct communication with unregistered mobile number (9876543210) instead of official toll-free channels.",
+        "severity": "high"
+      }
+    ],
+    "extracted_urls": [],
+    "extracted_phones": [
+      "9876543210"
+    ],
+    "potential_impact": "Financial loss through unauthorized UPI transfers, identity theft via forged KYC, or extortion.",
+    "recommended_actions": [
+      "NEVER call numbers sent in panic SMS messages.",
+      "NEVER enter your UPI PIN to 'receive' money \u2014 PIN is only required to SEND money.",
+      "Report fraudulent numbers to the National Cyber Crime Reporting Portal (1930 in India)."
+    ],
+    "id": "6eae7462-4456-4899-b5c6-d2802e79246d",
+    "timestamp": "2026-10-09T10:27:58.210899"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "http://secure-chase-login-update.xyz/banking/auth",
+    "url": "http://secure-chase-login-update.xyz/banking/auth",
+    "domain": "secure-chase-login-update.xyz",
+    "is_https": false,
+    "entropy": 4.14,
+    "threat_score": 100,
+    "threat_level": "Critical",
+    "confidence_score": 100,
+    "detected_indicators": [
+      {
+        "type": "High-Risk Top-Level Domain (TLD)",
+        "detail": "Domain utilizes an abusive/disposable TLD (.xyz) frequently associated with cyber campaigns.",
+        "severity": "high"
+      },
+      {
+        "type": "Targeted Brand Impersonation (Typosquatting)",
+        "detail": "Domain spoofing brand keyword 'chase' on an unauthorized host (secure-chase-login-update.xyz).",
+        "severity": "critical"
+      },
+      {
+        "type": "Multiple Hyphen Delimiters",
+        "detail": "Domain contains 3 hyphens, a signature of deceptive homograph clones.",
+        "severity": "medium"
+      },
+      {
+        "type": "Unencrypted HTTP Transmission",
+        "detail": "Connection is unencrypted (HTTP), exposing credentials to Man-in-the-Middle (MitM) interception.",
+        "severity": "medium"
+      },
+      {
+        "type": "Machine Learning Model Classification",
+        "detail": "Random Forest & TF-IDF character n-gram model scored payload at 100.0% malicious probability.",
+        "severity": "critical"
+      }
+    ],
+    "ml_probability": 100.0,
+    "potential_impact": "Credential theft, credential stuffing, banking account hijack, or session token interception.",
+    "recommended_actions": [
+      "Do NOT enter passwords, phone numbers, or credit card details.",
+      "Verify the official URL by searching for the service independently on a search engine.",
+      "Report this domain to Google Safe Browsing and your organization's SOC."
+    ],
+    "id": "d4f1f896-4149-474d-b110-7548cbc5f2b6",
+    "timestamp": "2026-10-09T10:27:58.136132"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Urgent Security Alert",
+    "subject": "Urgent Security Alert",
+    "sender": "security@paypa1-security.xyz",
+    "threat_score": 93,
+    "threat_level": "Critical",
+    "confidence_score": 93,
+    "detected_indicators": [
+      {
+        "type": "Psychological Urgency & Coercion Lure",
+        "detail": "Contains psychological pressure triggers: urgent, immediately",
+        "severity": "high"
+      },
+      {
+        "type": "Embedded Hyperlink Redirection",
+        "detail": "Identified 1 external URL destinations embedded within the email body.",
+        "severity": "medium"
+      },
+      {
+        "type": "Machine Learning Phishing Model Signature",
+        "detail": "LinearSVC & TF-IDF model scored email text at 93.5% phishing probability.",
+        "severity": "critical"
+      }
+    ],
+    "extracted_urls": [
+      "http://paypa1-security.xyz/auth"
+    ],
+    "attachments": [],
+    "headers": {},
+    "potential_impact": "Corporate credential theft, business email compromise (BEC) wire fraud, or endpoint malware infection.",
+    "recommended_actions": [
+      "Do NOT click embedded links or download attachments.",
+      "Report message as phishing to IT Security / SOC.",
+      "Verify sender identity via out-of-band communication (phone or internal chat)."
+    ],
+    "id": "bdd2d019-8420-49e9-896d-71c33262bc19",
+    "timestamp": "2026-10-09T10:27:57.906354"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "http://netflix-billing-update.club/renew",
+    "url": "http://netflix-billing-update.club/renew",
+    "domain": "netflix-billing-update.club",
+    "is_https": false,
+    "entropy": 3.84,
+    "threat_score": 100,
+    "threat_level": "Critical",
+    "confidence_score": 100,
+    "detected_indicators": [
+      {
+        "type": "High-Risk Top-Level Domain (TLD)",
+        "detail": "Domain utilizes an abusive/disposable TLD (.club) frequently associated with cyber campaigns.",
+        "severity": "high"
+      },
+      {
+        "type": "Targeted Brand Impersonation (Typosquatting)",
+        "detail": "Domain spoofing brand keyword 'netflix' on an unauthorized host (netflix-billing-update.club).",
+        "severity": "critical"
+      },
+      {
+        "type": "Multiple Hyphen Delimiters",
+        "detail": "Domain contains 2 hyphens, a signature of deceptive homograph clones.",
+        "severity": "medium"
+      },
+      {
+        "type": "Unencrypted HTTP Transmission",
+        "detail": "Connection is unencrypted (HTTP), exposing credentials to Man-in-the-Middle (MitM) interception.",
+        "severity": "medium"
+      },
+      {
+        "type": "Machine Learning Model Classification",
+        "detail": "Random Forest & TF-IDF character n-gram model scored payload at 100.0% malicious probability.",
+        "severity": "critical"
+      }
+    ],
+    "ml_probability": 100.0,
+    "potential_impact": "Credential theft, credential stuffing, banking account hijack, or session token interception.",
+    "recommended_actions": [
+      "Do NOT enter passwords, phone numbers, or credit card details.",
+      "Verify the official URL by searching for the service independently on a search engine.",
+      "Report this domain to Google Safe Browsing and your organization's SOC."
+    ],
+    "id": "fb8f7faa-575e-4b3f-9d21-6f4c212679ed",
+    "timestamp": "2026-10-09T10:26:59.549815"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Dear customer, your electricity power will be disconnected t...",
+    "text": "Dear customer, your electricity power will be disconnected tonight at 9:30 PM. Call officer at 9876543210.",
+    "threat_score": 55,
+    "threat_level": "Medium Risk",
+    "confidence_score": 90,
+    "scam_type": [
+      "Urgent Utility Disconnection Scam"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Utility Disconnection Scam",
+        "detail": "Fabricates imminent power/water disconnection to induce panic and force an unauthorized phone call.",
+        "severity": "critical"
+      },
+      {
+        "type": "Unverified Contact Trap",
+        "detail": "Urges direct communication with unregistered mobile number (9876543210) instead of official toll-free channels.",
+        "severity": "high"
+      }
+    ],
+    "extracted_urls": [],
+    "extracted_phones": [
+      "9876543210"
+    ],
+    "potential_impact": "Financial loss through unauthorized UPI transfers, identity theft via forged KYC, or extortion.",
+    "recommended_actions": [
+      "NEVER call numbers sent in panic SMS messages.",
+      "NEVER enter your UPI PIN to 'receive' money \u2014 PIN is only required to SEND money.",
+      "Report fraudulent numbers to the National Cyber Crime Reporting Portal (1930 in India)."
+    ],
+    "id": "2911ef4e-1182-463f-8ffe-e63435c72adc",
+    "timestamp": "2026-10-09T10:26:59.471064"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "http://secure-chase-login-update.xyz/banking/auth",
+    "url": "http://secure-chase-login-update.xyz/banking/auth",
+    "domain": "secure-chase-login-update.xyz",
+    "is_https": false,
+    "entropy": 4.14,
+    "threat_score": 100,
+    "threat_level": "Critical",
+    "confidence_score": 100,
+    "detected_indicators": [
+      {
+        "type": "High-Risk Top-Level Domain (TLD)",
+        "detail": "Domain utilizes an abusive/disposable TLD (.xyz) frequently associated with cyber campaigns.",
+        "severity": "high"
+      },
+      {
+        "type": "Targeted Brand Impersonation (Typosquatting)",
+        "detail": "Domain spoofing brand keyword 'chase' on an unauthorized host (secure-chase-login-update.xyz).",
+        "severity": "critical"
+      },
+      {
+        "type": "Multiple Hyphen Delimiters",
+        "detail": "Domain contains 3 hyphens, a signature of deceptive homograph clones.",
+        "severity": "medium"
+      },
+      {
+        "type": "Unencrypted HTTP Transmission",
+        "detail": "Connection is unencrypted (HTTP), exposing credentials to Man-in-the-Middle (MitM) interception.",
+        "severity": "medium"
+      },
+      {
+        "type": "Machine Learning Model Classification",
+        "detail": "Random Forest & TF-IDF character n-gram model scored payload at 100.0% malicious probability.",
+        "severity": "critical"
+      }
+    ],
+    "ml_probability": 100.0,
+    "potential_impact": "Credential theft, credential stuffing, banking account hijack, or session token interception.",
+    "recommended_actions": [
+      "Do NOT enter passwords, phone numbers, or credit card details.",
+      "Verify the official URL by searching for the service independently on a search engine.",
+      "Report this domain to Google Safe Browsing and your organization's SOC."
+    ],
+    "id": "d152b2cf-76e0-49cf-a9ab-9dacba3f208d",
+    "timestamp": "2026-10-09T10:26:59.391448"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Urgent Security Alert",
+    "subject": "Urgent Security Alert",
+    "sender": "security@paypa1-security.xyz",
+    "threat_score": 93,
+    "threat_level": "Critical",
+    "confidence_score": 93,
+    "detected_indicators": [
+      {
+        "type": "Psychological Urgency & Coercion Lure",
+        "detail": "Contains psychological pressure triggers: urgent, immediately",
+        "severity": "high"
+      },
+      {
+        "type": "Embedded Hyperlink Redirection",
+        "detail": "Identified 1 external URL destinations embedded within the email body.",
+        "severity": "medium"
+      },
+      {
+        "type": "Machine Learning Phishing Model Signature",
+        "detail": "LinearSVC & TF-IDF model scored email text at 93.5% phishing probability.",
+        "severity": "critical"
+      }
+    ],
+    "extracted_urls": [
+      "http://paypa1-security.xyz/auth"
+    ],
+    "attachments": [],
+    "headers": {},
+    "potential_impact": "Corporate credential theft, business email compromise (BEC) wire fraud, or endpoint malware infection.",
+    "recommended_actions": [
+      "Do NOT click embedded links or download attachments.",
+      "Report message as phishing to IT Security / SOC.",
+      "Verify sender identity via out-of-band communication (phone or internal chat)."
+    ],
+    "id": "75d1be3a-935f-4e5f-b5a7-dec54965dec7",
+    "timestamp": "2026-10-09T10:26:59.135177"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "http://netflix-billing-update.club/renew",
+    "url": "http://netflix-billing-update.club/renew",
+    "domain": "netflix-billing-update.club",
+    "is_https": false,
+    "entropy": 3.84,
+    "threat_score": 100,
+    "threat_level": "Critical",
+    "confidence_score": 100,
+    "detected_indicators": [
+      {
+        "type": "High-Risk Top-Level Domain (TLD)",
+        "detail": "Domain utilizes an abusive/disposable TLD (.club) frequently associated with cyber campaigns.",
+        "severity": "high"
+      },
+      {
+        "type": "Targeted Brand Impersonation (Typosquatting)",
+        "detail": "Domain spoofing brand keyword 'netflix' on an unauthorized host (netflix-billing-update.club).",
+        "severity": "critical"
+      },
+      {
+        "type": "Multiple Hyphen Delimiters",
+        "detail": "Domain contains 2 hyphens, a signature of deceptive homograph clones.",
+        "severity": "medium"
+      },
+      {
+        "type": "Unencrypted HTTP Transmission",
+        "detail": "Connection is unencrypted (HTTP), exposing credentials to Man-in-the-Middle (MitM) interception.",
+        "severity": "medium"
+      },
+      {
+        "type": "Machine Learning Model Classification",
+        "detail": "Random Forest & TF-IDF character n-gram model scored payload at 100.0% malicious probability.",
+        "severity": "critical"
+      }
+    ],
+    "ml_probability": 100.0,
+    "potential_impact": "Credential theft, credential stuffing, banking account hijack, or session token interception.",
+    "recommended_actions": [
+      "Do NOT enter passwords, phone numbers, or credit card details.",
+      "Verify the official URL by searching for the service independently on a search engine.",
+      "Report this domain to Google Safe Browsing and your organization's SOC."
+    ],
+    "id": "4b54f966-0e7d-4312-afda-a9693a192790",
+    "timestamp": "2026-10-09T10:26:10.780741"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Dear customer, your electricity power will be disconnected t...",
+    "text": "Dear customer, your electricity power will be disconnected tonight at 9:30 PM. Call officer at 9876543210.",
+    "threat_score": 55,
+    "threat_level": "Medium Risk",
+    "confidence_score": 90,
+    "scam_type": [
+      "Urgent Utility Disconnection Scam"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Utility Disconnection Scam",
+        "detail": "Fabricates imminent power/water disconnection to induce panic and force an unauthorized phone call.",
+        "severity": "critical"
+      },
+      {
+        "type": "Unverified Contact Trap",
+        "detail": "Urges direct communication with unregistered mobile number (9876543210) instead of official toll-free channels.",
+        "severity": "high"
+      }
+    ],
+    "extracted_urls": [],
+    "extracted_phones": [
+      "9876543210"
+    ],
+    "potential_impact": "Financial loss through unauthorized UPI transfers, identity theft via forged KYC, or extortion.",
+    "recommended_actions": [
+      "NEVER call numbers sent in panic SMS messages.",
+      "NEVER enter your UPI PIN to 'receive' money \u2014 PIN is only required to SEND money.",
+      "Report fraudulent numbers to the National Cyber Crime Reporting Portal (1930 in India)."
+    ],
+    "id": "d101bf94-0dd7-4bb0-a369-5c8cea99d37d",
+    "timestamp": "2026-10-09T10:26:10.684119"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "http://secure-chase-login-update.xyz/banking/auth",
+    "url": "http://secure-chase-login-update.xyz/banking/auth",
+    "domain": "secure-chase-login-update.xyz",
+    "is_https": false,
+    "entropy": 4.14,
+    "threat_score": 100,
+    "threat_level": "Critical",
+    "confidence_score": 100,
+    "detected_indicators": [
+      {
+        "type": "High-Risk Top-Level Domain (TLD)",
+        "detail": "Domain utilizes an abusive/disposable TLD (.xyz) frequently associated with cyber campaigns.",
+        "severity": "high"
+      },
+      {
+        "type": "Targeted Brand Impersonation (Typosquatting)",
+        "detail": "Domain spoofing brand keyword 'chase' on an unauthorized host (secure-chase-login-update.xyz).",
+        "severity": "critical"
+      },
+      {
+        "type": "Multiple Hyphen Delimiters",
+        "detail": "Domain contains 3 hyphens, a signature of deceptive homograph clones.",
+        "severity": "medium"
+      },
+      {
+        "type": "Credential Phishing Path Traps",
+        "detail": "Path contains security-sensitive lure keywords: banking, auth",
+        "severity": "high"
+      },
+      {
+        "type": "Unencrypted HTTP Transmission",
+        "detail": "Connection is unencrypted (HTTP), exposing credentials to Man-in-the-Middle (MitM) interception.",
+        "severity": "high"
+      },
+      {
+        "type": "Machine Learning Model Classification",
+        "detail": "Random Forest & TF-IDF character n-gram model scored payload at 100.0% malicious probability.",
+        "severity": "critical"
+      }
+    ],
+    "ml_probability": 100.0,
+    "potential_impact": "Credential theft, credential stuffing, banking account hijack, or session token interception.",
+    "recommended_actions": [
+      "Do NOT enter passwords, phone numbers, or credit card details.",
+      "Verify the official URL by searching for the service independently on a search engine.",
+      "Report this domain to Google Safe Browsing and your organization's SOC."
+    ],
+    "id": "a2b4dbc1-1d67-44de-819e-72f97f51b594",
+    "timestamp": "2026-10-09T10:26:10.594108"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Urgent Security Alert",
+    "subject": "Urgent Security Alert",
+    "sender": "security@paypa1-security.xyz",
+    "threat_score": 93,
+    "threat_level": "Critical",
+    "confidence_score": 93,
+    "detected_indicators": [
+      {
+        "type": "Psychological Urgency & Coercion Lure",
+        "detail": "Contains psychological pressure triggers: urgent, immediately",
+        "severity": "high"
+      },
+      {
+        "type": "Embedded Hyperlink Redirection",
+        "detail": "Identified 1 external URL destinations embedded within the email body.",
+        "severity": "medium"
+      },
+      {
+        "type": "Machine Learning Phishing Model Signature",
+        "detail": "LinearSVC & TF-IDF model scored email text at 93.5% phishing probability.",
+        "severity": "critical"
+      }
+    ],
+    "extracted_urls": [
+      "http://paypa1-security.xyz/auth"
+    ],
+    "attachments": [],
+    "headers": {},
+    "potential_impact": "Corporate credential theft, business email compromise (BEC) wire fraud, or endpoint malware infection.",
+    "recommended_actions": [
+      "Do NOT click embedded links or download attachments.",
+      "Report message as phishing to IT Security / SOC.",
+      "Verify sender identity via out-of-band communication (phone or internal chat)."
+    ],
+    "id": "7c9192f5-3beb-4815-92f4-842b7b725177",
+    "timestamp": "2026-10-09T10:26:10.187857"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
     "title": "Urgent: Your account access has been limited",
     "threat_type": "email",
     "threat_level": "Critical",

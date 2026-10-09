@@ -1,100 +1,119 @@
-import os
+"""
+CyberShield AI - Screenshot OCR Threat Analysis Service
+Extracts optical character text from screenshot images (WhatsApp chats, banking alerts, invoice receipts)
+and runs multi-vector NLP threat intelligence.
+"""
 import io
 import re
-import cv2
-import numpy as np
-from PIL import Image, ImageEnhance, ImageFilter
+from PIL import Image, ImageEnhance
 from typing import Dict, Any, Tuple
-from backend.services.sms_service import analyze_message_scam
-from backend.services.email_service import analyze_email_threat
+from backend.services.sms_service import analyze_message_threat
 from backend.services.url_service import analyze_url_threat
 
-# Optional pytesseract
+# Optional Tesseract OCR
 try:
     import pytesseract
-    # Check if tesseract binary is available
     pytesseract.get_tesseract_version()
     PYTESSERACT_AVAILABLE = True
 except Exception:
     PYTESSERACT_AVAILABLE = False
 
 def preprocess_image_for_ocr(image_bytes: bytes) -> Image.Image:
-    """Enhance image contrast and binarize for robust OCR text extraction."""
+    """
+    Enhances contrast and binarizes images for optimal optical character recognition.
+    
+    Args:
+        image_bytes (bytes): Raw uploaded image byte stream.
+        
+    Returns:
+        Image.Image: Preprocessed PIL Grayscale Image.
+    """
     pil_image = Image.open(io.BytesIO(image_bytes)).convert('L')
-    # Enhance contrast
     enhancer = ImageEnhance.Contrast(pil_image)
-    enhanced = enhancer.enhance(2.0)
-    # Apply thresholding
-    threshold = 140
-    binarized = enhanced.point(lambda p: 255 if p > threshold else 0)
-    return binarized
+    enhanced = enhancer.enhance(2.2)
+    threshold = 135
+    return enhanced.point(lambda p: 255 if p > threshold else 0)
 
 def extract_text_from_image(image_bytes: bytes) -> Tuple[str, str]:
-    """Extracts text from image bytes using OCR with multi-pass filters."""
-    method_used = "optical_image_pipeline"
-    extracted_text = ""
+    """
+    Extracts text from image bytes using multi-pass OCR pipelines.
     
+    Args:
+        image_bytes (bytes): Binary image payload.
+        
+    Returns:
+        Tuple[str, str]: Extracted text and OCR engine method used.
+    """
     if PYTESSERACT_AVAILABLE:
         try:
             processed_img = preprocess_image_for_ocr(image_bytes)
             text = pytesseract.image_to_string(processed_img)
             if text and len(text.strip()) > 5:
-                return text.strip(), "tesseract_optical_ocr"
-        except Exception as e:
-            print(f"[OCR] Tesseract pass 1 warning: {e}")
+                return text.strip(), "tesseract_enhanced_ocr"
+        except Exception:
+            pass
 
         try:
             raw_img = Image.open(io.BytesIO(image_bytes))
             text = pytesseract.image_to_string(raw_img)
             if text and len(text.strip()) > 5:
                 return text.strip(), "tesseract_direct_ocr"
-        except Exception as e:
-            print(f"[OCR] Tesseract pass 2 warning: {e}")
+        except Exception:
+            pass
 
-    return extracted_text, method_used
+    return "", "optical_text_parser"
 
 def analyze_screenshot_threat(image_bytes: bytes, filename: str = "", client_text: str = "") -> Dict[str, Any]:
+    """
+    Executes OCR text extraction and evaluates extracted screenshot content against threat classifiers.
+    
+    Args:
+        image_bytes (bytes): Screenshot image binary data.
+        filename (str): Original uploaded image filename.
+        client_text (str): Optional fallback text payload from client.
+        
+    Returns:
+        Dict[str, Any]: Structured threat report with OCR engine metadata and threat metrics.
+    """
     extracted_text, ocr_engine = extract_text_from_image(image_bytes)
-    
-    final_text = (client_text or extracted_text).strip()
-    
+    final_text = (extracted_text or client_text).strip()
+
     if not final_text:
-        # Ground-truth heuristic analysis for screenshot samples
-        fn_lower = filename.lower()
-        if "electricity" in fn_lower or "bill" in fn_lower or "power" in fn_lower:
-            final_text = "Dear customer, your electricity power will be disconnected tonight at 9:30 PM. Call electricity officer immediately at 9876543210."
-            ocr_engine = "vision_entity_extractor"
-        elif "sbi" in fn_lower or "bank" in fn_lower or "kyc" in fn_lower:
-            final_text = "STATE BANK ALERT: Dear customer, your YONO account is blocked today due to pending PAN/Aadhaar verification. Login to http://sbi-kyc-verify.online to update."
-            ocr_engine = "vision_entity_extractor"
-        elif "upi" in fn_lower or "cashback" in fn_lower or "reward" in fn_lower:
-            final_text = "PhonePe Reward: You won Rs 3,000 cashback! Scan the QR code below and enter your UPI PIN to claim money in your bank account."
-            ocr_engine = "vision_entity_extractor"
-        elif "fedex" in fn_lower or "customs" in fn_lower or "police" in fn_lower:
-            final_text = "FedEx Alert: Your courier parcel contains illegal contraband. Call Mumbai Police Cyber Cell immediately at 9812345678 to avoid arrest warrant."
-            ocr_engine = "vision_entity_extractor"
-        else:
-            final_text = "URGENT Security Notice: Your account has been suspended due to suspicious activity. Verify credentials immediately at http://security-verify.xyz to avoid termination."
-            ocr_engine = "vision_entity_extractor"
+        return {
+            "threat_score": 0,
+            "threat_level": "Safe",
+            "confidence_score": 90,
+            "detected_indicators": [
+                {
+                    "type": "Clean Visual Asset",
+                    "detail": "No legible scam text, urgent keywords, or suspicious URLs extracted from image.",
+                    "severity": "low"
+                }
+            ],
+            "extracted_text": "No text detected in image payload.",
+            "ocr_engine": ocr_engine,
+            "potential_impact": "Image contains no actionable digital threat vectors.",
+            "recommended_actions": ["No containment actions required."]
+        }
 
-    # Analyze extracted content
-    is_email = "subject:" in final_text.lower() or "from:" in final_text.lower() or len(final_text.split()) > 40
-    
-    if is_email:
-        base_result = analyze_email_threat(final_text)
-    else:
-        base_result = analyze_message_scam(final_text)
+    # Run NLP Threat Analysis on Extracted OCR Text
+    msg_analysis = analyze_message_threat(final_text)
 
-    base_result["threat_type"] = "screenshot"
-    base_result["extracted_text"] = final_text
-    base_result["ocr_engine"] = ocr_engine
-    base_result["filename"] = filename
+    # Check for embedded URLs in OCR text
+    url_pattern = re.compile(r'https?://\S+|www\.\S+')
+    urls = url_pattern.findall(final_text)
+    if urls:
+        for u in urls[:2]:
+            url_res = analyze_url_threat(u)
+            if url_res["threat_score"] > 50:
+                msg_analysis["threat_score"] = max(msg_analysis["threat_score"], url_res["threat_score"])
+                msg_analysis["detected_indicators"].append({
+                    "type": "Embedded Malicious URL in Screenshot",
+                    "detail": f"OCR extracted fraudulent destination: {u} (Score: {url_res['threat_score']})",
+                    "severity": "critical"
+                })
 
-    # Add screenshot OCR visual indicator
-    base_result["detected_indicators"].insert(0, {
-        "type": "Optical OCR Text Extraction",
-        "detail": f"Extracted {len(final_text.split())} words from image using {ocr_engine}.",
-        "severity": "high" if base_result["is_threat"] else "low"
-    })
-
-    return base_result
+    msg_analysis["extracted_text"] = final_text
+    msg_analysis["ocr_engine"] = ocr_engine
+    msg_analysis["filename"] = filename
+    return msg_analysis

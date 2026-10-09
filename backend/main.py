@@ -19,6 +19,7 @@ from typing import Optional, List, Dict, Any
 
 from fastapi import FastAPI, HTTPException, Depends, UploadFile, File, Form, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -30,7 +31,7 @@ from backend.auth import (
 )
 from backend.services.email_service import analyze_email_threat, parse_eml
 from backend.services.url_service import analyze_url_threat
-from backend.services.sms_service import analyze_message_scam
+from backend.services.sms_service import analyze_message_threat
 from backend.services.ocr_service import analyze_screenshot_threat
 from backend.services.qr_service import analyze_qr_threat
 from backend.services.gemini_service import chat_with_security_assistant, generate_threat_explanation
@@ -41,6 +42,9 @@ app = FastAPI(
     description="Enterprise-Grade AI-Powered Cybersecurity & Digital Safety Platform",
     version="2.0.0"
 )
+
+# High-Performance Compression Middleware
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 app.add_middleware(
     CORSMiddleware,
@@ -227,7 +231,7 @@ def get_me(user: Dict[str, Any] = Depends(get_current_user)):
 # ─────────────────── Threat Scanners ────────────────────────
 @app.post("/api/scan/email")
 def scan_email(req: EmailScanRequest, user: Optional[Dict[str, Any]] = Depends(get_current_user_optional)):
-    result = analyze_email_threat(text=req.text, subject=req.subject, sender=req.sender)
+    result = analyze_email_threat(body=req.text, subject=req.subject or "", sender=req.sender or "")
     
     # Save to history
     scan_record = {
@@ -245,15 +249,13 @@ async def scan_email_upload(file: UploadFile = File(...), user: Optional[Dict[st
     content = await file.read()
     filename = file.filename or "uploaded_email.eml"
     
-    if filename.lower().endswith(".eml") or filename.lower().endswith(".msg"):
+    if filename.lower().endswith((".eml", ".msg")):
         parsed = parse_eml(content)
         result = analyze_email_threat(
-            text=parsed.get("body", ""),
+            body=parsed.get("body", ""),
             subject=parsed.get("subject", ""),
             sender=parsed.get("sender", ""),
-            spf_status=parsed.get("spf_status", "NEUTRAL"),
-            dkim_status=parsed.get("dkim_status", "NEUTRAL"),
-            dmarc_status=parsed.get("dmarc_status", "NEUTRAL"),
+            headers=parsed.get("headers", {}),
             attachments=parsed.get("attachments", [])
         )
         result["parsed_headers"] = {
@@ -265,7 +267,7 @@ async def scan_email_upload(file: UploadFile = File(...), user: Optional[Dict[st
         result["attachments"] = parsed.get("attachments", [])
     else:
         text = content.decode("utf-8", errors="ignore")
-        result = analyze_email_threat(text=text, subject=f"File: {filename}")
+        result = analyze_email_threat(body=text, subject=f"File: {filename}")
 
     scan_record = {
         "user_id": user.get("id") if user else None,
@@ -293,7 +295,7 @@ def scan_url(req: UrlScanRequest, user: Optional[Dict[str, Any]] = Depends(get_c
 
 @app.post("/api/scan/message")
 def scan_message(req: MessageScanRequest, user: Optional[Dict[str, Any]] = Depends(get_current_user_optional)):
-    result = analyze_message_scam(req.message)
+    result = analyze_message_threat(req.message)
     
     scan_record = {
         "user_id": user.get("id") if user else None,
@@ -312,12 +314,12 @@ async def scan_screenshot(
     user: Optional[Dict[str, Any]] = Depends(get_current_user_optional)
 ):
     image_bytes = await file.read()
-    result = analyze_screenshot_threat(image_bytes, filename=file.filename, client_text=client_text)
+    result = analyze_screenshot_threat(image_bytes, filename=file.filename or "screenshot.png", client_text=client_text or "")
     
     scan_record = {
         "user_id": user.get("id") if user else None,
         "user_email": user.get("email") if user else "guest@cybershield.ai",
-        "title": f"Screenshot: {file.filename}",
+        "title": f"Screenshot: {file.filename or 'screenshot.png'}",
         **result
     }
     saved = db.save_scan(scan_record)
@@ -336,7 +338,7 @@ async def scan_qr(
         image_bytes = await file.read()
         filename = file.filename or "qr_code.png"
 
-    result = analyze_qr_threat(image_bytes, filename=filename, fallback_url=fallback_url)
+    result = analyze_qr_threat(image_bytes, fallback_url=fallback_url or "")
     
     scan_record = {
         "user_id": user.get("id") if user else None,
@@ -449,6 +451,7 @@ def delete_history_item(scan_id: str):
     return {"success": success, "message": "Scan record deleted"}
 
 # ─────────────────── Cyber Learning Hub ─────────────────────
+@app.get("/api/learning")
 @app.get("/api/learning/modules")
 def get_modules():
     return get_learning_content()

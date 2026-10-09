@@ -1,0 +1,9 @@
+# List of Phishing, Typosquatting, and Malicious Test URLs
+http://secure-chase-update-login.xyz/banking/auth?session=expired
+http://appleid.apple-support-auth.top/signin/index.php
+http://sbi-yono-kyc-update.online/netbanking/login
+https://bit.ly/3xX9Q1a-urgent-tax-refund
+http://paypa1-security-verify.xyz/login/auth
+http://192.168.1.150/admin-login/account-verify.php
+http://netflix-billing-suspended.club/renew
+http://wellsfargo-secure-verification.info/signin

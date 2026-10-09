@@ -1,0 +1,10 @@
+node_modules
+.git
+.vscode
+__pycache__
+*.pyc
+Datasets
+information
+sample_emails
+frontend_legacy
+.env.local

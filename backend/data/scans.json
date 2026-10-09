@@ -1,0 +1,3118 @@
+[
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Urgent: Your account access has been limited",
+    "threat_type": "email",
+    "threat_level": "Critical",
+    "threat_score": 98,
+    "confidence_score": 98,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://paypa1-security-verify.xyz/login/auth"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains panic-inducing keywords: urgent, 24 hours",
+        "severity": "high"
+      },
+      {
+        "type": "Credential Harvesting Pattern",
+        "detail": "Soliciting login credentials or personal identification (credit card)",
+        "severity": "critical"
+      },
+      {
+        "type": "Brand Impersonation Target",
+        "detail": "Impersonating brand assets: Paypal",
+        "severity": "medium"
+      },
+      {
+        "type": "High-Risk Deceptive Hyperlink",
+        "detail": "Embedded URL points to suspicious domain: http://paypa1-security-verify.xyz/login/auth...",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email demonstrates high-probability social engineering tactics (urgent, 24 hours). The message attempts to deceive the recipient into visiting unverified login portals or transferring funds under false pretenses. SPF/DKIM verification indicates potential spoofing of legitimate brand headers.",
+    "potential_impact": "Risk of unauthorized corporate account takeover, payroll diversion, credential harvesting, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, enter credentials, or open attachments.",
+      "Report this email to your organization's IT Security / SOC team.",
+      "Verify sender authenticity via independent channels (official phone or internal intranet).",
+      "If credentials were entered, immediately reset your passwords and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "NEUTRAL",
+      "dkim": "NEUTRAL",
+      "dmarc": "NEUTRAL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "Urgent: Your account access has been limited",
+      "sender": "security-service@paypa1-support.com",
+      "char_count": 434,
+      "word_count": 57
+    },
+    "id": "2abecdcd-6bad-4ed6-aba7-f5e67c73ac81",
+    "timestamp": "2026-10-09T08:15:01.045370"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "https://bit.ly/3xX9Q1a-urgent-tax-refund",
+    "threat_type": "url",
+    "url": "https://bit.ly/3xX9Q1a-urgent-tax-refund",
+    "domain": "bit.ly",
+    "threat_level": "Medium Risk",
+    "threat_score": 52,
+    "confidence_score": 82,
+    "is_threat": true,
+    "detected_indicators": [],
+    "ai_explanation": "The URL domain (bit.ly) has unusual formatting, lack of full SSL verification, or multiple redirects. Proceed with heightened caution and verify the true origin before interacting.",
+    "potential_impact": "Risk of unwanted ad-trackers, aggressive affiliate redirects, or insecure data transmission.",
+    "recommended_actions": [
+      "Inspect the destination certificate before logging in.",
+      "Avoid entering financial or payment credentials."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTPS",
+      "has_ssl": true,
+      "subdomain_count": 2,
+      "entropy": 4.49,
+      "url_length": 40,
+      "estimated_reputation": "Suspicious"
+    },
+    "id": "154dcfe7-09d5-4073-a95b-0213ee741c9f",
+    "timestamp": "2026-10-09T08:12:35.751665"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Urgent: Your account access has been limited",
+    "threat_type": "email",
+    "threat_level": "Critical",
+    "threat_score": 98,
+    "confidence_score": 98,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://paypa1-security-verify.xyz/login/auth"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains panic-inducing keywords: urgent, 24 hours",
+        "severity": "high"
+      },
+      {
+        "type": "Credential Harvesting Pattern",
+        "detail": "Soliciting login credentials or personal identification (credit card)",
+        "severity": "critical"
+      },
+      {
+        "type": "Brand Impersonation Target",
+        "detail": "Impersonating brand assets: Paypal",
+        "severity": "medium"
+      },
+      {
+        "type": "High-Risk Deceptive Hyperlink",
+        "detail": "Embedded URL points to suspicious domain: http://paypa1-security-verify.xyz/login/auth...",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email demonstrates high-probability social engineering tactics (urgent, 24 hours). The message attempts to deceive the recipient into visiting unverified login portals or transferring funds under false pretenses. SPF/DKIM verification indicates potential spoofing of legitimate brand headers.",
+    "potential_impact": "Risk of unauthorized corporate account takeover, payroll diversion, credential harvesting, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, enter credentials, or open attachments.",
+      "Report this email to your organization's IT Security / SOC team.",
+      "Verify sender authenticity via independent channels (official phone or internal intranet).",
+      "If credentials were entered, immediately reset your passwords and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "NEUTRAL",
+      "dkim": "NEUTRAL",
+      "dmarc": "NEUTRAL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "Urgent: Your account access has been limited",
+      "sender": "security-service@paypa1-support.com",
+      "char_count": 434,
+      "word_count": 57
+    },
+    "id": "c94075a2-1663-4847-ab93-d9ab350a8b3f",
+    "timestamp": "2026-10-09T08:12:24.857541"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "QR Code: https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+    "threat_type": "qr",
+    "url": "https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+    "domain": "cybercrime.gov.in",
+    "threat_level": "High Risk",
+    "threat_score": 62,
+    "confidence_score": 86,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "QR-to-URL Redirection (Quishing)",
+        "detail": "QR code silently redirects to unverified target: https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+        "severity": "high"
+      },
+      {
+        "type": "Phishing Authentication Trigger",
+        "detail": "Path contains deceptive authentication triggers (login).",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This URL (cybercrime.gov.in) demonstrates high-risk malicious indicators consistent with active credential phishing or deceptive brand clone campaigns. Our heuristic and machine learning classifiers flagged unauthorized brand keywords, high-risk top-level domain structures, or deceptive login triggers.",
+    "potential_impact": "Visiting this site may lead to credential harvesting, unauthorized banking session hijacking, or automatic download of malicious payloads.",
+    "recommended_actions": [
+      "Do NOT open, click, or enter passwords or personal details on this URL.",
+      "Block this domain on corporate DNS/firewalls and web filters.",
+      "Report the URL to anti-abuse registrars and Google Safe Browsing."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTPS",
+      "has_ssl": true,
+      "subdomain_count": 3,
+      "entropy": 4.54,
+      "url_length": 55,
+      "estimated_reputation": "Malicious"
+    },
+    "decoded_content": "https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+    "is_upi": false,
+    "filename": "safe_gov_cybercrime_portal_qr.png",
+    "id": "8ca88255-2e9b-4a20-bf4e-2ab238251923",
+    "timestamp": "2026-10-09T07:16:27.478214"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "QR Code: https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+    "threat_type": "qr",
+    "url": "https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+    "domain": "cybercrime.gov.in",
+    "threat_level": "High Risk",
+    "threat_score": 62,
+    "confidence_score": 86,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "QR-to-URL Redirection (Quishing)",
+        "detail": "QR code silently redirects to unverified target: https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+        "severity": "high"
+      },
+      {
+        "type": "Phishing Authentication Trigger",
+        "detail": "Path contains deceptive authentication triggers (login).",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This URL (cybercrime.gov.in) demonstrates high-risk malicious indicators consistent with active credential phishing or deceptive brand clone campaigns. Our heuristic and machine learning classifiers flagged unauthorized brand keywords, high-risk top-level domain structures, or deceptive login triggers.",
+    "potential_impact": "Visiting this site may lead to credential harvesting, unauthorized banking session hijacking, or automatic download of malicious payloads.",
+    "recommended_actions": [
+      "Do NOT open, click, or enter passwords or personal details on this URL.",
+      "Block this domain on corporate DNS/firewalls and web filters.",
+      "Report the URL to anti-abuse registrars and Google Safe Browsing."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTPS",
+      "has_ssl": true,
+      "subdomain_count": 3,
+      "entropy": 4.54,
+      "url_length": 55,
+      "estimated_reputation": "Malicious"
+    },
+    "decoded_content": "https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+    "is_upi": false,
+    "filename": "qr_code.png",
+    "id": "242b558f-e1c1-4dd6-87f8-18e45651e2f9",
+    "timestamp": "2026-10-09T07:16:14.637119"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Part-time job offer! Earn \u20b93,000 to \u20b95,000 daily from home b...",
+    "threat_type": "message",
+    "threat_level": "Medium Risk",
+    "threat_score": 39,
+    "confidence_score": 84,
+    "is_threat": false,
+    "matched_scam_types": [
+      "Fake Job & Task / Telegram Scam"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Fake Job & Task / Telegram Scam",
+        "detail": "Contains trigger terms: part-time job, t.me/. Promises unrealistic daily income for liking videos, eventually leading to upfront deposit extortion in Telegram task scams.",
+        "severity": "high"
+      },
+      {
+        "type": "External Link / Telegram Redirection",
+        "detail": "Contains unverified off-platform link: t.me/fast_daily_earn",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "The message contains unsolicited promotional text or unfamiliar links. Exercise caution before responding.",
+    "potential_impact": "Potential spam subscription or exposure to advertising aggregators.",
+    "recommended_actions": [
+      "Do not click unverified shortened links.",
+      "Ignore unsolicited promotional requests."
+    ],
+    "metadata": {
+      "message_length": 159,
+      "contains_phone": false,
+      "contains_url": true
+    },
+    "id": "d8fa8424-901c-4440-a45a-9960e13be1ac",
+    "timestamp": "2026-10-09T07:15:51.398711"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "http://secure-chase-update-login.xyz/auth/verify?session=expired",
+    "threat_type": "url",
+    "url": "http://secure-chase-update-login.xyz/auth/verify?session=expired",
+    "domain": "secure-chase-update-login.xyz",
+    "threat_level": "Critical",
+    "threat_score": 100,
+    "confidence_score": 99,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "High-Risk Top-Level Domain (TLD)",
+        "detail": "Domain utilizes an abusive/disposable TLD (.xyz) frequently associated with cyber campaigns.",
+        "severity": "high"
+      },
+      {
+        "type": "Targeted Brand Impersonation (Typosquatting)",
+        "detail": "Domain spoofing brand keyword 'chase' on an unauthorized host (secure-chase-update-login.xyz).",
+        "severity": "critical"
+      },
+      {
+        "type": "Hyphenated Deceptive Domain",
+        "detail": "Domain contains 3 hyphens, indicating synthetic deceptive domain generation.",
+        "severity": "medium"
+      },
+      {
+        "type": "Insecure Unencrypted HTTP Protocol",
+        "detail": "Connection is unencrypted, allowing man-in-the-middle interception of submitted data.",
+        "severity": "medium"
+      },
+      {
+        "type": "Phishing Authentication Trigger",
+        "detail": "Path contains deceptive authentication triggers (verify).",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This URL (secure-chase-update-login.xyz) demonstrates high-risk malicious indicators consistent with active credential phishing or deceptive brand clone campaigns. Our heuristic and machine learning classifiers flagged unauthorized brand keywords, high-risk top-level domain structures, or deceptive login triggers.",
+    "potential_impact": "Visiting this site may lead to credential harvesting, unauthorized banking session hijacking, or automatic download of malicious payloads.",
+    "recommended_actions": [
+      "Do NOT open, click, or enter passwords or personal details on this URL.",
+      "Block this domain on corporate DNS/firewalls and web filters.",
+      "Report the URL to anti-abuse registrars and Google Safe Browsing."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTP",
+      "has_ssl": false,
+      "subdomain_count": 2,
+      "entropy": 4.44,
+      "url_length": 64,
+      "estimated_reputation": "Malicious"
+    },
+    "id": "ddc5a791-e569-4738-b326-06564ae75122",
+    "timestamp": "2026-10-09T07:15:41.885335"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Urgent: Your account access has been limited",
+    "threat_type": "email",
+    "threat_level": "Critical",
+    "threat_score": 98,
+    "confidence_score": 98,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://paypa1-security-verify.xyz/login/auth"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains panic-inducing keywords: urgent, 24 hours",
+        "severity": "high"
+      },
+      {
+        "type": "Credential Harvesting Pattern",
+        "detail": "Soliciting login credentials or personal identification (credit card)",
+        "severity": "critical"
+      },
+      {
+        "type": "Brand Impersonation Target",
+        "detail": "Impersonating brand assets: Paypal",
+        "severity": "medium"
+      },
+      {
+        "type": "High-Risk Deceptive Hyperlink",
+        "detail": "Embedded URL points to suspicious domain: http://paypa1-security-verify.xyz/login/auth...",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email demonstrates high-probability social engineering tactics (urgent, 24 hours). The message attempts to deceive the recipient into visiting unverified login portals or transferring funds under false pretenses. SPF/DKIM verification indicates potential spoofing of legitimate brand headers.",
+    "potential_impact": "Risk of unauthorized corporate account takeover, payroll diversion, credential harvesting, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, enter credentials, or open attachments.",
+      "Report this email to your organization's IT Security / SOC team.",
+      "Verify sender authenticity via independent channels (official phone or internal intranet).",
+      "If credentials were entered, immediately reset your passwords and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "NEUTRAL",
+      "dkim": "NEUTRAL",
+      "dmarc": "NEUTRAL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "Urgent: Your account access has been limited",
+      "sender": "security-service@paypa1-support.com",
+      "char_count": 434,
+      "word_count": 57
+    },
+    "id": "a2d47390-1660-45e6-a5d0-bb7a2493eca5",
+    "timestamp": "2026-10-09T07:15:30.218328"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "CONFIDENTIAL: Urgent Wire Transfer Required Today",
+    "threat_type": "email",
+    "threat_level": "Low Risk",
+    "threat_score": 32,
+    "confidence_score": 86,
+    "is_threat": false,
+    "extracted_urls": [],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains panic-inducing keywords: urgent, immediately, wire transfer",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "The email structure, sender alignment, and text patterns match standard legitimate correspondence. No deceptive brand spoofing, credential traps, or malicious links were detected.",
+    "potential_impact": "Standard correspondence risk profile.",
+    "recommended_actions": [
+      "Routine safe email handling practices apply."
+    ],
+    "security_headers": {
+      "spf": "NEUTRAL",
+      "dkim": "NEUTRAL",
+      "dmarc": "NEUTRAL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "CONFIDENTIAL: Urgent Wire Transfer Required Today",
+      "sender": "ceo-office@company-corp.com",
+      "char_count": 452,
+      "word_count": 68
+    },
+    "id": "644af74e-83f5-4358-83ca-7ec69cd7b257",
+    "timestamp": "2026-10-09T07:15:23.779750"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "File: ceo_wire_transfer_bec.eml",
+    "threat_type": "email",
+    "threat_level": "Medium Risk",
+    "threat_score": 47,
+    "confidence_score": 81,
+    "is_threat": true,
+    "extracted_urls": [],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains panic-inducing keywords: urgent, immediately, wire transfer",
+        "severity": "high"
+      },
+      {
+        "type": "Email Authentication Failure",
+        "detail": "SPF: FAIL, DKIM: NEUTRAL (Sender identity could not be verified by originating mail server)",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email contains suspicious marketing lures, unsolicited external URLs, or atypical formatting. While no destructive malware payload was directly confirmed, caution is advised before interacting.",
+    "potential_impact": "Risk of spam subscription, pixel tracking beacons, or ad-network redirects.",
+    "recommended_actions": [
+      "Avoid clicking hyperlinks without inspecting the full domain name.",
+      "Mark as spam in your mail client."
+    ],
+    "security_headers": {
+      "spf": "FAIL",
+      "dkim": "NEUTRAL",
+      "dmarc": "NEUTRAL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "CONFIDENTIAL: Urgent Wire Transfer Required Today",
+      "sender": "Arthur Pendelton <ceo-office@company-corp.com>",
+      "char_count": 623,
+      "word_count": 88
+    },
+    "parsed_headers": {
+      "from": "Arthur Pendelton <ceo-office@company-corp.com>",
+      "to": "finance-payroll@company-corp.com",
+      "subject": "CONFIDENTIAL: Urgent Wire Transfer Required Today",
+      "date": "Fri, 09 Oct 2026 10:15:00 +0000"
+    },
+    "id": "e4c8c5c7-6afc-498a-9165-cbd52ed2ec58",
+    "timestamp": "2026-10-09T07:15:11.913169"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "QR Code: upi://pay?pa=scammer-merchant@icici&pn=Refund%20Officer&am=5000&cu=INR&tn=Cashback",
+    "threat_type": "qr",
+    "decoded_content": "upi://pay?pa=scammer-merchant@icici&pn=Refund%20Officer&am=5000&cu=INR&tn=Cashback",
+    "is_upi": true,
+    "threat_level": "Critical",
+    "threat_score": 88,
+    "confidence_score": 96,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "UPI Payment Request Payload",
+        "detail": "Decoded QR code is a dynamic UPI money request (upi://pay?pa=scammer-merchant@icici&pn=Refund%20Of...). Scanning will trigger payment transfer from your account.",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This QR code contains a direct UPI payment request. Scammers often present these as 'Cashback QR Codes' or 'Refund QR Codes', but scanning will request your UPI PIN and immediately deduct money from your bank account.",
+    "potential_impact": "Instant unauthorized deduction of bank balance via UPI transaction.",
+    "recommended_actions": [
+      "DO NOT scan or approve this QR code inside Google Pay, PhonePe, or Paytm.",
+      "Remember: You NEVER need to scan a QR code or enter your PIN to receive money.",
+      "Block and report the sender of this QR code."
+    ],
+    "filename": "qr_code.png",
+    "id": "0d6b17cf-136f-4289-ae82-9fbd7a23e4c2",
+    "timestamp": "2026-10-09T07:10:27.151872"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Screenshot: fake_sbi_kyc_chat.png",
+    "threat_type": "screenshot",
+    "threat_level": "High Risk",
+    "threat_score": 56,
+    "confidence_score": 82,
+    "is_threat": true,
+    "matched_scam_types": [
+      "Banking & KYC Block Alert"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Optical OCR Text Extraction",
+        "detail": "Extracted 16 words from image using optical_image_pipeline.",
+        "severity": "high"
+      },
+      {
+        "type": "Banking & KYC Block Alert",
+        "detail": "Contains trigger terms: kyc, sbi. Impersonates recognized banks claiming accounts or cards are blocked, demanding immediate document upload on phishing links.",
+        "severity": "critical"
+      },
+      {
+        "type": "External Link / Telegram Redirection",
+        "detail": "Contains unverified off-platform link: http://sbi-kyc-verify.online",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This message matches known cybercrime extortion / financial scam patterns (Banking & KYC Block Alert). It deliberately fabricates an urgent scenario or unrealistic financial reward to pressure you into transferring funds, sharing OTPs, or clicking phishing links.",
+    "potential_impact": "Financial loss via unauthorized UPI transfer, compromise of banking credentials, or personal extortion.",
+    "recommended_actions": [
+      "NEVER share OTPs, passwords, or enter your UPI PIN (entering PIN is only for sending money, never for receiving).",
+      "Do NOT call phone numbers provided inside the message.",
+      "Block the sender number and report as spam on WhatsApp / SMS carrier.",
+      "File a complaint at the National Cyber Crime Reporting Portal (cybercrime.gov.in / Helpline 1930) if financial loss occurred."
+    ],
+    "metadata": {
+      "message_length": 119,
+      "contains_phone": false,
+      "contains_url": true
+    },
+    "extracted_text": "STATE BANK ALERT: Your account is blocked due to pending KYC. Click http://sbi-kyc-verify.online to update immediately.",
+    "ocr_engine": "optical_image_pipeline",
+    "filename": "fake_sbi_kyc_chat.png",
+    "id": "8c3a24c3-f8a4-4901-90f2-499912b024f1",
+    "timestamp": "2026-10-09T07:10:27.125233"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "File: suspicious.eml",
+    "threat_type": "email",
+    "threat_level": "Critical",
+    "threat_score": 89,
+    "confidence_score": 94,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://paypa1-update.xyz"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains panic-inducing keywords: urgent, 24 hours, suspended",
+        "severity": "high"
+      },
+      {
+        "type": "High-Risk Deceptive Hyperlink",
+        "detail": "Embedded URL points to suspicious domain: http://paypa1-update.xyz...",
+        "severity": "critical"
+      },
+      {
+        "type": "Email Authentication Failure",
+        "detail": "SPF: FAIL, DKIM: FAIL (Sender identity could not be verified by originating mail server)",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email demonstrates high-probability social engineering tactics (urgent, 24 hours). The message attempts to deceive the recipient into visiting unverified login portals or transferring funds under false pretenses. SPF/DKIM verification indicates potential spoofing of legitimate brand headers.",
+    "potential_impact": "Risk of unauthorized corporate account takeover, payroll diversion, credential harvesting, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, enter credentials, or open attachments.",
+      "Report this email to your organization's IT Security / SOC team.",
+      "Verify sender authenticity via independent channels (official phone or internal intranet).",
+      "If credentials were entered, immediately reset your passwords and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "FAIL",
+      "dkim": "FAIL",
+      "dmarc": "NEUTRAL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "URGENT: Confirm your password within 24 hours",
+      "sender": "security@paypa1-update.xyz",
+      "char_count": 133,
+      "word_count": 18
+    },
+    "parsed_headers": {
+      "from": "security@paypa1-update.xyz",
+      "to": "victim@company.com",
+      "subject": "URGENT: Confirm your password within 24 hours",
+      "date": "Fri, 09 Oct 2026 10:00:00 +0000"
+    },
+    "id": "6e6f3bc2-0d1b-486a-9dc0-c1093c178c3b",
+    "timestamp": "2026-10-09T07:10:27.086658"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "http://secure-login-chase-update.xyz/auth/verify?session=expired",
+    "threat_type": "url",
+    "url": "http://secure-login-chase-update.xyz/auth/verify?session=expired",
+    "domain": "secure-login-chase-update.xyz",
+    "threat_level": "Critical",
+    "threat_score": 100,
+    "confidence_score": 99,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "High-Risk Top-Level Domain (TLD)",
+        "detail": "Domain utilizes an abusive/disposable TLD (.xyz) frequently associated with cyber campaigns.",
+        "severity": "high"
+      },
+      {
+        "type": "Targeted Brand Impersonation (Typosquatting)",
+        "detail": "Domain spoofing brand keyword 'chase' on an unauthorized host (secure-login-chase-update.xyz).",
+        "severity": "critical"
+      },
+      {
+        "type": "Hyphenated Deceptive Domain",
+        "detail": "Domain contains 3 hyphens, indicating synthetic deceptive domain generation.",
+        "severity": "medium"
+      },
+      {
+        "type": "Insecure Unencrypted HTTP Protocol",
+        "detail": "Connection is unencrypted, allowing man-in-the-middle interception of submitted data.",
+        "severity": "medium"
+      },
+      {
+        "type": "Phishing Authentication Trigger",
+        "detail": "Path contains deceptive authentication triggers (verify).",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This URL (secure-login-chase-update.xyz) demonstrates high-risk malicious indicators consistent with active credential phishing or deceptive brand clone campaigns. Our heuristic and machine learning classifiers flagged unauthorized brand keywords, high-risk top-level domain structures, or deceptive login triggers.",
+    "potential_impact": "Visiting this site may lead to credential harvesting, unauthorized banking session hijacking, or automatic download of malicious payloads.",
+    "recommended_actions": [
+      "Do NOT open, click, or enter passwords or personal details on this URL.",
+      "Block this domain on corporate DNS/firewalls and web filters.",
+      "Report the URL to anti-abuse registrars and Google Safe Browsing."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTP",
+      "has_ssl": false,
+      "subdomain_count": 2,
+      "entropy": 4.44,
+      "url_length": 64,
+      "estimated_reputation": "Malicious"
+    },
+    "id": "4abd25f3-0b5b-4a2c-ac3a-fc35f7853fd8",
+    "timestamp": "2026-10-09T07:10:27.054139"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Dear customer, your electricity power will be disconnected t...",
+    "threat_type": "message",
+    "threat_level": "Medium Risk",
+    "threat_score": 46,
+    "confidence_score": 81,
+    "is_threat": true,
+    "matched_scam_types": [
+      "Urgent Utility Disconnection Scam"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Utility Disconnection Scam",
+        "detail": "Contains trigger terms: electricity, unpaid bill, call officer. Threatens immediate power disconnection to create artificial panic and trick victims into calling a fraudulent number.",
+        "severity": "critical"
+      },
+      {
+        "type": "Direct Unverified Contact Trap",
+        "detail": "Directs target to private unverified phone numbers (9876543210)",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "The message contains unsolicited promotional text or unfamiliar links. Exercise caution before responding.",
+    "potential_impact": "Potential spam subscription or exposure to advertising aggregators.",
+    "recommended_actions": [
+      "Do not click unverified shortened links.",
+      "Ignore unsolicited promotional requests."
+    ],
+    "metadata": {
+      "message_length": 137,
+      "contains_phone": true,
+      "contains_url": false
+    },
+    "id": "205747b9-ba31-4e09-b917-ad68799eb489",
+    "timestamp": "2026-10-09T07:10:26.855683"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Sprint Planning Notes",
+    "threat_type": "email",
+    "threat_level": "Safe",
+    "threat_score": 0,
+    "confidence_score": 99,
+    "is_threat": false,
+    "extracted_urls": [],
+    "detected_indicators": [],
+    "ai_explanation": "The email structure, sender alignment, and text patterns match standard legitimate correspondence. No deceptive brand spoofing, credential traps, or malicious links were detected.",
+    "potential_impact": "Standard correspondence risk profile.",
+    "recommended_actions": [
+      "Routine safe email handling practices apply."
+    ],
+    "security_headers": {
+      "spf": "NEUTRAL",
+      "dkim": "NEUTRAL",
+      "dmarc": "NEUTRAL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "Sprint Planning Notes",
+      "sender": "alex.chen@techcorp.io",
+      "char_count": 133,
+      "word_count": 21
+    },
+    "id": "ac32801a-1438-4409-a652-b5e566f5b7e8",
+    "timestamp": "2026-10-09T07:10:26.524038"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Action Required: Account Restricted",
+    "threat_type": "email",
+    "threat_level": "Critical",
+    "threat_score": 99,
+    "confidence_score": 98,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://paypa1-verify.xyz"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains panic-inducing keywords: urgent, immediately, suspended",
+        "severity": "high"
+      },
+      {
+        "type": "Credential Harvesting Pattern",
+        "detail": "Soliciting login credentials or personal identification (credit card)",
+        "severity": "critical"
+      },
+      {
+        "type": "Brand Impersonation Target",
+        "detail": "Impersonating brand assets: Paypal",
+        "severity": "medium"
+      },
+      {
+        "type": "High-Risk Deceptive Hyperlink",
+        "detail": "Embedded URL points to suspicious domain: http://paypa1-verify.xyz...",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email demonstrates high-probability social engineering tactics (urgent, immediately). The message attempts to deceive the recipient into visiting unverified login portals or transferring funds under false pretenses. SPF/DKIM verification indicates potential spoofing of legitimate brand headers.",
+    "potential_impact": "Risk of unauthorized corporate account takeover, payroll diversion, credential harvesting, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, enter credentials, or open attachments.",
+      "Report this email to your organization's IT Security / SOC team.",
+      "Verify sender authenticity via independent channels (official phone or internal intranet).",
+      "If credentials were entered, immediately reset your passwords and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "NEUTRAL",
+      "dkim": "NEUTRAL",
+      "dmarc": "NEUTRAL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "Action Required: Account Restricted",
+      "sender": "security@paypa1-verify.xyz",
+      "char_count": 195,
+      "word_count": 24
+    },
+    "id": "492466fb-ad1c-472a-bcdb-af70d4b0d8a6",
+    "timestamp": "2026-10-09T07:10:26.488789"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "QR Code: upi://pay?pa=scammer-merchant@icici&pn=Refund%20Officer&am=5000&cu=INR&tn=UPI%20Cashback%20Reward",
+    "threat_type": "qr",
+    "decoded_content": "upi://pay?pa=scammer-merchant@icici&pn=Refund%20Officer&am=5000&cu=INR&tn=UPI%20Cashback%20Reward",
+    "is_upi": true,
+    "threat_level": "Critical",
+    "threat_score": 88,
+    "confidence_score": 96,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "UPI Payment Request Payload",
+        "detail": "Decoded QR code is a dynamic UPI money request (upi://pay?pa=scammer-merchant@icici&pn=Refund%20Of...). Scanning will trigger payment transfer from your account.",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This QR code contains a direct UPI payment request. Scammers often present these as 'Cashback QR Codes' or 'Refund QR Codes', but scanning will request your UPI PIN and immediately deduct money from your bank account.",
+    "potential_impact": "Instant unauthorized deduction of bank balance via UPI transaction.",
+    "recommended_actions": [
+      "DO NOT scan or approve this QR code inside Google Pay, PhonePe, or Paytm.",
+      "Remember: You NEVER need to scan a QR code or enter your PIN to receive money.",
+      "Block and report the sender of this QR code."
+    ],
+    "filename": "qr_code.png",
+    "id": "8cd2bdc4-2a8f-47f7-8da4-861718aa774d",
+    "timestamp": "2026-10-09T06:31:42.672980"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "QR Code: https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+    "threat_type": "qr",
+    "url": "https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+    "domain": "cybercrime.gov.in",
+    "threat_level": "High Risk",
+    "threat_score": 62,
+    "confidence_score": 86,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "QR-to-URL Redirection (Quishing)",
+        "detail": "QR code silently redirects to unverified target: https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+        "severity": "high"
+      },
+      {
+        "type": "Phishing Authentication Trigger",
+        "detail": "Path contains deceptive authentication triggers (login).",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This URL (cybercrime.gov.in) demonstrates high-risk malicious indicators consistent with active credential phishing or deceptive brand clone campaigns. Our heuristic and machine learning classifiers flagged unauthorized brand keywords, high-risk top-level domain structures, or deceptive login triggers.",
+    "potential_impact": "Visiting this site may lead to credential harvesting, unauthorized banking session hijacking, or automatic download of malicious payloads.",
+    "recommended_actions": [
+      "Do NOT open, click, or enter passwords or personal details on this URL.",
+      "Block this domain on corporate DNS/firewalls and web filters.",
+      "Report the URL to anti-abuse registrars and Google Safe Browsing."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTPS",
+      "has_ssl": true,
+      "subdomain_count": 3,
+      "entropy": 4.54,
+      "url_length": 55,
+      "estimated_reputation": "Malicious"
+    },
+    "decoded_content": "https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+    "is_upi": false,
+    "filename": "qr_code.png",
+    "id": "10e67dcb-7bde-43a5-b4f5-2b8a71e46dae",
+    "timestamp": "2026-10-09T06:31:33.217014"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "Screenshot: Screenshot 2026-09-26 225716.png",
+    "threat_type": "screenshot",
+    "threat_level": "High Risk",
+    "threat_score": 60,
+    "confidence_score": 83,
+    "is_threat": true,
+    "matched_scam_types": [
+      "UPI & Payment Cashback Fraud",
+      "Lottery & Prize Notification"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Optical OCR Text Extraction",
+        "detail": "Extracted 23 words from image using optical_image_pipeline.",
+        "severity": "high"
+      },
+      {
+        "type": "UPI & Payment Cashback Fraud",
+        "detail": "Contains trigger terms: cashback, phonepe. Scammers prompt targets to scan QR codes or enter UPI PINs to receive fake cashbacks. Entering a UPI PIN always debits money.",
+        "severity": "critical"
+      },
+      {
+        "type": "Lottery & Prize Notification",
+        "detail": "Contains trigger terms: won. Advance-fee fraud notifying victims of non-existent lottery winnings to extract processing fees or banking credentials.",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This message matches known cybercrime extortion / financial scam patterns (UPI & Payment Cashback Fraud, Lottery & Prize Notification). It deliberately fabricates an urgent scenario or unrealistic financial reward to pressure you into transferring funds, sharing OTPs, or clicking phishing links.",
+    "potential_impact": "Financial loss via unauthorized UPI transfer, compromise of banking credentials, or personal extortion.",
+    "recommended_actions": [
+      "NEVER share OTPs, passwords, or enter your UPI PIN (entering PIN is only for sending money, never for receiving).",
+      "Do NOT call phone numbers provided inside the message.",
+      "Block the sender number and report as spam on WhatsApp / SMS carrier.",
+      "File a complaint at the National Cyber Crime Reporting Portal (cybercrime.gov.in / Helpline 1930) if financial loss occurred."
+    ],
+    "metadata": {
+      "message_length": 123,
+      "contains_phone": false,
+      "contains_url": false
+    },
+    "extracted_text": "PhonePe Reward: You won \u20b93,000 cashback! Scan the QR code below and enter your UPI PIN to claim money in your bank account.",
+    "ocr_engine": "optical_image_pipeline",
+    "filename": "Screenshot 2026-09-26 225716.png",
+    "id": "1a53f8dc-0d7a-4cb3-8029-693b69f4a28e",
+    "timestamp": "2026-10-09T06:31:12.040054"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "Screenshot: Screenshot 2025-10-09 202831.png",
+    "threat_type": "screenshot",
+    "threat_level": "High Risk",
+    "threat_score": 60,
+    "confidence_score": 83,
+    "is_threat": true,
+    "matched_scam_types": [
+      "UPI & Payment Cashback Fraud",
+      "Lottery & Prize Notification"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Optical OCR Text Extraction",
+        "detail": "Extracted 23 words from image using optical_image_pipeline.",
+        "severity": "high"
+      },
+      {
+        "type": "UPI & Payment Cashback Fraud",
+        "detail": "Contains trigger terms: cashback, phonepe. Scammers prompt targets to scan QR codes or enter UPI PINs to receive fake cashbacks. Entering a UPI PIN always debits money.",
+        "severity": "critical"
+      },
+      {
+        "type": "Lottery & Prize Notification",
+        "detail": "Contains trigger terms: won. Advance-fee fraud notifying victims of non-existent lottery winnings to extract processing fees or banking credentials.",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This message matches known cybercrime extortion / financial scam patterns (UPI & Payment Cashback Fraud, Lottery & Prize Notification). It deliberately fabricates an urgent scenario or unrealistic financial reward to pressure you into transferring funds, sharing OTPs, or clicking phishing links.",
+    "potential_impact": "Financial loss via unauthorized UPI transfer, compromise of banking credentials, or personal extortion.",
+    "recommended_actions": [
+      "NEVER share OTPs, passwords, or enter your UPI PIN (entering PIN is only for sending money, never for receiving).",
+      "Do NOT call phone numbers provided inside the message.",
+      "Block the sender number and report as spam on WhatsApp / SMS carrier.",
+      "File a complaint at the National Cyber Crime Reporting Portal (cybercrime.gov.in / Helpline 1930) if financial loss occurred."
+    ],
+    "metadata": {
+      "message_length": 123,
+      "contains_phone": false,
+      "contains_url": false
+    },
+    "extracted_text": "PhonePe Reward: You won \u20b93,000 cashback! Scan the QR code below and enter your UPI PIN to claim money in your bank account.",
+    "ocr_engine": "optical_image_pipeline",
+    "filename": "Screenshot 2025-10-09 202831.png",
+    "id": "84417a0a-a0c4-41f3-b31f-0fb510e4b029",
+    "timestamp": "2026-10-09T06:30:47.703911"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "Screenshot: sample_scam_chat.png",
+    "threat_type": "screenshot",
+    "threat_level": "High Risk",
+    "threat_score": 60,
+    "confidence_score": 83,
+    "is_threat": true,
+    "matched_scam_types": [
+      "UPI & Payment Cashback Fraud",
+      "Lottery & Prize Notification"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Optical OCR Text Extraction",
+        "detail": "Extracted 23 words from image using optical_image_pipeline.",
+        "severity": "high"
+      },
+      {
+        "type": "UPI & Payment Cashback Fraud",
+        "detail": "Contains trigger terms: cashback, phonepe. Scammers prompt targets to scan QR codes or enter UPI PINs to receive fake cashbacks. Entering a UPI PIN always debits money.",
+        "severity": "critical"
+      },
+      {
+        "type": "Lottery & Prize Notification",
+        "detail": "Contains trigger terms: won. Advance-fee fraud notifying victims of non-existent lottery winnings to extract processing fees or banking credentials.",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This message matches known cybercrime extortion / financial scam patterns (UPI & Payment Cashback Fraud, Lottery & Prize Notification). It deliberately fabricates an urgent scenario or unrealistic financial reward to pressure you into transferring funds, sharing OTPs, or clicking phishing links.",
+    "potential_impact": "Financial loss via unauthorized UPI transfer, compromise of banking credentials, or personal extortion.",
+    "recommended_actions": [
+      "NEVER share OTPs, passwords, or enter your UPI PIN (entering PIN is only for sending money, never for receiving).",
+      "Do NOT call phone numbers provided inside the message.",
+      "Block the sender number and report as spam on WhatsApp / SMS carrier.",
+      "File a complaint at the National Cyber Crime Reporting Portal (cybercrime.gov.in / Helpline 1930) if financial loss occurred."
+    ],
+    "metadata": {
+      "message_length": 123,
+      "contains_phone": false,
+      "contains_url": false
+    },
+    "extracted_text": "PhonePe Reward: You won \u20b93,000 cashback! Scan the QR code below and enter your UPI PIN to claim money in your bank account.",
+    "ocr_engine": "optical_image_pipeline",
+    "filename": "sample_scam_chat.png",
+    "id": "a940dca9-cfd3-4cb8-b657-30076a68e2a1",
+    "timestamp": "2026-10-09T06:30:08.733362"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "Screenshot: sample_scam_chat.png",
+    "threat_type": "screenshot",
+    "threat_level": "Medium Risk",
+    "threat_score": 50,
+    "confidence_score": 80,
+    "is_threat": true,
+    "matched_scam_types": [
+      "Urgent Utility Disconnection Scam"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Optical OCR Text Extraction",
+        "detail": "Extracted 26 words from image using optical_image_pipeline.",
+        "severity": "high"
+      },
+      {
+        "type": "Urgent Utility Disconnection Scam",
+        "detail": "Contains trigger terms: electricity. Threatens immediate power disconnection to create artificial panic and trick victims into calling a fraudulent number.",
+        "severity": "critical"
+      },
+      {
+        "type": "Direct Unverified Contact Trap",
+        "detail": "Directs target to private unverified phone numbers (9876543210)",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "The message contains unsolicited promotional text or unfamiliar links. Exercise caution before responding.",
+    "potential_impact": "Potential spam subscription or exposure to advertising aggregators.",
+    "recommended_actions": [
+      "Do not click unverified shortened links.",
+      "Ignore unsolicited promotional requests."
+    ],
+    "metadata": {
+      "message_length": 177,
+      "contains_phone": true,
+      "contains_url": false
+    },
+    "extracted_text": "Dear customer, your electricity power will be disconnected tonight at 9:30 PM from the power office. Please contact our electricity officer Mr. Sharma at 9876543210 immediately.",
+    "ocr_engine": "optical_image_pipeline",
+    "filename": "sample_scam_chat.png",
+    "id": "98611dd1-e52d-4288-9966-843a9976b39f",
+    "timestamp": "2026-10-09T06:30:02.805699"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "\ud83c\udf93 *OFFICIAL CALL FOR CAMPUS AMBASSADORS | CORIZO* \ud83c\udf93\n\nGain re...",
+    "threat_type": "message",
+    "threat_level": "Medium Risk",
+    "threat_score": 47,
+    "confidence_score": 81,
+    "is_threat": true,
+    "matched_scam_types": [
+      "Fake Job & Task / Telegram Scam"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Fake Job & Task / Telegram Scam",
+        "detail": "Contains trigger terms: work from home. Promises unrealistic daily income for liking videos, eventually leading to upfront deposit extortion in Telegram task scams.",
+        "severity": "high"
+      },
+      {
+        "type": "External Link / Telegram Redirection",
+        "detail": "Contains unverified off-platform link: https://forms.gle/2XAgybBc4HyTT7Ro9",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "The message contains unsolicited promotional text or unfamiliar links. Exercise caution before responding.",
+    "potential_impact": "Potential spam subscription or exposure to advertising aggregators.",
+    "recommended_actions": [
+      "Do not click unverified shortened links.",
+      "Ignore unsolicited promotional requests."
+    ],
+    "metadata": {
+      "message_length": 660,
+      "contains_phone": false,
+      "contains_url": true
+    },
+    "id": "b4721ff2-2d34-4845-b268-57205697c39f",
+    "timestamp": "2026-10-09T06:29:44.768989"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "Part-time job offer! Earn \u20b93,000 to \u20b95,000 daily from home b...",
+    "threat_type": "message",
+    "threat_level": "Medium Risk",
+    "threat_score": 39,
+    "confidence_score": 84,
+    "is_threat": false,
+    "matched_scam_types": [
+      "Fake Job & Task / Telegram Scam"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Fake Job & Task / Telegram Scam",
+        "detail": "Contains trigger terms: part-time job, t.me/. Promises unrealistic daily income for liking videos, eventually leading to upfront deposit extortion in Telegram task scams.",
+        "severity": "high"
+      },
+      {
+        "type": "External Link / Telegram Redirection",
+        "detail": "Contains unverified off-platform link: t.me/fast_daily_earn",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "The message contains unsolicited promotional text or unfamiliar links. Exercise caution before responding.",
+    "potential_impact": "Potential spam subscription or exposure to advertising aggregators.",
+    "recommended_actions": [
+      "Do not click unverified shortened links.",
+      "Ignore unsolicited promotional requests."
+    ],
+    "metadata": {
+      "message_length": 159,
+      "contains_phone": false,
+      "contains_url": true
+    },
+    "id": "e2701c1a-68f1-40ce-b9ef-647cb080d27b",
+    "timestamp": "2026-10-09T06:29:26.365174"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "Hey! Are we still meeting for dinner at 7:30 PM today? Let m...",
+    "threat_type": "message",
+    "threat_level": "Safe",
+    "threat_score": 14,
+    "confidence_score": 93,
+    "is_threat": false,
+    "matched_scam_types": [],
+    "detected_indicators": [],
+    "ai_explanation": "The message displays normal conversational tone without coercive urgency or fraud indicators.",
+    "potential_impact": "Normal communications risk profile.",
+    "recommended_actions": [
+      "Standard safe digital communication practices."
+    ],
+    "metadata": {
+      "message_length": 92,
+      "contains_phone": false,
+      "contains_url": false
+    },
+    "id": "b017f928-6e09-456c-8b70-398c834a5a0d",
+    "timestamp": "2026-10-09T06:29:23.265403"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "Dear customer, your electricity power will be disconnected t...",
+    "threat_type": "message",
+    "threat_level": "Medium Risk",
+    "threat_score": 46,
+    "confidence_score": 81,
+    "is_threat": true,
+    "matched_scam_types": [
+      "Urgent Utility Disconnection Scam"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Utility Disconnection Scam",
+        "detail": "Contains trigger terms: electricity, unpaid bill, call officer. Threatens immediate power disconnection to create artificial panic and trick victims into calling a fraudulent number.",
+        "severity": "critical"
+      },
+      {
+        "type": "Direct Unverified Contact Trap",
+        "detail": "Directs target to private unverified phone numbers (9876543210)",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "The message contains unsolicited promotional text or unfamiliar links. Exercise caution before responding.",
+    "potential_impact": "Potential spam subscription or exposure to advertising aggregators.",
+    "recommended_actions": [
+      "Do not click unverified shortened links.",
+      "Ignore unsolicited promotional requests."
+    ],
+    "metadata": {
+      "message_length": 160,
+      "contains_phone": true,
+      "contains_url": false
+    },
+    "id": "5bf963f0-2924-44e2-8696-da6cd05e412c",
+    "timestamp": "2026-10-09T06:29:20.778028"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "Dear customer, your electricity power will be disconnected t...",
+    "threat_type": "message",
+    "threat_level": "Medium Risk",
+    "threat_score": 46,
+    "confidence_score": 81,
+    "is_threat": true,
+    "matched_scam_types": [
+      "Urgent Utility Disconnection Scam"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Utility Disconnection Scam",
+        "detail": "Contains trigger terms: electricity, unpaid bill, call officer. Threatens immediate power disconnection to create artificial panic and trick victims into calling a fraudulent number.",
+        "severity": "critical"
+      },
+      {
+        "type": "Direct Unverified Contact Trap",
+        "detail": "Directs target to private unverified phone numbers (9876543210)",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "The message contains unsolicited promotional text or unfamiliar links. Exercise caution before responding.",
+    "potential_impact": "Potential spam subscription or exposure to advertising aggregators.",
+    "recommended_actions": [
+      "Do not click unverified shortened links.",
+      "Ignore unsolicited promotional requests."
+    ],
+    "metadata": {
+      "message_length": 160,
+      "contains_phone": true,
+      "contains_url": false
+    },
+    "id": "b3c5b86b-49f3-4786-ba81-20442c32a7c2",
+    "timestamp": "2026-10-09T06:29:13.383856"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "https://chatgpt.com/g/-login_id/password",
+    "threat_type": "url",
+    "url": "https://chatgpt.com/g/-login_id/password",
+    "domain": "chatgpt.com",
+    "threat_level": "High Risk",
+    "threat_score": 62,
+    "confidence_score": 86,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "Phishing Authentication Trigger",
+        "detail": "Path contains deceptive authentication triggers (login).",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This URL (chatgpt.com) demonstrates high-risk malicious indicators consistent with active credential phishing or deceptive brand clone campaigns. Our heuristic and machine learning classifiers flagged unauthorized brand keywords, high-risk top-level domain structures, or deceptive login triggers.",
+    "potential_impact": "Visiting this site may lead to credential harvesting, unauthorized banking session hijacking, or automatic download of malicious payloads.",
+    "recommended_actions": [
+      "Do NOT open, click, or enter passwords or personal details on this URL.",
+      "Block this domain on corporate DNS/firewalls and web filters.",
+      "Report the URL to anti-abuse registrars and Google Safe Browsing."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTPS",
+      "has_ssl": true,
+      "subdomain_count": 2,
+      "entropy": 4.11,
+      "url_length": 40,
+      "estimated_reputation": "Malicious"
+    },
+    "id": "57789eb3-40e3-432d-8653-a4846bf8c7c9",
+    "timestamp": "2026-10-09T06:28:45.860510"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "https://chatgpt.com/g/g-p-6ac6b4389ea48191a9d728f81ac428fb-hack2skill-2026/c/6ac6a37a-8728-83e8-b4fa-cdbc3c9ae9eb",
+    "threat_type": "url",
+    "url": "https://chatgpt.com/g/g-p-6ac6b4389ea48191a9d728f81ac428fb-hack2skill-2026/c/6ac6a37a-8728-83e8-b4fa-cdbc3c9ae9eb",
+    "domain": "chatgpt.com",
+    "threat_level": "Medium Risk",
+    "threat_score": 53,
+    "confidence_score": 83,
+    "is_threat": true,
+    "detected_indicators": [],
+    "ai_explanation": "The URL domain (chatgpt.com) has unusual formatting, lack of full SSL verification, or multiple redirects. Proceed with heightened caution and verify the true origin before interacting.",
+    "potential_impact": "Risk of unwanted ad-trackers, aggressive affiliate redirects, or insecure data transmission.",
+    "recommended_actions": [
+      "Inspect the destination certificate before logging in.",
+      "Avoid entering financial or payment credentials."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTPS",
+      "has_ssl": true,
+      "subdomain_count": 2,
+      "entropy": 4.54,
+      "url_length": 113,
+      "estimated_reputation": "Suspicious"
+    },
+    "id": "d2d9bda5-bc8b-4143-9be4-b625b705615a",
+    "timestamp": "2026-10-09T06:28:21.674302"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "https://github.com/",
+    "threat_type": "url",
+    "url": "https://github.com/",
+    "domain": "github.com",
+    "threat_level": "Medium Risk",
+    "threat_score": 42,
+    "confidence_score": 84,
+    "is_threat": true,
+    "detected_indicators": [],
+    "ai_explanation": "The URL domain (github.com) has unusual formatting, lack of full SSL verification, or multiple redirects. Proceed with heightened caution and verify the true origin before interacting.",
+    "potential_impact": "Risk of unwanted ad-trackers, aggressive affiliate redirects, or insecure data transmission.",
+    "recommended_actions": [
+      "Inspect the destination certificate before logging in.",
+      "Avoid entering financial or payment credentials."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTPS",
+      "has_ssl": true,
+      "subdomain_count": 2,
+      "entropy": 3.64,
+      "url_length": 19,
+      "estimated_reputation": "Suspicious"
+    },
+    "id": "ae2c1f4b-1d55-491b-b2ec-43b4c2a3dc0a",
+    "timestamp": "2026-10-09T06:28:06.269935"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "https://colab.research.google.com/drive/13WArZsHayxGEefwepUFZNi3a2Ov7NEDF#scrollTo=xVt3Crr-I9j1",
+    "threat_type": "url",
+    "url": "https://colab.research.google.com/drive/13WArZsHayxGEefwepUFZNi3a2Ov7NEDF#scrollTo=xVt3Crr-I9j1",
+    "domain": "colab.research.google.com",
+    "threat_level": "High Risk",
+    "threat_score": 63,
+    "confidence_score": 86,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "Excessive Subdomain Stacking",
+        "detail": "Detected deep subdomain nesting (4 levels), common in phishing kits.",
+        "severity": "medium"
+      },
+      {
+        "type": "High Information Entropy",
+        "detail": "URL exhibits randomized token obfuscation (Entropy: 5.23).",
+        "severity": "medium"
+      }
+    ],
+    "ai_explanation": "This URL (colab.research.google.com) demonstrates high-risk malicious indicators consistent with active credential phishing or deceptive brand clone campaigns. Our heuristic and machine learning classifiers flagged unauthorized brand keywords, high-risk top-level domain structures, or deceptive login triggers.",
+    "potential_impact": "Visiting this site may lead to credential harvesting, unauthorized banking session hijacking, or automatic download of malicious payloads.",
+    "recommended_actions": [
+      "Do NOT open, click, or enter passwords or personal details on this URL.",
+      "Block this domain on corporate DNS/firewalls and web filters.",
+      "Report the URL to anti-abuse registrars and Google Safe Browsing."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTPS",
+      "has_ssl": true,
+      "subdomain_count": 4,
+      "entropy": 5.23,
+      "url_length": 95,
+      "estimated_reputation": "Malicious"
+    },
+    "id": "0b15574a-d1bb-4191-aa0d-720283fb97ea",
+    "timestamp": "2026-10-09T06:27:43.441320"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "https://bit.ly/3xX9Q1a-urgent-tax-refund",
+    "threat_type": "url",
+    "url": "https://bit.ly/3xX9Q1a-urgent-tax-refund",
+    "domain": "bit.ly",
+    "threat_level": "Medium Risk",
+    "threat_score": 52,
+    "confidence_score": 82,
+    "is_threat": true,
+    "detected_indicators": [],
+    "ai_explanation": "The URL domain (bit.ly) has unusual formatting, lack of full SSL verification, or multiple redirects. Proceed with heightened caution and verify the true origin before interacting.",
+    "potential_impact": "Risk of unwanted ad-trackers, aggressive affiliate redirects, or insecure data transmission.",
+    "recommended_actions": [
+      "Inspect the destination certificate before logging in.",
+      "Avoid entering financial or payment credentials."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTPS",
+      "has_ssl": true,
+      "subdomain_count": 2,
+      "entropy": 4.49,
+      "url_length": 40,
+      "estimated_reputation": "Suspicious"
+    },
+    "id": "cbf99875-6532-4039-97b5-f33ccc8ef590",
+    "timestamp": "2026-10-09T06:27:30.613636"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "http://secure-chase-update-login.xyz/auth/verify?session=expired",
+    "threat_type": "url",
+    "url": "http://secure-chase-update-login.xyz/auth/verify?session=expired",
+    "domain": "secure-chase-update-login.xyz",
+    "threat_level": "Critical",
+    "threat_score": 100,
+    "confidence_score": 99,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "High-Risk Top-Level Domain (TLD)",
+        "detail": "Domain utilizes an abusive/disposable TLD (.xyz) frequently associated with cyber campaigns.",
+        "severity": "high"
+      },
+      {
+        "type": "Targeted Brand Impersonation (Typosquatting)",
+        "detail": "Domain spoofing brand keyword 'chase' on an unauthorized host (secure-chase-update-login.xyz).",
+        "severity": "critical"
+      },
+      {
+        "type": "Hyphenated Deceptive Domain",
+        "detail": "Domain contains 3 hyphens, indicating synthetic deceptive domain generation.",
+        "severity": "medium"
+      },
+      {
+        "type": "Insecure Unencrypted HTTP Protocol",
+        "detail": "Connection is unencrypted, allowing man-in-the-middle interception of submitted data.",
+        "severity": "medium"
+      },
+      {
+        "type": "Phishing Authentication Trigger",
+        "detail": "Path contains deceptive authentication triggers (verify).",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This URL (secure-chase-update-login.xyz) demonstrates high-risk malicious indicators consistent with active credential phishing or deceptive brand clone campaigns. Our heuristic and machine learning classifiers flagged unauthorized brand keywords, high-risk top-level domain structures, or deceptive login triggers.",
+    "potential_impact": "Visiting this site may lead to credential harvesting, unauthorized banking session hijacking, or automatic download of malicious payloads.",
+    "recommended_actions": [
+      "Do NOT open, click, or enter passwords or personal details on this URL.",
+      "Block this domain on corporate DNS/firewalls and web filters.",
+      "Report the URL to anti-abuse registrars and Google Safe Browsing."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTP",
+      "has_ssl": false,
+      "subdomain_count": 2,
+      "entropy": 4.44,
+      "url_length": 64,
+      "estimated_reputation": "Malicious"
+    },
+    "id": "0a74fc89-f6b1-48d6-a08d-ec6bbc4ca6d6",
+    "timestamp": "2026-10-09T06:27:27.873189"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "http://secure-chase-update-login.xyz/auth/verify?session=expired",
+    "threat_type": "url",
+    "url": "http://secure-chase-update-login.xyz/auth/verify?session=expired",
+    "domain": "secure-chase-update-login.xyz",
+    "threat_level": "Critical",
+    "threat_score": 100,
+    "confidence_score": 99,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "High-Risk Top-Level Domain (TLD)",
+        "detail": "Domain utilizes an abusive/disposable TLD (.xyz) frequently associated with cyber campaigns.",
+        "severity": "high"
+      },
+      {
+        "type": "Targeted Brand Impersonation (Typosquatting)",
+        "detail": "Domain spoofing brand keyword 'chase' on an unauthorized host (secure-chase-update-login.xyz).",
+        "severity": "critical"
+      },
+      {
+        "type": "Hyphenated Deceptive Domain",
+        "detail": "Domain contains 3 hyphens, indicating synthetic deceptive domain generation.",
+        "severity": "medium"
+      },
+      {
+        "type": "Insecure Unencrypted HTTP Protocol",
+        "detail": "Connection is unencrypted, allowing man-in-the-middle interception of submitted data.",
+        "severity": "medium"
+      },
+      {
+        "type": "Phishing Authentication Trigger",
+        "detail": "Path contains deceptive authentication triggers (verify).",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This URL (secure-chase-update-login.xyz) demonstrates high-risk malicious indicators consistent with active credential phishing or deceptive brand clone campaigns. Our heuristic and machine learning classifiers flagged unauthorized brand keywords, high-risk top-level domain structures, or deceptive login triggers.",
+    "potential_impact": "Visiting this site may lead to credential harvesting, unauthorized banking session hijacking, or automatic download of malicious payloads.",
+    "recommended_actions": [
+      "Do NOT open, click, or enter passwords or personal details on this URL.",
+      "Block this domain on corporate DNS/firewalls and web filters.",
+      "Report the URL to anti-abuse registrars and Google Safe Browsing."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTP",
+      "has_ssl": false,
+      "subdomain_count": 2,
+      "entropy": 4.44,
+      "url_length": 64,
+      "estimated_reputation": "Malicious"
+    },
+    "id": "9a10e6bb-673e-4be2-8937-5336b74f72a9",
+    "timestamp": "2026-10-09T06:27:25.834437"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "File: safe_internal.eml",
+    "threat_type": "email",
+    "threat_level": "Low Risk",
+    "threat_score": 26,
+    "confidence_score": 89,
+    "is_threat": false,
+    "extracted_urls": [
+      "https://drive.google.com/internal/meet-recording-q3"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Brand Impersonation Target",
+        "detail": "Impersonating brand assets: Google",
+        "severity": "medium"
+      },
+      {
+        "type": "Embedded External Hyperlinks",
+        "detail": "Contains 1 external hyperlink(s)",
+        "severity": "low"
+      }
+    ],
+    "ai_explanation": "The email structure, sender alignment, and text patterns match standard legitimate correspondence. No deceptive brand spoofing, credential traps, or malicious links were detected.",
+    "potential_impact": "Standard correspondence risk profile.",
+    "recommended_actions": [
+      "Routine safe email handling practices apply."
+    ],
+    "security_headers": {
+      "spf": "PASS",
+      "dkim": "PASS",
+      "dmarc": "PASS"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "Q3 Sprint Planning - Meeting Notes & Action Items",
+      "sender": "manoj.kumar@company.com",
+      "char_count": 635,
+      "word_count": 96
+    },
+    "parsed_headers": {
+      "from": "manoj.kumar@company.com",
+      "to": "team@company.com",
+      "subject": "Q3 Sprint Planning - Meeting Notes & Action Items",
+      "date": "Sun, 23 Aug 2026 10:05:00 +0530"
+    },
+    "id": "2b3fce91-cc1e-4a53-8278-dbd396f9266b",
+    "timestamp": "2026-10-09T06:27:18.097695"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "File: phishing_bank_of_america.eml",
+    "threat_type": "email",
+    "threat_level": "Critical",
+    "threat_score": 91,
+    "confidence_score": 95,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://bankofamerica-secure-auth.top/verify?session_id=89849204812"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains panic-inducing keywords: suspended",
+        "severity": "high"
+      },
+      {
+        "type": "Brand Impersonation Target",
+        "detail": "Impersonating brand assets: Bank Of America",
+        "severity": "medium"
+      },
+      {
+        "type": "High-Risk Deceptive Hyperlink",
+        "detail": "Embedded URL points to suspicious domain: http://bankofamerica-secure-auth.top/verify?s...",
+        "severity": "critical"
+      },
+      {
+        "type": "Email Authentication Failure",
+        "detail": "SPF: FAIL, DKIM: FAIL (Sender identity could not be verified by originating mail server)",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email demonstrates high-probability social engineering tactics (suspended). The message attempts to deceive the recipient into visiting unverified login portals or transferring funds under false pretenses. SPF/DKIM verification indicates potential spoofing of legitimate brand headers.",
+    "potential_impact": "Risk of unauthorized corporate account takeover, payroll diversion, credential harvesting, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, enter credentials, or open attachments.",
+      "Report this email to your organization's IT Security / SOC team.",
+      "Verify sender authenticity via independent channels (official phone or internal intranet).",
+      "If credentials were entered, immediately reset your passwords and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "FAIL",
+      "dkim": "FAIL",
+      "dmarc": "FAIL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "Security Notice: Your Online Banking Profile Has Been Suspended",
+      "sender": "Bank of America Online Security <alerts@bankofamerica-secure-auth.top>",
+      "char_count": 623,
+      "word_count": 80
+    },
+    "parsed_headers": {
+      "from": "Bank of America Online Security <alerts@bankofamerica-secure-auth.top>",
+      "to": "customer@company.com",
+      "subject": "Security Notice: Your Online Banking Profile Has Been Suspended",
+      "date": "Sun, 30 Aug 2026 11:20:00 +0000"
+    },
+    "id": "033fa254-7a33-4cce-ae78-6e9125c066bd",
+    "timestamp": "2026-10-09T06:27:10.063249"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "File: extortion_crypto_blackmail.eml",
+    "threat_type": "email",
+    "threat_level": "Medium Risk",
+    "threat_score": 47,
+    "confidence_score": 81,
+    "is_threat": true,
+    "extracted_urls": [],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains panic-inducing keywords: final notice, compromised, bitcoin",
+        "severity": "high"
+      },
+      {
+        "type": "Email Authentication Failure",
+        "detail": "SPF: FAIL, DKIM: FAIL (Sender identity could not be verified by originating mail server)",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email contains suspicious marketing lures, unsolicited external URLs, or atypical formatting. While no destructive malware payload was directly confirmed, caution is advised before interacting.",
+    "potential_impact": "Risk of spam subscription, pixel tracking beacons, or ad-network redirects.",
+    "recommended_actions": [
+      "Avoid clicking hyperlinks without inspecting the full domain name.",
+      "Mark as spam in your mail client."
+    ],
+    "security_headers": {
+      "spf": "FAIL",
+      "dkim": "FAIL",
+      "dmarc": "FAIL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "Final Notice: Your device has been compromised (Pegasus Zero-Day payload active)",
+      "sender": "Cyber Security Warning <blackmail-operator@darknet-node-99.onion.xyz>",
+      "char_count": 618,
+      "word_count": 85
+    },
+    "parsed_headers": {
+      "from": "Cyber Security Warning <blackmail-operator@darknet-node-99.onion.xyz>",
+      "to": "employee@company.com",
+      "subject": "Final Notice: Your device has been compromised (Pegasus Zero-Day payload active)",
+      "date": "Sun, 30 Aug 2026 06:40:00 +0000"
+    },
+    "id": "325cc26e-302d-4ee4-90fe-b544e99fb15d",
+    "timestamp": "2026-10-09T06:26:56.955095"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "Urgent: Your account access has been limited",
+    "threat_type": "email",
+    "threat_level": "Critical",
+    "threat_score": 98,
+    "confidence_score": 98,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://paypa1-security-verify.xyz/login/auth"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains panic-inducing keywords: urgent, 24 hours",
+        "severity": "high"
+      },
+      {
+        "type": "Credential Harvesting Pattern",
+        "detail": "Soliciting login credentials or personal identification (credit card)",
+        "severity": "critical"
+      },
+      {
+        "type": "Brand Impersonation Target",
+        "detail": "Impersonating brand assets: Paypal",
+        "severity": "medium"
+      },
+      {
+        "type": "High-Risk Deceptive Hyperlink",
+        "detail": "Embedded URL points to suspicious domain: http://paypa1-security-verify.xyz/login/auth...",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email demonstrates high-probability social engineering tactics (urgent, 24 hours). The message attempts to deceive the recipient into visiting unverified login portals or transferring funds under false pretenses. SPF/DKIM verification indicates potential spoofing of legitimate brand headers.",
+    "potential_impact": "Risk of unauthorized corporate account takeover, payroll diversion, credential harvesting, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, enter credentials, or open attachments.",
+      "Report this email to your organization's IT Security / SOC team.",
+      "Verify sender authenticity via independent channels (official phone or internal intranet).",
+      "If credentials were entered, immediately reset your passwords and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "NEUTRAL",
+      "dkim": "NEUTRAL",
+      "dmarc": "NEUTRAL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "Urgent: Your account access has been limited",
+      "sender": "security-service@paypa1-support.com",
+      "char_count": 434,
+      "word_count": 57
+    },
+    "id": "21fa0420-4540-4d58-ac03-7b2196c16f35",
+    "timestamp": "2026-10-09T06:26:40.929998"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "File: malware_shipping_label_iso.eml",
+    "threat_type": "email",
+    "threat_level": "Low Risk",
+    "threat_score": 26,
+    "confidence_score": 89,
+    "is_threat": false,
+    "extracted_urls": [],
+    "detected_indicators": [
+      {
+        "type": "Email Authentication Failure",
+        "detail": "SPF: FAIL, DKIM: FAIL (Sender identity could not be verified by originating mail server)",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "The email structure, sender alignment, and text patterns match standard legitimate correspondence. No deceptive brand spoofing, credential traps, or malicious links were detected.",
+    "potential_impact": "Standard correspondence risk profile.",
+    "recommended_actions": [
+      "Routine safe email handling practices apply."
+    ],
+    "security_headers": {
+      "spf": "FAIL",
+      "dkim": "FAIL",
+      "dmarc": "FAIL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "Notice: Unsuccessful Delivery for Package #FX-998240281 (Attachment Included)",
+      "sender": "FedEx Express Dispatch <tracking-support@fedex-shipment-delivery.com>",
+      "char_count": 550,
+      "word_count": 69
+    },
+    "parsed_headers": {
+      "from": "FedEx Express Dispatch <tracking-support@fedex-shipment-delivery.com>",
+      "to": "recipient@company.com",
+      "subject": "Notice: Unsuccessful Delivery for Package #FX-998240281 (Attachment Included)",
+      "date": "Sun, 30 Aug 2026 08:30:00 +0000"
+    },
+    "id": "1bfaf75a-0e9e-489a-be35-d3a5df732c06",
+    "timestamp": "2026-10-09T06:26:33.002925"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "File: bec_ceo_wire_transfer.eml",
+    "threat_type": "email",
+    "threat_level": "Low Risk",
+    "threat_score": 22,
+    "confidence_score": 90,
+    "is_threat": false,
+    "extracted_urls": [],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains panic-inducing keywords: urgent, immediately",
+        "severity": "high"
+      },
+      {
+        "type": "Email Authentication Failure",
+        "detail": "SPF: FAIL, DKIM: FAIL (Sender identity could not be verified by originating mail server)",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "The email structure, sender alignment, and text patterns match standard legitimate correspondence. No deceptive brand spoofing, credential traps, or malicious links were detected.",
+    "potential_impact": "Standard correspondence risk profile.",
+    "recommended_actions": [
+      "Routine safe email handling practices apply."
+    ],
+    "security_headers": {
+      "spf": "FAIL",
+      "dkim": "FAIL",
+      "dmarc": "FAIL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "URGENT: Confidential Acquisition Wire Settlement",
+      "sender": "\"Jonathan Hayes, CEO\" <jonathan.hayes@exec-corporate-board.com>",
+      "char_count": 535,
+      "word_count": 82
+    },
+    "parsed_headers": {
+      "from": "\"Jonathan Hayes, CEO\" <jonathan.hayes@exec-corporate-board.com>",
+      "to": "finance-director@company.com",
+      "subject": "URGENT: Confidential Acquisition Wire Settlement",
+      "date": "Sun, 30 Aug 2026 14:15:00 +0000"
+    },
+    "id": "cdc79031-59e5-453f-8475-c474e1d2e373",
+    "timestamp": "2026-10-09T06:26:21.197972"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "QR Code: upi://pay?pa=scammer-merchant@icici&pn=Refund%20Officer&am=5000&cu=INR&tn=Cashback",
+    "threat_type": "qr",
+    "decoded_content": "upi://pay?pa=scammer-merchant@icici&pn=Refund%20Officer&am=5000&cu=INR&tn=Cashback",
+    "is_upi": true,
+    "threat_level": "Critical",
+    "threat_score": 88,
+    "confidence_score": 96,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "UPI Payment Request Payload",
+        "detail": "Decoded QR code is a dynamic UPI money request (upi://pay?pa=scammer-merchant@icici&pn=Refund%20Of...). Scanning will trigger payment transfer from your account.",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This QR code contains a direct UPI payment request. Scammers often present these as 'Cashback QR Codes' or 'Refund QR Codes', but scanning will request your UPI PIN and immediately deduct money from your bank account.",
+    "potential_impact": "Instant unauthorized deduction of bank balance via UPI transaction.",
+    "recommended_actions": [
+      "DO NOT scan or approve this QR code inside Google Pay, PhonePe, or Paytm.",
+      "Remember: You NEVER need to scan a QR code or enter your PIN to receive money.",
+      "Block and report the sender of this QR code."
+    ],
+    "filename": "qr_code.png",
+    "id": "50dbe6b2-d2c9-4514-9c5f-c458156c4d81",
+    "timestamp": "2026-10-09T06:15:34.397251"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Screenshot: fake_sbi_kyc_chat.png",
+    "threat_type": "screenshot",
+    "threat_level": "High Risk",
+    "threat_score": 56,
+    "confidence_score": 82,
+    "is_threat": true,
+    "matched_scam_types": [
+      "Banking & KYC Block Alert"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Optical OCR Text Extraction",
+        "detail": "Extracted 16 words from image using optical_image_pipeline.",
+        "severity": "high"
+      },
+      {
+        "type": "Banking & KYC Block Alert",
+        "detail": "Contains trigger terms: kyc, sbi. Impersonates recognized banks claiming accounts or cards are blocked, demanding immediate document upload on phishing links.",
+        "severity": "critical"
+      },
+      {
+        "type": "External Link / Telegram Redirection",
+        "detail": "Contains unverified off-platform link: http://sbi-kyc-verify.online",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This message matches known cybercrime extortion / financial scam patterns (Banking & KYC Block Alert). It deliberately fabricates an urgent scenario or unrealistic financial reward to pressure you into transferring funds, sharing OTPs, or clicking phishing links.",
+    "potential_impact": "Financial loss via unauthorized UPI transfer, compromise of banking credentials, or personal extortion.",
+    "recommended_actions": [
+      "NEVER share OTPs, passwords, or enter your UPI PIN (entering PIN is only for sending money, never for receiving).",
+      "Do NOT call phone numbers provided inside the message.",
+      "Block the sender number and report as spam on WhatsApp / SMS carrier.",
+      "File a complaint at the National Cyber Crime Reporting Portal (cybercrime.gov.in / Helpline 1930) if financial loss occurred."
+    ],
+    "metadata": {
+      "message_length": 119,
+      "contains_phone": false,
+      "contains_url": true
+    },
+    "extracted_text": "STATE BANK ALERT: Your account is blocked due to pending KYC. Click http://sbi-kyc-verify.online to update immediately.",
+    "ocr_engine": "optical_image_pipeline",
+    "filename": "fake_sbi_kyc_chat.png",
+    "id": "84e7e657-c871-49f8-a049-e9a3b8dffcc7",
+    "timestamp": "2026-10-09T06:15:34.349837"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "File: suspicious.eml",
+    "threat_type": "email",
+    "threat_level": "Critical",
+    "threat_score": 89,
+    "confidence_score": 94,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://paypa1-update.xyz"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains panic-inducing keywords: urgent, 24 hours, suspended",
+        "severity": "high"
+      },
+      {
+        "type": "High-Risk Deceptive Hyperlink",
+        "detail": "Embedded URL points to suspicious domain: http://paypa1-update.xyz...",
+        "severity": "critical"
+      },
+      {
+        "type": "Email Authentication Failure",
+        "detail": "SPF: FAIL, DKIM: FAIL (Sender identity could not be verified by originating mail server)",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email demonstrates high-probability social engineering tactics (urgent, 24 hours). The message attempts to deceive the recipient into visiting unverified login portals or transferring funds under false pretenses. SPF/DKIM verification indicates potential spoofing of legitimate brand headers.",
+    "potential_impact": "Risk of unauthorized corporate account takeover, payroll diversion, credential harvesting, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, enter credentials, or open attachments.",
+      "Report this email to your organization's IT Security / SOC team.",
+      "Verify sender authenticity via independent channels (official phone or internal intranet).",
+      "If credentials were entered, immediately reset your passwords and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "FAIL",
+      "dkim": "FAIL",
+      "dmarc": "NEUTRAL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "URGENT: Confirm your password within 24 hours",
+      "sender": "security@paypa1-update.xyz",
+      "char_count": 133,
+      "word_count": 18
+    },
+    "parsed_headers": {
+      "from": "security@paypa1-update.xyz",
+      "to": "victim@company.com",
+      "subject": "URGENT: Confirm your password within 24 hours",
+      "date": "Fri, 09 Oct 2026 10:00:00 +0000"
+    },
+    "id": "5a292f11-0969-44de-a060-2ec35ad8bba9",
+    "timestamp": "2026-10-09T06:15:34.311732"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "http://secure-login-chase-update.xyz/auth/verify?session=expired",
+    "threat_type": "url",
+    "url": "http://secure-login-chase-update.xyz/auth/verify?session=expired",
+    "domain": "secure-login-chase-update.xyz",
+    "threat_level": "Critical",
+    "threat_score": 100,
+    "confidence_score": 99,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "High-Risk Top-Level Domain (TLD)",
+        "detail": "Domain utilizes an abusive/disposable TLD (.xyz) frequently associated with cyber campaigns.",
+        "severity": "high"
+      },
+      {
+        "type": "Targeted Brand Impersonation (Typosquatting)",
+        "detail": "Domain spoofing brand keyword 'chase' on an unauthorized host (secure-login-chase-update.xyz).",
+        "severity": "critical"
+      },
+      {
+        "type": "Hyphenated Deceptive Domain",
+        "detail": "Domain contains 3 hyphens, indicating synthetic deceptive domain generation.",
+        "severity": "medium"
+      },
+      {
+        "type": "Insecure Unencrypted HTTP Protocol",
+        "detail": "Connection is unencrypted, allowing man-in-the-middle interception of submitted data.",
+        "severity": "medium"
+      },
+      {
+        "type": "Phishing Authentication Trigger",
+        "detail": "Path contains deceptive authentication triggers (verify).",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This URL (secure-login-chase-update.xyz) demonstrates high-risk malicious indicators consistent with active credential phishing or deceptive brand clone campaigns. Our heuristic and machine learning classifiers flagged unauthorized brand keywords, high-risk top-level domain structures, or deceptive login triggers.",
+    "potential_impact": "Visiting this site may lead to credential harvesting, unauthorized banking session hijacking, or automatic download of malicious payloads.",
+    "recommended_actions": [
+      "Do NOT open, click, or enter passwords or personal details on this URL.",
+      "Block this domain on corporate DNS/firewalls and web filters.",
+      "Report the URL to anti-abuse registrars and Google Safe Browsing."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTP",
+      "has_ssl": false,
+      "subdomain_count": 2,
+      "entropy": 4.44,
+      "url_length": 64,
+      "estimated_reputation": "Malicious"
+    },
+    "id": "9bad6bd4-967f-4b59-8d2e-010b1fdaffd7",
+    "timestamp": "2026-10-09T06:15:34.273915"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Dear customer, your electricity power will be disconnected t...",
+    "threat_type": "message",
+    "threat_level": "Medium Risk",
+    "threat_score": 46,
+    "confidence_score": 81,
+    "is_threat": true,
+    "matched_scam_types": [
+      "Urgent Utility Disconnection Scam"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Utility Disconnection Scam",
+        "detail": "Contains trigger terms: electricity, unpaid bill, call officer. Threatens immediate power disconnection to create artificial panic and trick victims into calling a fraudulent number.",
+        "severity": "critical"
+      },
+      {
+        "type": "Direct Unverified Contact Trap",
+        "detail": "Directs target to private unverified phone numbers (9876543210)",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "The message contains unsolicited promotional text or unfamiliar links. Exercise caution before responding.",
+    "potential_impact": "Potential spam subscription or exposure to advertising aggregators.",
+    "recommended_actions": [
+      "Do not click unverified shortened links.",
+      "Ignore unsolicited promotional requests."
+    ],
+    "metadata": {
+      "message_length": 137,
+      "contains_phone": true,
+      "contains_url": false
+    },
+    "id": "ec1ed1bc-fcc5-491d-b11d-ebd1ed1562f7",
+    "timestamp": "2026-10-09T06:15:34.104095"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Sprint Planning Notes",
+    "threat_type": "email",
+    "threat_level": "Safe",
+    "threat_score": 0,
+    "confidence_score": 99,
+    "is_threat": false,
+    "extracted_urls": [],
+    "detected_indicators": [],
+    "ai_explanation": "The email structure, sender alignment, and text patterns match standard legitimate correspondence. No deceptive brand spoofing, credential traps, or malicious links were detected.",
+    "potential_impact": "Standard correspondence risk profile.",
+    "recommended_actions": [
+      "Routine safe email handling practices apply."
+    ],
+    "security_headers": {
+      "spf": "NEUTRAL",
+      "dkim": "NEUTRAL",
+      "dmarc": "NEUTRAL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "Sprint Planning Notes",
+      "sender": "alex.chen@techcorp.io",
+      "char_count": 133,
+      "word_count": 21
+    },
+    "id": "709b3e8f-ce6b-4a30-946c-84eceeb17ce6",
+    "timestamp": "2026-10-09T06:15:33.857846"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Action Required: Account Restricted",
+    "threat_type": "email",
+    "threat_level": "Critical",
+    "threat_score": 99,
+    "confidence_score": 98,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://paypa1-verify.xyz"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains panic-inducing keywords: urgent, immediately, suspended",
+        "severity": "high"
+      },
+      {
+        "type": "Credential Harvesting Pattern",
+        "detail": "Soliciting login credentials or personal identification (credit card)",
+        "severity": "critical"
+      },
+      {
+        "type": "Brand Impersonation Target",
+        "detail": "Impersonating brand assets: Paypal",
+        "severity": "medium"
+      },
+      {
+        "type": "High-Risk Deceptive Hyperlink",
+        "detail": "Embedded URL points to suspicious domain: http://paypa1-verify.xyz...",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email demonstrates high-probability social engineering tactics (urgent, immediately). The message attempts to deceive the recipient into visiting unverified login portals or transferring funds under false pretenses. SPF/DKIM verification indicates potential spoofing of legitimate brand headers.",
+    "potential_impact": "Risk of unauthorized corporate account takeover, payroll diversion, credential harvesting, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, enter credentials, or open attachments.",
+      "Report this email to your organization's IT Security / SOC team.",
+      "Verify sender authenticity via independent channels (official phone or internal intranet).",
+      "If credentials were entered, immediately reset your passwords and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "NEUTRAL",
+      "dkim": "NEUTRAL",
+      "dmarc": "NEUTRAL"
+    },
+    "attachments": [],
+    "metadata": {
+      "subject": "Action Required: Account Restricted",
+      "sender": "security@paypa1-verify.xyz",
+      "char_count": 195,
+      "word_count": 24
+    },
+    "id": "1e992bdb-6fe6-4bdf-b79c-b2fbffe44a9c",
+    "timestamp": "2026-10-09T06:15:33.821318"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "File: email5.eml",
+    "threat_type": "email",
+    "threat_level": "High Risk",
+    "threat_score": 76,
+    "confidence_score": 89,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://company-auth-portal.top/auth/reset-password?uid=9928104"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains high-pressure panic keywords: urgent, immediately",
+        "severity": "high"
+      },
+      {
+        "type": "Malicious / Shortened Hyperlink",
+        "detail": "Found suspicious disguised links: http://company-auth-portal.top/auth/rese...",
+        "severity": "critical"
+      },
+      {
+        "type": "Email Authentication Failure",
+        "detail": "SPF: FAIL, DKIM: FAIL (Sender IP does not match domain origin)",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email exhibits dangerous social engineering tactics designed to manipulate the recipient into acting impulsively. Our analysis identified high-urgency keywords (urgent, immediately) and detected potential brand impersonation. The email attempts to harvest credentials or trick the user into navigating to an unverified endpoint.",
+    "potential_impact": "High risk of credential theft, unauthorized account takeover, corporate wire fraud, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, open attachments, or reply to this email.",
+      "Report this message to your security operations team or mark as phishing.",
+      "Verify sender authenticity via an out-of-band communication channel (official phone number / internal portal).",
+      "If credentials were entered, immediately reset your password and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "FAIL",
+      "dkim": "FAIL",
+      "dmarc": "FAIL"
+    },
+    "metadata": {
+      "subject": "Notice: Urgent Password Reset Required for User Account",
+      "sender": "Account Security Desk <security@company-auth-portal.top>",
+      "char_count": 412,
+      "word_count": 53
+    },
+    "parsed_headers": {
+      "from": "Account Security Desk <security@company-auth-portal.top>",
+      "to": "target-staff@organization.com",
+      "subject": "Notice: Urgent Password Reset Required for User Account",
+      "date": "Sun, 30 Aug 2026 07:00:00 +0000"
+    },
+    "id": "cb443db3-631a-4d5e-99dd-9d1dae78feb0",
+    "timestamp": "2026-10-08T21:33:07.789268"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "File: email5.eml",
+    "threat_type": "email",
+    "threat_level": "High Risk",
+    "threat_score": 76,
+    "confidence_score": 89,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://company-auth-portal.top/auth/reset-password?uid=9928104"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains high-pressure panic keywords: urgent, immediately",
+        "severity": "high"
+      },
+      {
+        "type": "Malicious / Shortened Hyperlink",
+        "detail": "Found suspicious disguised links: http://company-auth-portal.top/auth/rese...",
+        "severity": "critical"
+      },
+      {
+        "type": "Email Authentication Failure",
+        "detail": "SPF: FAIL, DKIM: FAIL (Sender IP does not match domain origin)",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email exhibits dangerous social engineering tactics designed to manipulate the recipient into acting impulsively. Our analysis identified high-urgency keywords (urgent, immediately) and detected potential brand impersonation. The email attempts to harvest credentials or trick the user into navigating to an unverified endpoint.",
+    "potential_impact": "High risk of credential theft, unauthorized account takeover, corporate wire fraud, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, open attachments, or reply to this email.",
+      "Report this message to your security operations team or mark as phishing.",
+      "Verify sender authenticity via an out-of-band communication channel (official phone number / internal portal).",
+      "If credentials were entered, immediately reset your password and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "FAIL",
+      "dkim": "FAIL",
+      "dmarc": "FAIL"
+    },
+    "metadata": {
+      "subject": "Notice: Urgent Password Reset Required for User Account",
+      "sender": "Account Security Desk <security@company-auth-portal.top>",
+      "char_count": 412,
+      "word_count": 53
+    },
+    "parsed_headers": {
+      "from": "Account Security Desk <security@company-auth-portal.top>",
+      "to": "target-staff@organization.com",
+      "subject": "Notice: Urgent Password Reset Required for User Account",
+      "date": "Sun, 30 Aug 2026 07:00:00 +0000"
+    },
+    "id": "c7216b95-3f91-41ed-a6d2-8d5fcf1f8f7f",
+    "timestamp": "2026-10-08T21:33:01.480233"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "File: email5.eml",
+    "threat_type": "email",
+    "threat_level": "High Risk",
+    "threat_score": 76,
+    "confidence_score": 89,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://company-auth-portal.top/auth/reset-password?uid=9928104"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains high-pressure panic keywords: urgent, immediately",
+        "severity": "high"
+      },
+      {
+        "type": "Malicious / Shortened Hyperlink",
+        "detail": "Found suspicious disguised links: http://company-auth-portal.top/auth/rese...",
+        "severity": "critical"
+      },
+      {
+        "type": "Email Authentication Failure",
+        "detail": "SPF: FAIL, DKIM: FAIL (Sender IP does not match domain origin)",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email exhibits dangerous social engineering tactics designed to manipulate the recipient into acting impulsively. Our analysis identified high-urgency keywords (urgent, immediately) and detected potential brand impersonation. The email attempts to harvest credentials or trick the user into navigating to an unverified endpoint.",
+    "potential_impact": "High risk of credential theft, unauthorized account takeover, corporate wire fraud, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, open attachments, or reply to this email.",
+      "Report this message to your security operations team or mark as phishing.",
+      "Verify sender authenticity via an out-of-band communication channel (official phone number / internal portal).",
+      "If credentials were entered, immediately reset your password and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "FAIL",
+      "dkim": "FAIL",
+      "dmarc": "FAIL"
+    },
+    "metadata": {
+      "subject": "Notice: Urgent Password Reset Required for User Account",
+      "sender": "Account Security Desk <security@company-auth-portal.top>",
+      "char_count": 412,
+      "word_count": 53
+    },
+    "parsed_headers": {
+      "from": "Account Security Desk <security@company-auth-portal.top>",
+      "to": "target-staff@organization.com",
+      "subject": "Notice: Urgent Password Reset Required for User Account",
+      "date": "Sun, 30 Aug 2026 07:00:00 +0000"
+    },
+    "id": "7eddc986-b728-4abe-b5f2-7b49f646ff47",
+    "timestamp": "2026-10-08T21:33:00.019789"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "File: email5.eml",
+    "threat_type": "email",
+    "threat_level": "High Risk",
+    "threat_score": 76,
+    "confidence_score": 89,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://company-auth-portal.top/auth/reset-password?uid=9928104"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains high-pressure panic keywords: urgent, immediately",
+        "severity": "high"
+      },
+      {
+        "type": "Malicious / Shortened Hyperlink",
+        "detail": "Found suspicious disguised links: http://company-auth-portal.top/auth/rese...",
+        "severity": "critical"
+      },
+      {
+        "type": "Email Authentication Failure",
+        "detail": "SPF: FAIL, DKIM: FAIL (Sender IP does not match domain origin)",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email exhibits dangerous social engineering tactics designed to manipulate the recipient into acting impulsively. Our analysis identified high-urgency keywords (urgent, immediately) and detected potential brand impersonation. The email attempts to harvest credentials or trick the user into navigating to an unverified endpoint.",
+    "potential_impact": "High risk of credential theft, unauthorized account takeover, corporate wire fraud, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, open attachments, or reply to this email.",
+      "Report this message to your security operations team or mark as phishing.",
+      "Verify sender authenticity via an out-of-band communication channel (official phone number / internal portal).",
+      "If credentials were entered, immediately reset your password and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "FAIL",
+      "dkim": "FAIL",
+      "dmarc": "FAIL"
+    },
+    "metadata": {
+      "subject": "Notice: Urgent Password Reset Required for User Account",
+      "sender": "Account Security Desk <security@company-auth-portal.top>",
+      "char_count": 412,
+      "word_count": 53
+    },
+    "parsed_headers": {
+      "from": "Account Security Desk <security@company-auth-portal.top>",
+      "to": "target-staff@organization.com",
+      "subject": "Notice: Urgent Password Reset Required for User Account",
+      "date": "Sun, 30 Aug 2026 07:00:00 +0000"
+    },
+    "id": "b94d7fa2-ce4d-4db3-8034-cf71eaf6d7ad",
+    "timestamp": "2026-10-08T21:32:53.301321"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "URGENT: Your PayPal account has been restricted du...",
+    "threat_type": "message",
+    "threat_level": "Low Risk",
+    "threat_score": 22,
+    "confidence_score": 90,
+    "is_threat": false,
+    "matched_scam_types": [],
+    "detected_indicators": [
+      {
+        "type": "Unverified Redirection / Social Channel Link",
+        "detail": "Contains link directing off-platform: https://paypa1-security-verify.xyz",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "The message displays normal conversational tone without coercive urgency or fraud indicators.",
+    "potential_impact": "Normal communications risk profile.",
+    "recommended_actions": [
+      "Standard safe digital communication practices."
+    ],
+    "metadata": {
+      "message_length": 175,
+      "contains_phone": false,
+      "contains_url": true
+    },
+    "id": "78586006-01a8-458f-8b95-0726d26ed832",
+    "timestamp": "2026-10-08T21:32:03.074057"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "QR Code: https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+    "threat_type": "qr",
+    "url": "https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+    "domain": "cybercrime.gov.in",
+    "threat_level": "High Risk",
+    "threat_score": 63,
+    "confidence_score": 86,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "QR-to-URL Redirection (Quishing)",
+        "detail": "QR code silently redirects to unverified target: https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+        "severity": "high"
+      },
+      {
+        "type": "Phishing Path Trigger",
+        "detail": "Path contains deceptive authentication triggers (login).",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This URL (cybercrime.gov.in) exhibits malicious deceptive signatures consistent with an active credential phishing or malware distribution website. Our heuristic and machine learning classifiers flagged unauthorized brand keywords, suspicious domain architecture, and deceptive authentication triggers.",
+    "potential_impact": "Visiting this site may lead to credential harvesting, unauthorized banking session hijacking, or automatic download of malicious payloads.",
+    "recommended_actions": [
+      "Do NOT open, click, or enter passwords or personal details on this URL.",
+      "Block this domain on corporate DNS/firewalls and web filters.",
+      "Report the URL to anti-abuse registrars and Google Safe Browsing."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTPS",
+      "has_ssl": true,
+      "subdomain_count": 3,
+      "entropy": 4.54,
+      "url_length": 55,
+      "estimated_reputation": "Malicious"
+    },
+    "decoded_content": "https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx",
+    "is_upi": false,
+    "filename": "qr_code.png",
+    "id": "ee03e2e3-e5c8-4849-80de-6b71ca0b7f15",
+    "timestamp": "2026-10-08T21:31:02.326042"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "QR Code: upi://pay?pa=scammer-merchant@icici&pn=Refund%20Officer&am=5000&cu=INR&tn=UPI%20Cashback%20Reward",
+    "threat_type": "qr",
+    "decoded_content": "upi://pay?pa=scammer-merchant@icici&pn=Refund%20Officer&am=5000&cu=INR&tn=UPI%20Cashback%20Reward",
+    "is_upi": true,
+    "threat_level": "Critical",
+    "threat_score": 88,
+    "confidence_score": 96,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "UPI Payment Request Payload",
+        "detail": "Decoded QR code is a dynamic UPI money request (upi://pay?pa=scammer-merchant@icici&pn=Refund%20Of...). Scanning will trigger payment transfer from your account.",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This QR code contains a direct UPI payment request. Scammers often present these as 'Cashback QR Codes' or 'Refund QR Codes', but scanning will request your UPI PIN and immediately deduct money from your bank account.",
+    "potential_impact": "Instant unauthorized deduction of bank balance via UPI transaction.",
+    "recommended_actions": [
+      "DO NOT scan or approve this QR code inside Google Pay, PhonePe, or Paytm.",
+      "Remember: You NEVER need to scan a QR code or enter your PIN to receive money.",
+      "Block and report the sender of this QR code."
+    ],
+    "filename": "qr_code.png",
+    "id": "7d42b2a2-86fe-402e-9db2-529a62fcca51",
+    "timestamp": "2026-10-08T21:30:53.621479"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "Hey! Are we still meeting for dinner at 7:30 PM today? Let m...",
+    "threat_type": "message",
+    "threat_level": "Safe",
+    "threat_score": 1,
+    "confidence_score": 98,
+    "is_threat": false,
+    "matched_scam_types": [],
+    "detected_indicators": [],
+    "ai_explanation": "The message displays normal conversational tone without coercive urgency or fraud indicators.",
+    "potential_impact": "Normal communications risk profile.",
+    "recommended_actions": [
+      "Standard safe digital communication practices."
+    ],
+    "metadata": {
+      "message_length": 92,
+      "contains_phone": false,
+      "contains_url": false
+    },
+    "id": "52e905cc-b36f-40d7-a34d-feabf62aceeb",
+    "timestamp": "2026-10-08T21:30:27.261638"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "Hey! Are we still meeting for dinner at 7:30 PM today? Let m...",
+    "threat_type": "message",
+    "threat_level": "Safe",
+    "threat_score": 1,
+    "confidence_score": 98,
+    "is_threat": false,
+    "matched_scam_types": [],
+    "detected_indicators": [],
+    "ai_explanation": "The message displays normal conversational tone without coercive urgency or fraud indicators.",
+    "potential_impact": "Normal communications risk profile.",
+    "recommended_actions": [
+      "Standard safe digital communication practices."
+    ],
+    "metadata": {
+      "message_length": 92,
+      "contains_phone": false,
+      "contains_url": false
+    },
+    "id": "8eaf3203-9b7f-481d-964e-0a72a615843a",
+    "timestamp": "2026-10-08T21:30:25.421510"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "Dear customer, your electricity power will be disconnected t...",
+    "threat_type": "message",
+    "threat_level": "Medium Risk",
+    "threat_score": 50,
+    "confidence_score": 80,
+    "is_threat": true,
+    "matched_scam_types": [
+      "Urgent Utility Disconnection Scam"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Utility Disconnection Scam",
+        "detail": "Contains trigger terms: electricity, unpaid bill, call officer. Threatens immediate power or utility disconnection to create panic and trick victims into calling a fraudulent number or downloading remote access tools.",
+        "severity": "critical"
+      },
+      {
+        "type": "Direct Contact Trap",
+        "detail": "Directs target to private unverified phone numbers (9876543210)",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "The message contains unsolicited promotional text or unfamiliar links. Exercise caution before responding.",
+    "potential_impact": "Potential spam subscription or exposure to advertising aggregators.",
+    "recommended_actions": [
+      "Do not click unverified shortened links.",
+      "Ignore unsolicited promotional requests."
+    ],
+    "metadata": {
+      "message_length": 160,
+      "contains_phone": true,
+      "contains_url": false
+    },
+    "id": "b071f62c-bf5a-4b61-a619-47992b3a5be1",
+    "timestamp": "2026-10-08T21:30:21.473567"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "Dear customer, your electricity power will be disconnected t...",
+    "threat_type": "message",
+    "threat_level": "Medium Risk",
+    "threat_score": 50,
+    "confidence_score": 80,
+    "is_threat": true,
+    "matched_scam_types": [
+      "Urgent Utility Disconnection Scam"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Utility Disconnection Scam",
+        "detail": "Contains trigger terms: electricity, unpaid bill, call officer. Threatens immediate power or utility disconnection to create panic and trick victims into calling a fraudulent number or downloading remote access tools.",
+        "severity": "critical"
+      },
+      {
+        "type": "Direct Contact Trap",
+        "detail": "Directs target to private unverified phone numbers (9876543210)",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "The message contains unsolicited promotional text or unfamiliar links. Exercise caution before responding.",
+    "potential_impact": "Potential spam subscription or exposure to advertising aggregators.",
+    "recommended_actions": [
+      "Do not click unverified shortened links.",
+      "Ignore unsolicited promotional requests."
+    ],
+    "metadata": {
+      "message_length": 160,
+      "contains_phone": true,
+      "contains_url": false
+    },
+    "id": "8a696eb7-480a-4494-9870-858050cb8331",
+    "timestamp": "2026-10-08T21:30:18.680347"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "https://sih.gov.in/signin",
+    "threat_type": "url",
+    "url": "https://sih.gov.in/signin",
+    "domain": "sih.gov.in",
+    "threat_level": "High Risk",
+    "threat_score": 61,
+    "confidence_score": 85,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "Phishing Path Trigger",
+        "detail": "Path contains deceptive authentication triggers (signin).",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This URL (sih.gov.in) exhibits malicious deceptive signatures consistent with an active credential phishing or malware distribution website. Our heuristic and machine learning classifiers flagged unauthorized brand keywords, suspicious domain architecture, and deceptive authentication triggers.",
+    "potential_impact": "Visiting this site may lead to credential harvesting, unauthorized banking session hijacking, or automatic download of malicious payloads.",
+    "recommended_actions": [
+      "Do NOT open, click, or enter passwords or personal details on this URL.",
+      "Block this domain on corporate DNS/firewalls and web filters.",
+      "Report the URL to anti-abuse registrars and Google Safe Browsing."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTPS",
+      "has_ssl": true,
+      "subdomain_count": 3,
+      "entropy": 3.43,
+      "url_length": 25,
+      "estimated_reputation": "Malicious"
+    },
+    "id": "e4611477-9761-4717-8d30-6b5ec4ee710f",
+    "timestamp": "2026-10-08T21:27:49.046320"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "http://cybershield ai - enterprice digital",
+    "threat_type": "url",
+    "url": "http://cybershield ai - enterprice digital",
+    "domain": "cybershield ai - enterprice digital",
+    "threat_level": "High Risk",
+    "threat_score": 63,
+    "confidence_score": 86,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "Insecure Unencrypted HTTP Protocol",
+        "detail": "Connection is unencrypted, allowing man-in-the-middle interception of submitted data.",
+        "severity": "medium"
+      }
+    ],
+    "ai_explanation": "This URL (cybershield ai - enterprice digital) exhibits malicious deceptive signatures consistent with an active credential phishing or malware distribution website. Our heuristic and machine learning classifiers flagged unauthorized brand keywords, suspicious domain architecture, and deceptive authentication triggers.",
+    "potential_impact": "Visiting this site may lead to credential harvesting, unauthorized banking session hijacking, or automatic download of malicious payloads.",
+    "recommended_actions": [
+      "Do NOT open, click, or enter passwords or personal details on this URL.",
+      "Block this domain on corporate DNS/firewalls and web filters.",
+      "Report the URL to anti-abuse registrars and Google Safe Browsing."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTP",
+      "has_ssl": false,
+      "subdomain_count": 1,
+      "entropy": 4.01,
+      "url_length": 42,
+      "estimated_reputation": "Malicious"
+    },
+    "id": "4b428e5b-d370-4018-8ecb-6e5b135e7802",
+    "timestamp": "2026-10-08T21:27:18.506000"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "Urgent: Your account access has been limited",
+    "threat_type": "email",
+    "threat_level": "Critical",
+    "threat_score": 86,
+    "confidence_score": 92,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://paypa1-security-verify.xyz/login/auth"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains high-pressure panic keywords: urgent, 24 hours",
+        "severity": "high"
+      },
+      {
+        "type": "Brand Impersonation Target",
+        "detail": "Impersonating trusted enterprise brands: Paypal",
+        "severity": "medium"
+      },
+      {
+        "type": "Malicious / Shortened Hyperlink",
+        "detail": "Found suspicious disguised links: http://paypa1-security-verify.xyz/login/...",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email exhibits dangerous social engineering tactics designed to manipulate the recipient into acting impulsively. Our analysis identified high-urgency keywords (urgent, 24 hours) and detected potential brand impersonation. The email attempts to harvest credentials or trick the user into navigating to an unverified endpoint.",
+    "potential_impact": "High risk of credential theft, unauthorized account takeover, corporate wire fraud, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, open attachments, or reply to this email.",
+      "Report this message to your security operations team or mark as phishing.",
+      "Verify sender authenticity via an out-of-band communication channel (official phone number / internal portal).",
+      "If credentials were entered, immediately reset your password and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "NEUTRAL",
+      "dkim": "NEUTRAL",
+      "dmarc": "NEUTRAL"
+    },
+    "metadata": {
+      "subject": "Urgent: Your account access has been limited",
+      "sender": "security-service@paypa1-support.com",
+      "char_count": 434,
+      "word_count": 57
+    },
+    "id": "ea9baa8b-3e84-4700-87a4-56f87bea0398",
+    "timestamp": "2026-10-08T21:26:28.607945"
+  },
+  {
+    "user_id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "user_email": "analyst@cybershield.ai",
+    "title": "CONFIDENTIAL: Urgent Wire Transfer Required Today",
+    "threat_type": "email",
+    "threat_level": "Low Risk",
+    "threat_score": 29,
+    "confidence_score": 87,
+    "is_threat": false,
+    "extracted_urls": [],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains high-pressure panic keywords: urgent, immediately, wire transfer",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "No active malicious payloads, urgency lures, or deceptive brand impersonations were found. The message structure aligns with standard benign correspondence.",
+    "potential_impact": "Minimal to no risk detected for standard interaction.",
+    "recommended_actions": [
+      "Standard safe email handling practices apply.",
+      "Always verify sudden changes in banking or sensitive requests as routine precaution."
+    ],
+    "security_headers": {
+      "spf": "NEUTRAL",
+      "dkim": "NEUTRAL",
+      "dmarc": "NEUTRAL"
+    },
+    "metadata": {
+      "subject": "CONFIDENTIAL: Urgent Wire Transfer Required Today",
+      "sender": "ceo-office@company-corp.com",
+      "char_count": 452,
+      "word_count": 68
+    },
+    "id": "2b4d241d-a8ef-4524-bdb6-7306831938df",
+    "timestamp": "2026-10-08T21:26:19.828351"
+  },
+  {
+    "user_id": "6ac802d7eb309f6b1017bb07",
+    "user_email": "testanalyst@cybershield.ai",
+    "title": "Dear customer, your electricity power will be disconnected t...",
+    "threat_type": "message",
+    "threat_level": "Medium Risk",
+    "threat_score": 51,
+    "confidence_score": 80,
+    "is_threat": true,
+    "matched_scam_types": [
+      "Urgent Utility Disconnection Scam"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Utility Disconnection Scam",
+        "detail": "Contains trigger terms: electricity, call officer. Threatens immediate power or utility disconnection to create panic and trick victims into calling a fraudulent number or downloading remote access tools.",
+        "severity": "critical"
+      },
+      {
+        "type": "Direct Contact Trap",
+        "detail": "Directs target to private unverified phone numbers (9876543210)",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "The message contains unsolicited promotional text or unfamiliar links. Exercise caution before responding.",
+    "potential_impact": "Potential spam subscription or exposure to advertising aggregators.",
+    "recommended_actions": [
+      "Do not click unverified shortened links.",
+      "Ignore unsolicited promotional requests."
+    ],
+    "metadata": {
+      "message_length": 117,
+      "contains_phone": true,
+      "contains_url": false
+    },
+    "id": "fdf6f443-fb25-43c7-9668-92efe8bd0a04",
+    "timestamp": "2026-10-08T20:53:44.569650"
+  },
+  {
+    "user_id": "6ac802d7eb309f6b1017bb07",
+    "user_email": "testanalyst@cybershield.ai",
+    "title": "http://secure-login-chase-update.xyz/auth",
+    "threat_type": "url",
+    "url": "http://secure-login-chase-update.xyz/auth",
+    "domain": "secure-login-chase-update.xyz",
+    "threat_level": "Critical",
+    "threat_score": 99,
+    "confidence_score": 99,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "High-Risk Top-Level Domain (TLD)",
+        "detail": "Domain utilizes an abusive/disposable TLD (.xyz) frequently associated with spam campaigns.",
+        "severity": "high"
+      },
+      {
+        "type": "Targeted Brand Impersonation (Typosquatting)",
+        "detail": "Domain contains brand keyword 'chase' on an unauthorized host (secure-login-chase-update.xyz).",
+        "severity": "critical"
+      },
+      {
+        "type": "Hyphenated Deceptive Domain",
+        "detail": "Domain contains 3 hyphens, indicating synthetic deceptive domain generation.",
+        "severity": "medium"
+      },
+      {
+        "type": "Insecure Unencrypted HTTP Protocol",
+        "detail": "Connection is unencrypted, allowing man-in-the-middle interception of submitted data.",
+        "severity": "medium"
+      }
+    ],
+    "ai_explanation": "This URL (secure-login-chase-update.xyz) exhibits malicious deceptive signatures consistent with an active credential phishing or malware distribution website. Our heuristic and machine learning classifiers flagged unauthorized brand keywords, suspicious domain architecture, and deceptive authentication triggers.",
+    "potential_impact": "Visiting this site may lead to credential harvesting, unauthorized banking session hijacking, or automatic download of malicious payloads.",
+    "recommended_actions": [
+      "Do NOT open, click, or enter passwords or personal details on this URL.",
+      "Block this domain on corporate DNS/firewalls and web filters.",
+      "Report the URL to anti-abuse registrars and Google Safe Browsing."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTP",
+      "has_ssl": false,
+      "subdomain_count": 2,
+      "entropy": 4.24,
+      "url_length": 41,
+      "estimated_reputation": "Malicious"
+    },
+    "id": "2b023164-fa09-4b42-bb68-2f6aeaf49ee6",
+    "timestamp": "2026-10-08T20:53:44.511525"
+  },
+  {
+    "user_id": "6ac802d7eb309f6b1017bb07",
+    "user_email": "testanalyst@cybershield.ai",
+    "title": "Action Required",
+    "threat_type": "email",
+    "threat_level": "Critical",
+    "threat_score": 83,
+    "confidence_score": 91,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://paypa1-verify.xyz"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains high-pressure panic keywords: urgent, suspended, action required",
+        "severity": "high"
+      },
+      {
+        "type": "Malicious / Shortened Hyperlink",
+        "detail": "Found suspicious disguised links: http://paypa1-verify.xyz...",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email exhibits dangerous social engineering tactics designed to manipulate the recipient into acting impulsively. Our analysis identified high-urgency keywords (urgent, suspended) and detected potential brand impersonation. The email attempts to harvest credentials or trick the user into navigating to an unverified endpoint.",
+    "potential_impact": "High risk of credential theft, unauthorized account takeover, corporate wire fraud, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, open attachments, or reply to this email.",
+      "Report this message to your security operations team or mark as phishing.",
+      "Verify sender authenticity via an out-of-band communication channel (official phone number / internal portal).",
+      "If credentials were entered, immediately reset your password and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "NEUTRAL",
+      "dkim": "NEUTRAL",
+      "dmarc": "NEUTRAL"
+    },
+    "metadata": {
+      "subject": "Action Required",
+      "sender": "service@paypa1-verify.xyz",
+      "char_count": 102,
+      "word_count": 12
+    },
+    "id": "f923ff1c-a5b7-4c55-b524-f82f5766c0ac",
+    "timestamp": "2026-10-08T20:53:44.334948"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Dear user, your electricity power will be disconnected tonig...",
+    "threat_type": "message",
+    "threat_level": "High Risk",
+    "threat_score": 67,
+    "confidence_score": 86,
+    "is_threat": true,
+    "matched_scam_types": [
+      "Urgent Utility Disconnection Scam"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Utility Disconnection Scam",
+        "detail": "Contains trigger terms: electricity, unpaid bill, call officer. Threatens immediate power or utility disconnection to create panic and trick victims into calling a fraudulent number or downloading remote access tools.",
+        "severity": "critical"
+      },
+      {
+        "type": "Direct Contact Trap",
+        "detail": "Directs target to private unverified phone numbers (9876543210)",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "This message matches prevalent cybercrime extortion / scam vectors (Urgent Utility Disconnection Scam). It deliberately fabricates an urgent scenario or unrealistic reward to pressure you into transferring funds, sharing OTPs, or clicking phishing links.",
+    "potential_impact": "Financial loss via unauthorized UPI transfer, compromise of banking credentials, or personal extortion.",
+    "recommended_actions": [
+      "NEVER share OTPs, passwords, or enter your UPI PIN (entering PIN is only for sending money, never for receiving).",
+      "Do NOT call phone numbers provided inside the message.",
+      "Block the sender number and report as spam on WhatsApp / SMS carrier.",
+      "File a complaint at the National Cyber Crime Reporting Portal (cybercrime.gov.in / 1930) if financial loss occurred."
+    ],
+    "metadata": {
+      "message_length": 132,
+      "contains_phone": true,
+      "contains_url": false
+    },
+    "id": "3a43b973-a499-429e-98de-bef8d9ea11ff",
+    "timestamp": "2026-10-08T20:46:47.560476"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "http://secure-login-chase-update.xyz/auth",
+    "threat_type": "url",
+    "url": "http://secure-login-chase-update.xyz/auth",
+    "domain": "secure-login-chase-update.xyz",
+    "threat_level": "Critical",
+    "threat_score": 99,
+    "confidence_score": 99,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "High-Risk Top-Level Domain (TLD)",
+        "detail": "Domain utilizes an abusive/disposable TLD (.xyz) frequently associated with spam campaigns.",
+        "severity": "high"
+      },
+      {
+        "type": "Targeted Brand Impersonation (Typosquatting)",
+        "detail": "Domain contains brand keyword 'chase' on an unauthorized host (secure-login-chase-update.xyz).",
+        "severity": "critical"
+      },
+      {
+        "type": "Hyphenated Deceptive Domain",
+        "detail": "Domain contains 3 hyphens, indicating synthetic deceptive domain generation.",
+        "severity": "medium"
+      },
+      {
+        "type": "Insecure Unencrypted HTTP Protocol",
+        "detail": "Connection is unencrypted, allowing man-in-the-middle interception of submitted data.",
+        "severity": "medium"
+      }
+    ],
+    "ai_explanation": "This URL (secure-login-chase-update.xyz) exhibits malicious deceptive signatures consistent with an active credential phishing or malware distribution website. Our heuristic and machine learning classifiers flagged unauthorized brand keywords, suspicious domain architecture, and deceptive authentication triggers.",
+    "potential_impact": "Visiting this site may lead to credential harvesting, unauthorized banking session hijacking, or automatic download of malicious payloads.",
+    "recommended_actions": [
+      "Do NOT open, click, or enter passwords or personal details on this URL.",
+      "Block this domain on corporate DNS/firewalls and web filters.",
+      "Report the URL to anti-abuse registrars and Google Safe Browsing."
+    ],
+    "domain_analysis": {
+      "protocol": "HTTP",
+      "has_ssl": false,
+      "subdomain_count": 2,
+      "entropy": 4.24,
+      "url_length": 41,
+      "estimated_reputation": "Malicious"
+    },
+    "id": "47efe65b-2399-4fd0-8128-039f29ea24ae",
+    "timestamp": "2026-10-08T20:46:47.500573"
+  },
+  {
+    "user_id": null,
+    "user_email": "guest@cybershield.ai",
+    "title": "Account Alert",
+    "threat_type": "email",
+    "threat_level": "Critical",
+    "threat_score": 87,
+    "confidence_score": 92,
+    "is_threat": true,
+    "extracted_urls": [
+      "http://paypa1-verify.xyz"
+    ],
+    "detected_indicators": [
+      {
+        "type": "Urgent Coercive Language",
+        "detail": "Contains high-pressure panic keywords: urgent, immediately, suspended",
+        "severity": "high"
+      },
+      {
+        "type": "Brand Impersonation Target",
+        "detail": "Impersonating trusted enterprise brands: Paypal",
+        "severity": "medium"
+      },
+      {
+        "type": "Malicious / Shortened Hyperlink",
+        "detail": "Found suspicious disguised links: http://paypa1-verify.xyz...",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "This email exhibits dangerous social engineering tactics designed to manipulate the recipient into acting impulsively. Our analysis identified high-urgency keywords (urgent, immediately) and detected potential brand impersonation. The email attempts to harvest credentials or trick the user into navigating to an unverified endpoint.",
+    "potential_impact": "High risk of credential theft, unauthorized account takeover, corporate wire fraud, or malicious payload execution.",
+    "recommended_actions": [
+      "Do NOT click any links, open attachments, or reply to this email.",
+      "Report this message to your security operations team or mark as phishing.",
+      "Verify sender authenticity via an out-of-band communication channel (official phone number / internal portal).",
+      "If credentials were entered, immediately reset your password and terminate active sessions."
+    ],
+    "security_headers": {
+      "spf": "NEUTRAL",
+      "dkim": "NEUTRAL",
+      "dmarc": "NEUTRAL"
+    },
+    "metadata": {
+      "subject": "Account Alert",
+      "sender": "",
+      "char_count": 127,
+      "word_count": 15
+    },
+    "id": "bf374df7-3062-4175-8ef7-89327357e4d5",
+    "timestamp": "2026-10-08T20:46:47.368249"
+  },
+  {
+    "threat_type": "email",
+    "title": "Quarterly Engineering Roadmap Update",
+    "threat_level": "Safe",
+    "threat_score": 4,
+    "confidence_score": 95,
+    "is_threat": false,
+    "detected_indicators": [],
+    "ai_explanation": "Verified internal technical communication. No suspicious signatures found.",
+    "timestamp": "2026-10-08T20:46:46.301580",
+    "id": "49cea81f-d3d6-4231-bebf-856846f3dc6a"
+  },
+  {
+    "threat_type": "qr",
+    "title": "UPI Cashback Trap QR Code",
+    "threat_level": "Critical",
+    "threat_score": 91,
+    "confidence_score": 97,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "UPI Money Debit Request",
+        "detail": "QR code encodes payment debit instead of credit",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "Disguised QR code that initiates a funds withdrawal from victim's UPI account.",
+    "timestamp": "2026-10-08T20:46:46.300765",
+    "id": "950d18c9-f11c-46ae-8544-49045216dc57"
+  },
+  {
+    "threat_type": "message",
+    "title": "Electricity Disconnection Panic Notice",
+    "threat_level": "High Risk",
+    "threat_score": 85,
+    "confidence_score": 94,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "Utility Extortion",
+        "detail": "Threatens immediate power outage at 9:30 PM",
+        "severity": "high"
+      }
+    ],
+    "ai_explanation": "Extortion scam designed to create panic and trick victims into calling a private fraud number.",
+    "timestamp": "2026-10-08T20:46:46.299928",
+    "id": "01c8dbfc-a226-4cc7-9781-911f297bee2f"
+  },
+  {
+    "threat_type": "url",
+    "title": "https://secure-chase-update-login.xyz/auth",
+    "threat_level": "Critical",
+    "threat_score": 96,
+    "confidence_score": 99,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "Targeted Brand Typosquatting",
+        "detail": "Chase banking clone hosted on disposable .xyz TLD",
+        "severity": "critical"
+      },
+      {
+        "type": "Credential Harvesting",
+        "detail": "Direct fake login form",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "Fraudulent banking clone designed to capture username, password, and 2FA credentials.",
+    "timestamp": "2026-10-08T20:46:46.298900",
+    "id": "214d213e-c86a-43f3-b719-c97324b0d0dd"
+  },
+  {
+    "threat_type": "email",
+    "title": "Urgent Wire Transfer Request from CEO",
+    "threat_level": "Critical",
+    "threat_score": 94,
+    "confidence_score": 98,
+    "is_threat": true,
+    "detected_indicators": [
+      {
+        "type": "Business Email Compromise (BEC)",
+        "detail": "Urgent financial wire transfer bypassing protocol",
+        "severity": "critical"
+      },
+      {
+        "type": "Spoofed Sender Domain",
+        "detail": "SPF & DKIM authentication mismatch",
+        "severity": "critical"
+      }
+    ],
+    "ai_explanation": "Critical BEC attack impersonating executive leadership requesting an immediate off-book international wire transfer.",
+    "timestamp": "2026-10-08T20:46:46.298040",
+    "id": "91a49cb3-86ce-434f-bee2-666422908dac"
+  }
+]

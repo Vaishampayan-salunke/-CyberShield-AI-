@@ -1,0 +1,74 @@
+/**
+ * CyberShield AI — Audio Alert Synthesizer
+ * Uses the standard Web Audio API to generate high-tech cybersecurity alert sounds
+ * Zero external audio files required — 100% reliable across all modern browsers.
+ */
+
+class SoundAlertManager {
+  constructor() {
+    this.audioCtx = null;
+    this.soundEnabled = true;
+  }
+
+  getAudioContext() {
+    if (!this.audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) {
+        this.audioCtx = new AudioContext();
+      }
+    }
+    if (this.audioCtx && this.audioCtx.state === 'suspended') {
+      this.audioCtx.resume();
+    }
+    return this.audioCtx;
+  }
+
+  playCyberAlert(severity = 'Critical') {
+    if (!this.soundEnabled) return;
+    try {
+      const ctx = this.getAudioContext();
+      if (!ctx) return;
+
+      const now = ctx.currentTime;
+
+      // Pulse 1: Alert Beep
+      const osc1 = ctx.createOscillator();
+      const gain1 = ctx.createGain();
+      osc1.type = 'sawtooth';
+      osc1.frequency.setValueAtTime(severity === 'Critical' ? 880 : 660, now);
+      osc1.frequency.exponentialRampToValueAtTime(440, now + 0.15);
+
+      gain1.gain.setValueAtTime(0.18, now);
+      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+
+      osc1.connect(gain1);
+      gain1.connect(ctx.destination);
+      osc1.start(now);
+      osc1.stop(now + 0.2);
+
+      // Pulse 2: Second Warning Tone
+      const osc2 = ctx.createOscillator();
+      const gain2 = ctx.createGain();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(severity === 'Critical' ? 980 : 720, now + 0.12);
+      osc2.frequency.exponentialRampToValueAtTime(320, now + 0.35);
+
+      gain2.gain.setValueAtTime(0.15, now + 0.12);
+      gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+
+      osc2.connect(gain2);
+      gain2.connect(ctx.destination);
+      osc2.start(now + 0.12);
+      osc2.stop(now + 0.4);
+    } catch (e) {
+      console.warn('Audio alert error:', e);
+    }
+  }
+
+  toggleSound() {
+    this.soundEnabled = !this.soundEnabled;
+    return this.soundEnabled;
+  }
+}
+
+export const soundAlert = new SoundAlertManager();

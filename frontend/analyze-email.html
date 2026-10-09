@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛡️ Forensic Email Sandbox — Threatline ETIP</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e5ff'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .meta-box {
+      background: rgba(15,23,42,0.5);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+    }
+    .meta-label {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-low);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .meta-val {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-high);
+      word-break: break-all;
+    }
+    .tabs-nav {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      gap: 4px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .tab {
+      padding: 10px 18px;
+      background: transparent;
+      border: none;
+      color: var(--text-mid);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.12s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tab.active {
+      color: var(--cyan);
+      border-bottom-color: var(--cyan);
+      background: rgba(0,229,255,0.04);
+    }
+    .tab-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--text-low);
+    }
+    .tab.active .tab-badge {
+      background: var(--cyan-dim);
+      color: var(--cyan);
+    }
+    .body-preview-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      font-family: var(--font-sans);
+      font-size: 13.5px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      max-height: 380px;
+      overflow-y: auto;
+      color: var(--text-high);
+    }
+
+    /* ── Pipeline progress ─────────────────────────────── */
+    .pipeline-card {
+      background: rgba(10,14,26,0.75);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(0,229,255,0.22);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 24px rgba(0,229,255,0.07);
+    }
+    .pipeline-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pipeline-sub {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--text-low);
+      margin-bottom: 20px;
+    }
+    .analysis-progress-bar {
+      height: 5px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 6px;
+      margin-bottom: 20px;
+    }
+    .analysis-progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--cyan), #3b82f6);
+      transition: width 0.5s ease;
+      box-shadow: 0 0 8px rgba(0,229,255,0.5);
+    }
+    .pipeline-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .pipeline-step {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
+      font-size: 13px;
+      color: var(--text-low);
+    }
+    .pipeline-step.ps-active {
+      background: rgba(0,229,255,0.07);
+      border-color: rgba(0,229,255,0.28);
+      color: var(--text-high);
+    }
+    .pipeline-step.ps-done {
+      background: rgba(16,185,129,0.07);
+      border-color: rgba(16,185,129,0.28);
+      color: var(--safe);
+    }
+    .pipeline-step.ps-error {
+      background: rgba(239,68,68,0.07);
+      border-color: rgba(239,68,68,0.28);
+      color: var(--phish);
+    }
+    .step-icon {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.18);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 12px; font-family: var(--font-mono); font-weight: 700;
+      transition: all 0.3s ease;
+    }
+    .pipeline-step.ps-active .step-icon {
+      border-color: var(--cyan); color: var(--cyan);
+      animation: pulse-step 1.1s infinite ease-in-out;
+    }
+    .pipeline-step.ps-done .step-icon {
+      background: rgba(16,185,129,0.2); border-color: var(--safe); color: var(--safe);
+    }
+    .pipeline-step.ps-error .step-icon {
+      background: rgba(239,68,68,0.2); border-color: var(--phish); color: var(--phish);
+    }
+    @keyframes pulse-step {
+      0%,100% { box-shadow: 0 0 0 0 rgba(0,229,255,0.5); }
+      50%      { box-shadow: 0 0 0 6px rgba(0,229,255,0); }
+    }
+    .run-scan-bar {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: rgba(15,23,42,0.55);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      display: flex; align-items: center;
+      justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+  </style>
+</head>
+<body data-page="analyze">
+<div class="shell">
+  <aside class="sidenav" id="sidenav"></aside>
+  <div class="main">
+
+    <header class="topbar">
+      <div>
+        <h1>Deep Forensic Email Sandbox</h1>
+        <div class="sub" id="emailStatusSub">Loading email artifact…</div>
+      </div>
+      <div class="topbar-right">
+        <a href="upload-email.html" class="btn btn-outline btn-sm">← Upload Another</a>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- ── Loading skeleton ───────────────────────────── -->
+      <div id="loadingBox" class="card" style="padding:48px; text-align:center;">
+        <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px;">
+          <div class="status-dot"></div>
+          <span class="mono" style="font-size:13px;color:var(--cyan);">Fetching email record…</span>
+        </div>
+        <div class="skeleton" style="width:300px;height:16px;margin:0 auto;"></div>
+      </div>
+
+      <!-- ── Main sandbox (revealed after email loads) ──── -->
+      <div id="sandboxContainer" style="display:none;">
+
+        <!-- Metadata row -->
+        <div class="meta-grid">
+          <div class="meta-box"><div class="meta-label">Subject</div><div class="meta-val" id="metaSubject">—</div></div>
+          <div class="meta-box"><div class="meta-label">Sender (From)</div><div class="meta-val mono" id="metaSender" style="color:var(--cyan);">—</div></div>
+          <div class="meta-box"><div class="meta-label">Receiver (To)</div><div class="meta-val mono" id="metaReceiver">—</div></div>
+          <div class="meta-box"><div class="meta-label">Ingested Date</div><div class="meta-val" id="metaDate">—</div></div>
+        </div>
+
+        <!-- Auth badges -->
+        <div class="card" style="margin-bottom:20px;padding:14px 18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+              <span class="mono" style="font-size:12px;color:var(--text-low);font-weight:600;">EMAIL AUTHENTICATION:</span>
+              <span id="badgeSpf"  class="badge badge-neutral">SPF: —</span>
+              <span id="badgeDkim" class="badge badge-neutral">DKIM: —</span>
+              <span id="badgeDmarc"class="badge badge-neutral">DMARC: —</span>
+            </div>
+            <div id="originIpBadge" class="mono" style="font-size:11.5px;color:var(--text-mid);">
+              Origin IP: <span style="color:var(--cyan);">Unknown</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabbed entity viewer -->
+        <div class="card">
+          <div class="tabs-nav" id="tabNav">
+            <button class="tab active" data-tab="body">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              Message Body
+            </button>
+            <button class="tab" data-tab="urls">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              Extracted URLs <span class="tab-badge" id="badgeUrlCount">0</span>
+            </button>
+            <button class="tab" data-tab="attachments">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+              Attachments <span class="tab-badge" id="badgeAttCount">0</span>
+            </button>
+            <button class="tab" data-tab="headers">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              Raw Headers
+            </button>
+          </div>
+
+          <div class="tab-panel" id="tab-body" style="display:block;">
+            <div class="body-preview-box" id="bodyPreview">Loading…</div>
+          </div>
+          <div class="tab-panel" id="tab-urls" style="display:none;">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Hyperlink</th><th>Domain</th><th>Protocol</th><th>Status</th></tr></thead>
+                <tbody id="urlsTableBody"><tr><td colspan="4" style="text-align:center;color:var(--text-low);padding:20px;">No links found.</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="tab-panel" id="tab-attachments" style="display:none;">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Filename</th><th>MIME Type</th><th>SHA-256</th><th>Risk</th></tr></thead>
+                <tbody id="attachmentsTableBody"><tr><td colspan="4" style="text-align:center;color:var(--text-low);padding:20px;">No attachments.</td></tr></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="tab-panel" id="tab-headers" style="display:none;">
+            <pre class="mono" id="rawHeadersView" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:16px;font-size:12px;max-height:360px;overflow-y:auto;color:var(--text-mid);white-space:pre-wrap;word-break:break-all;"></pre>
+          </div>
+        </div>
+
+        <!-- ── Auto-run AI pipeline progress ─────────── -->
+        <div id="analysisProgressBox" style="display:none; margin-top:20px;">
+          <div class="pipeline-card">
+            <div class="pipeline-title">
+              <div class="status-dot"></div>
+              Multi-Vector AI Threat Analysis
+            </div>
+            <div class="pipeline-sub" id="pipelineStatusText">Initialising forensic pipeline…</div>
+
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-low);font-family:var(--font-mono);margin-bottom:4px;">
+              <span id="pipelineLabel">Starting…</span>
+              <span id="pipelinePct">0%</span>
+            </div>
+            <div class="analysis-progress-bar">
+              <div class="analysis-progress-fill" id="pipelineBar" style="width:0%"></div>
+            </div>
+
+            <div class="pipeline-steps">
+              <div class="pipeline-step" id="ps-1"><div class="step-icon">1</div><div><strong>MIME Parsing &amp; Header Extraction</strong><div class="mono" style="font-size:11px;margin-top:2px;opacity:.7;">RFC 822 structure · SPF / DKIM / DMARC records</div></div></div>
+              <div class="pipeline-step" id="ps-2"><div class="step-icon">2</div><div><strong>Sender Reputation &amp; Domain Intelligence</strong><div class="mono" style="font-size:11px;margin-top:2px;opacity:.7;">MX validation · brand spoofing · domain age</div></div></div>
+              <div class="pipeline-step" id="ps-3"><div class="step-icon">3</div><div><strong>URL Threat Scanner &amp; Blacklist Lookup</strong><div class="mono" style="font-size:11px;margin-top:2px;opacity:.7;">Suspicious TLDs · shorteners · redirect patterns</div></div></div>
+              <div class="pipeline-step" id="ps-4"><div class="step-icon">4</div><div><strong>Attachment Payload Inspector</strong><div class="mono" style="font-size:11px;margin-top:2px;opacity:.7;">Double-extension · executables · SHA-256 hash</div></div></div>
+              <div class="pipeline-step" id="ps-5"><div class="step-icon">5</div><div><strong>AI / ML Classification Engine (TF-IDF + SVM)</strong><div class="mono" style="font-size:11px;margin-top:2px;opacity:.7;">NLP threat scoring · heuristic fallback</div></div></div>
+              <div class="pipeline-step" id="ps-6"><div class="step-icon">6</div><div><strong>Composite Risk Score &amp; Verdict</strong><div class="mono" style="font-size:11px;margin-top:2px;opacity:.7;">Weighted multi-vector scoring · IOC extraction</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Manual retry bar (shown only on error) ── -->
+        <div class="run-scan-bar" id="runScanBar" style="display:none;">
+          <div>
+            <h3 style="font-size:15px;margin-bottom:4px;">Run Multi-Vector Threat Detection</h3>
+            <div style="font-size:12px;color:var(--text-mid);">TF-IDF SVM · Sender Reputation · URL Blacklists · Risk Scoring</div>
+          </div>
+          <button class="btn btn-primary btn-lg" id="runDetectBtn" onclick="retryAnalysis()">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Retry Analysis
+          </button>
+        </div>
+
+      </div><!-- /sandboxContainer -->
+    </main>
+  </div>
+</div>
+
+<button id="chat-fab" aria-label="AI Threat Assistant" onclick="toggleChat()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+<div id="chat-panel"></div>
+
+<script src="assets/api.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/notifications.js"></script>
+<script src="assets/chat.js"></script>
+<script src="assets/sidenav.js"></script>
+<script>
+requireAuth();
+
+const params  = new URLSearchParams(window.location.search);
+const emailId = params.get('emailId');
+let currentEmail   = null;
+let analysisRunning = false;
+
+/* ── Pipeline UI helpers ───────────────────────────────── */
+const PS_IDS   = ['ps-1','ps-2','ps-3','ps-4','ps-5','ps-6'];
+const PS_PCTS  = [12, 28, 44, 60, 76, 92];
+const PS_LBLS  = [
+  'Parsing MIME structure…',
+  'Analysing sender reputation…',
+  'Scanning extracted URLs…',
+  'Inspecting attachment payloads…',
+  'Running AI / ML classification…',
+  'Consolidating risk score & verdict…'
+];
+
+function psSet(idx, state) {
+  const el = document.getElementById(PS_IDS[idx]);
+  if (!el) return;
+  el.className = 'pipeline-step ps-' + state;
+  const icon = el.querySelector('.step-icon');
+  if (!icon) return;
+  if (state === 'done')  icon.innerHTML = '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+  if (state === 'error') icon.innerHTML = '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  if (state === 'active') icon.textContent = (idx + 1);
+}
+
+function psProgress(pct, label) {
+  document.getElementById('pipelineBar').style.width  = pct + '%';
+  document.getElementById('pipelinePct').textContent  = pct + '%';
+  document.getElementById('pipelineLabel').textContent = label;
+}
+
+/* Animate steps 1-5 while real API call runs concurrently */
+async function runPipelineAnimation(apiPromise) {
+  const delays = [0, 450, 950, 1500, 2100];   // ms between step activations
+  for (let i = 0; i < 5; i++) {
+    if (i > 0) await sleep(delays[i]);
+    if (i > 0) psSet(i - 1, 'done');
+    psSet(i, 'active');
+    psProgress(PS_PCTS[i], PS_LBLS[i]);
+  }
+
+  // Wait for real backend result
+  const report = await apiPromise;
+
+  psSet(4, 'done');
+  psSet(5, 'active');
+  psProgress(92, PS_LBLS[5]);
+  await sleep(450);
+  psSet(5, 'done');
+  psProgress(100, 'Analysis complete — opening threat dossier…');
+  return report;
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+/* ── Load email record, then auto-kick analysis ─────────── */
+async function init() {
+  if (!emailId) {
+    document.getElementById('loadingBox').innerHTML = `
+      <div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <h4>No Email Selected</h4>
+        <p>Upload an email artifact first to run forensic analysis.</p>
+        <div style="margin-top:14px;"><a href="upload-email.html" class="btn btn-primary btn-sm">Go to Upload</a></div>
+      </div>`;
+    return;
+  }
+
+  try {
+    const email = await EmailAPI.getEmail(emailId);
+    currentEmail = email;
+    renderInspector(email);
+    await runAnalysis();
+  } catch (err) {
+    document.getElementById('loadingBox').innerHTML = `
+      <div class="empty-state">
+        <h4>Could Not Load Email Record</h4>
+        <p>${escapeHtml(err.message)}</p>
+        <div style="margin-top:14px;"><a href="upload-email.html" class="btn btn-primary btn-sm">Re-upload</a></div>
+      </div>`;
+  }
+}
+
+/* ── Render email metadata + tabs ─────────────────────── */
+function renderInspector(email) {
+  document.getElementById('loadingBox').style.display    = 'none';
+  document.getElementById('sandboxContainer').style.display = 'block';
+
+  document.getElementById('metaSubject').textContent  = email.subject  || '(No Subject)';
+  document.getElementById('metaSender').textContent   = email.sender?.email  || email.sender?.raw  || '—';
+  document.getElementById('metaReceiver').textContent = email.receiver?.email || email.receiver?.raw || '—';
+  document.getElementById('metaDate').textContent     = fmtDate(email.date || email.createdAt);
+  document.getElementById('emailStatusSub').textContent = 'Inspecting MIME entities — AI analysis starting…';
+
+  /* Auth badges */
+  const auth = email.authResults || {};
+  ['Spf','Dkim','Dmarc'].forEach(k => {
+    const el  = document.getElementById('badge' + k);
+    const val = (auth[k.toLowerCase()] || 'none').toLowerCase();
+    el.className   = val === 'pass' ? 'badge badge-safe' : val === 'fail' ? 'badge badge-phish' : 'badge badge-neutral';
+    el.textContent = k.toUpperCase() + ': ' + val.toUpperCase();
+  });
+
+  if (email.extractedIPs?.length) {
+    document.getElementById('originIpBadge').innerHTML =
+      `Origin IP: <span class="mono" style="color:var(--cyan);">${escapeHtml(email.extractedIPs[0])}</span>`;
+  }
+
+  /* Body */
+  document.getElementById('bodyPreview').textContent =
+    email.bodyText || email.bodySnippet || '(No plain-text body extracted)';
+
+  /* URLs */
+  const urls = email.extractedUrls || [];
+  document.getElementById('badgeUrlCount').textContent = urls.length;
+  if (urls.length) {
+    document.getElementById('urlsTableBody').innerHTML = urls.map(u => {
+      const s   = typeof u === 'string' ? u : u.url;
+      const dom = typeof u === 'string' ? '' : (u.domain || '');
+      const pro = typeof u === 'string' ? 'HTTP' : (u.protocol || 'http').toUpperCase();
+      const sus = /\.xyz|\.top|\.tk|\.ml|verify|login|paypal|secure|auth|account|password/i.test(s);
+      return `<tr>
+        <td><span class="mono" style="font-size:12px;color:${sus?'var(--phish)':'var(--cyan)'};">${escapeHtml(s)}</span></td>
+        <td class="mono cell-sub">${escapeHtml(dom||'—')}</td>
+        <td><span class="badge badge-neutral">${escapeHtml(pro)}</span></td>
+        <td>${sus?'<span class="badge badge-phish">SUSPICIOUS</span>':'<span class="badge badge-safe">CLEAN</span>'}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  /* Attachments */
+  const atts = email.attachments || [];
+  document.getElementById('badgeAttCount').textContent = atts.length;
+  if (atts.length) {
+    document.getElementById('attachmentsTableBody').innerHTML = atts.map(a => {
+      const fn   = a.filename || 'unnamed';
+      const isX  = /\.(exe|scr|vbs|bat|com|pif|cmd)$|\.pdf\.exe/i.test(fn);
+      const isZ  = /\.(zip|rar|7z|tar)$/i.test(fn);
+      return `<tr>
+        <td><strong>${escapeHtml(fn)}</strong></td>
+        <td class="mono cell-sub">${escapeHtml(a.contentType||'application/octet-stream')}</td>
+        <td><span class="mono" style="font-size:10px;color:var(--text-low);">${escapeHtml((a.sha256||'').slice(0,48)||'Calculated during scan')}</span></td>
+        <td>${isX?'<span class="badge badge-malware">DANGEROUS PAYLOAD</span>':isZ?'<span class="badge badge-spam">ARCHIVE</span>':'<span class="badge badge-safe">NORMAL</span>'}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  /* Headers */
+  const h = email.headers || {};
+  document.getElementById('rawHeadersView').textContent =
+    typeof h === 'string' ? h : JSON.stringify(h, null, 2);
+
+  /* Wire tab switcher */
+  wireTabs(document.getElementById('sandboxContainer'));
+
+  /* Prime AI chat context */
+  if (typeof setChatContext === 'function') {
+    setChatContext({
+      subject: email.subject,
+      sender:  email.sender?.email || email.sender?.raw,
+      urls:    urls.map(u => typeof u === 'string' ? u : u.url),
+      verdict: 'Pending scan', riskScore: 0
+    });
+  }
+}
+
+/* ── Core analysis runner ─────────────────────────────── */
+async function runAnalysis() {
+  if (analysisRunning) return;
+  analysisRunning = true;
+
+  document.getElementById('analysisProgressBox').style.display = 'block';
+  document.getElementById('runScanBar').style.display           = 'none';
+  // Remove any previous error card
+  const prev = document.getElementById('inlineErrCard');
+  if (prev) prev.remove();
+
+  try {
+    /* Fire API & animate in parallel */
+    const apiCall = EmailAPI.analyzeEmail(emailId);
+    const report  = await runPipelineAnimation(apiCall);
+
+    document.getElementById('emailStatusSub').textContent = 'Analysis complete — opening dossier…';
+    notify('Threat analysis complete!', 'success');
+
+    /* Critical alert popup */
+    const isHigh = report.riskScore >= 70 || report.verdict === 'phishing' || report.verdict === 'malware';
+    if (isHigh) {
+      ThreatAlert.trigger({
+        reportId:   report.reportId || report.id || report._id,
+        verdict:    report.verdict,
+        riskScore:  report.riskScore,
+        subject:    currentEmail?.subject,
+        sender:     currentEmail?.sender?.email || currentEmail?.sender?.raw,
+        aiAnalysis: report.aiAnalysis
+      });
+      await sleep(1800);
+    } else {
+      await sleep(500);
+    }
+
+    const rid = report.reportId || report.id || report._id;
+    if (!rid) throw new Error('Backend returned no reportId — check the /email/analyze endpoint.');
+    window.location.href = `threat-report.html?id=${rid}`;
+
+  } catch (err) {
+    analysisRunning = false;
+
+    /* Turn any active step red */
+    PS_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el?.classList.contains('ps-active')) el.className = 'pipeline-step ps-error';
+    });
+    psProgress(0, 'Pipeline failed');
+
+    document.getElementById('analysisProgressBox').style.display = 'none';
+    document.getElementById('runScanBar').style.display           = 'flex';
+    document.getElementById('emailStatusSub').textContent         = 'Analysis failed — retry below';
+
+    const msg = err.message || 'Unknown error. Is the backend running on port 5000?';
+    notify(msg, 'error');
+
+    const errCard = document.createElement('div');
+    errCard.id = 'inlineErrCard';
+    errCard.className = 'card';
+    errCard.style.cssText = 'margin-top:16px;border-color:rgba(239,68,68,0.4);background:rgba(239,68,68,0.05);';
+    errCard.innerHTML = `
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--phish)" stroke-width="2" style="flex-shrink:0;margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div>
+          <strong style="color:var(--phish);">Analysis Pipeline Error</strong>
+          <div class="mono" style="font-size:12px;color:var(--text-mid);margin-top:4px;">${escapeHtml(msg)}</div>
+          <div style="font-size:11.5px;color:var(--text-low);margin-top:8px;">
+            Ensure backend is running: <code style="color:var(--cyan);">cd backend &amp;&amp; npm run dev</code>
+          </div>
+        </div>
+      </div>`;
+    document.getElementById('runScanBar').insertAdjacentElement('afterend', errCard);
+  }
+}
+
+function retryAnalysis() {
+  analysisRunning = false;
+  runAnalysis();
+}
+
+/* Kick everything off */
+init();
+</script>
+</body>
+</html>

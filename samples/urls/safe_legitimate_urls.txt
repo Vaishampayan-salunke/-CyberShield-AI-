@@ -1,0 +1,8 @@
+# List of Legitimate and Safe Test URLs
+https://en.wikipedia.org/wiki/Computer_security
+https://github.com/torvalds/linux
+https://cybercrime.gov.in/Webform/Crime_AuthoLogin.aspx
+https://www.paypal.com/signin
+https://www.chase.com
+https://developer.mozilla.org/en-US/docs/Web/Security
+https://www.google.com

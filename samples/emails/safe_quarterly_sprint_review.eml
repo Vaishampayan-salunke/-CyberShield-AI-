@@ -1,0 +1,24 @@
+From: Alex Chen <alex.chen@techcorp.io>
+To: engineering-team@techcorp.io
+Subject: Quarterly Sprint Planning & Architecture Review
+Date: Fri, 09 Oct 2026 08:00:00 +0000
+Message-ID: <sprint-2026-q3@techcorp.io>
+Authentication-Results: mx.google.com; spf=pass (google.com: domain of alex.chen@techcorp.io designates 192.0.2.1 as permitted sender); dkim=pass header.i=@techcorp.io; dmarc=pass
+Received-SPF: pass (google.com: domain of techcorp.io designates 192.0.2.1 as permitted sender)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Team,
+
+Attached is our proposed technical roadmap for the upcoming sprint. Please review the service latency optimizations and database sharding proposal before our planning session on Thursday at 10:00 AM.
+
+Agenda:
+1. Microservice API Gateway latency profiling
+2. Database index performance tuning
+3. Next sprint deliverables & story estimates
+
+Let me know if you have any questions or agenda additions.
+
+Thanks,
+Alex Chen | Engineering Lead
+TechCorp Inc.

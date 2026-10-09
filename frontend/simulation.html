@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛡️ Phishing Simulation & Awareness Drills — Threatline ETIP</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e5ff'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <style>
+    .sim-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 1024px) {
+      .sim-grid { grid-template-columns: 1fr; }
+    }
+    
+    .template-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+    }
+    .template-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 229, 255, 0.15);
+    }
+    .template-card.active {
+      border-color: var(--cyan);
+      background: rgba(0, 229, 255, 0.08);
+      box-shadow: inset 0 0 0 1px var(--cyan);
+    }
+
+    .landing-preview-box {
+      background: #0b0f19;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-top: 14px;
+    }
+
+    .dept-risk-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body data-page="simulation">
+<div class="shell">
+  <!-- Sidenav -->
+  <aside class="sidenav" id="sidenav"></aside>
+
+  <div class="main">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div>
+        <h1 style="display:flex; align-items:center; gap:8px;">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--cyan);">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+          PHISHING SIMULATION & EMPLOYEE DRILLS
+        </h1>
+        <div class="sub">Convert Intercepted Attacks into Safe Corporate Security Awareness Campaigns</div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-outline btn-sm" onclick="showCreateModal()">
+          + Custom Campaign
+        </button>
+        <button class="btn btn-primary" onclick="launchActiveDrill()">
+          🚀 Launch Simulation Drill
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="content">
+      
+      <!-- Top Stats Row -->
+      <div class="stat-grid" style="margin-bottom:24px;">
+        <div class="stat-card stat-cyan">
+          <div class="stat-label">Active Simulations</div>
+          <div class="stat-value" style="color:var(--cyan);">4 Campaigns</div>
+          <div class="stat-meta">580 Employees enrolled</div>
+        </div>
+
+        <div class="stat-card stat-phish">
+          <div class="stat-label">Simulated Click Rate</div>
+          <div class="stat-value" style="color:var(--phish);">14.2%</div>
+          <div class="stat-meta">↓ 6.8% improvement vs Q2</div>
+        </div>
+
+        <div class="stat-card stat-safe">
+          <div class="stat-label">Phish Report Rate</div>
+          <div class="stat-value" style="color:var(--safe);">76.4%</div>
+          <div class="stat-meta">↑ Reported within 15 mins</div>
+        </div>
+
+        <div class="stat-card stat-spam">
+          <div class="stat-label">Training Completion</div>
+          <div class="stat-value" style="color:var(--spam);">92.8%</div>
+          <div class="stat-meta">Micro-learning modules</div>
+        </div>
+      </div>
+
+      <!-- Main 2-Column Grid -->
+      <div class="sim-grid">
+        
+        <!-- Column 1: Campaign Generator & Template Selection -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h2>1. Select Intercepted Attack Template</h2>
+              <div class="card-subtitle">Choose a real sanitized threat scenario to test employee vigilance</div>
+            </div>
+            <span class="badge badge-cyan">DISARMED SCENARIOS</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:20px;">
+            
+            <div class="template-card active" onclick="selectTemplate(this, 'paypal')">
+              <div style="display:flex; align-items:center; justify-content:space-between;">
+                <strong style="color:var(--cyan); font-size:13.5px;">PayPal Account Limitation Lure</strong>
+                <span class="badge badge-phish">HIGH URGENCY</span>
+              </div>
+              <div style="font-size:12px; color:var(--text-mid);">
+                <strong>Lure Technique:</strong> "Urgent account verification or permanent suspension within 24h"
+              </div>
+              <div class="mono cell-sub" style="font-size:10.5px;">
+                Tracking Link: https://awareness.etip.corp/track/paypal-lure?token=sim_9981
+              </div>
+            </div>
+
+            <div class="template-card" onclick="selectTemplate(this, 'm365')">
+              <div style="display:flex; align-items:center; justify-content:space-between;">
+                <strong style="color:var(--cyan); font-size:13.5px;">Microsoft 365 Password Expiration</strong>
+                <span class="badge badge-phish">CREDENTIAL HARVEST</span>
+              </div>
+              <div style="font-size:12px; color:var(--text-mid);">
+                <strong>Lure Technique:</strong> "Keep your existing password before it expires at 5:00 PM today"
+              </div>
+              <div class="mono cell-sub" style="font-size:10.5px;">
+                Tracking Link: https://awareness.etip.corp/track/m365-reset?token=sim_4412
+              </div>
+            </div>
+
+            <div class="template-card" onclick="selectTemplate(this, 'docusign')">
+              <div style="display:flex; align-items:center; justify-content:space-between;">
+                <strong style="color:var(--cyan); font-size:13.5px;">DocuSign Salary Revision Agreement</strong>
+                <span class="badge badge-spam">BRAND SPOOF</span>
+              </div>
+              <div style="font-size:12px; color:var(--text-mid);">
+                <strong>Lure Technique:</strong> "Review and sign Q3 Compensation & Bonus Amendment.pdf"
+              </div>
+              <div class="mono cell-sub" style="font-size:10.5px;">
+                Tracking Link: https://awareness.etip.corp/track/docusign-sign?token=sim_7721
+              </div>
+            </div>
+
+            <div class="template-card" onclick="selectTemplate(this, 'bec')">
+              <div style="display:flex; align-items:center; justify-content:space-between;">
+                <strong style="color:var(--cyan); font-size:13.5px;">CEO Confidential Acquisition Wire</strong>
+                <span class="badge badge-malware">EXECUTIVE BEC</span>
+              </div>
+              <div style="font-size:12px; color:var(--text-mid);">
+                <strong>Lure Technique:</strong> "Direct wire instruction spoofing CEO during board meeting"
+              </div>
+              <div class="mono cell-sub" style="font-size:10.5px;">
+                Tracking Link: https://awareness.etip.corp/track/ceo-wire?token=sim_1190
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Configuration Form -->
+          <div class="card-header" style="margin-top:10px; border-top:1px solid var(--border); padding-top:16px;">
+            <div>
+              <h3>2. Campaign Audience & Target Units</h3>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Target Department</label>
+            <select class="input-control mono" id="simDept">
+              <option value="all">Entire Organization (All Departments - 450 staff)</option>
+              <option value="finance">Finance & Accounts (High Risk Wire Target)</option>
+              <option value="hr">Human Resources & Recruitment</option>
+              <option value="engineering">Engineering & Product Ops</option>
+              <option value="sales">Sales & Marketing</option>
+              <option value="exec">Executive Leadership Team</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">Simulation Schedule</label>
+            <select class="input-control mono" id="simSchedule">
+              <option value="now">Dispatch Immediately (Real-Time Ingestion)</option>
+              <option value="staggered">Staggered Distribution over 48 Hours (Realistic)</option>
+              <option value="random">Random Business Hours Burst</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary" style="width:100%; padding:12px; margin-top:8px;" onclick="launchActiveDrill()">
+            🚀 Launch Awareness Drill Campaign →
+          </button>
+        </div>
+
+        <!-- Column 2: Live Training Analytics & Safe Landing Page Preview -->
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          
+          <!-- Analytics Charts -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h2>Campaign Telemetry & Vulnerability Matrix</h2>
+                <div class="card-subtitle">Organizational phish susceptibility breakdown</div>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;">
+              <div style="height:150px; position:relative;">
+                <canvas id="simOutcomeDonut"></canvas>
+              </div>
+              <div style="display:flex; flex-direction:column; justify-content:center; gap:6px;">
+                <div class="dept-risk-pill">
+                  <span>Finance Dept</span>
+                  <span style="color:var(--phish); font-weight:700;">18.4% Click Rate</span>
+                </div>
+                <div class="dept-risk-pill">
+                  <span>HR Team</span>
+                  <span style="color:var(--spam); font-weight:700;">12.1% Click Rate</span>
+                </div>
+                <div class="dept-risk-pill">
+                  <span>Engineering</span>
+                  <span style="color:var(--safe); font-weight:700;">4.2% Click Rate</span>
+                </div>
+                <div class="dept-risk-pill">
+                  <span>Legal / Exec</span>
+                  <span style="color:var(--safe); font-weight:700;">2.1% Click Rate</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Safe Educational Landing Page Preview -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h2>3. Disarmed Awareness Landing Page Preview</h2>
+                <div class="card-subtitle">What employees see instantly if they click the test link</div>
+              </div>
+              <span class="badge badge-safe">INSTANT FEEDBACK</span>
+            </div>
+
+            <div class="landing-preview-box">
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                <div style="width:32px; height:32px; border-radius:50%; background:rgba(239,68,68,0.2); border:1px solid #ef4444; display:flex; align-items:center; justify-content:center; color:#ef4444; font-weight:700;">
+                  ⚠️
+                </div>
+                <div>
+                  <strong style="color:#fff; font-size:14px;">Security Awareness Drill — Action Required</strong>
+                  <div style="font-size:11px; color:var(--text-low);" class="mono">Disarmed by Threatline ETIP Gateway</div>
+                </div>
+              </div>
+
+              <p style="font-size:12.5px; color:var(--text-mid); line-height:1.5; margin-bottom:12px;">
+                You clicked a simulated phishing link in the email: 
+                <strong style="color:var(--cyan);" id="previewLureTitle">"PayPal Account Limitation Alert"</strong>. 
+                Don't worry — no malware was loaded and your account credentials remain completely secure.
+              </p>
+
+              <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px 12px; margin-bottom:12px;">
+                <strong style="font-size:11.5px; color:var(--cyan); display:block; margin-bottom:4px;">🚨 Key Red Flags in This Email:</strong>
+                <ul style="font-size:11.5px; color:var(--text-mid); padding-left:18px; line-height:1.5;">
+                  <li>Sender address did not match official domain (SPF / DKIM check failed).</li>
+                  <li>False urgency manipulation ("Account suspended in 24h").</li>
+                  <li>Mismatched hyperlink destination URL.</li>
+                </ul>
+              </div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span class="mono cell-sub">Employee ID: emp_882910</span>
+                <button class="btn btn-outline btn-sm" onclick="notify('Micro-learning security module launched.', 'success')">
+                  Take 2-Min Micro-Course →
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- Floating AI Chat Widget -->
+<button id="chat-fab" aria-label="AI Threat Assistant" onclick="toggleChat()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+<div id="chat-panel"></div>
+
+<!-- Scripts -->
+<script src="assets/api.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/notifications.js"></script>
+<script src="assets/chat.js"></script>
+<script src="assets/sidenav.js"></script>
+
+<script>
+requireAuth();
+
+function selectTemplate(cardEl, type) {
+  document.querySelectorAll('.template-card').forEach(c => c.classList.remove('active'));
+  cardEl.classList.add('active');
+
+  const preview = document.getElementById('previewLureTitle');
+  if (type === 'paypal') preview.textContent = 'PayPal Account Limitation Alert';
+  else if (type === 'm365') preview.textContent = 'Microsoft 365 Password Expiry Warning';
+  else if (type === 'docusign') preview.textContent = 'DocuSign Q3 Salary Revision Agreement';
+  else if (type === 'bec') preview.textContent = 'Confidential CEO Acquisition Wire Instructions';
+}
+
+function launchActiveDrill() {
+  const dept = document.getElementById('simDept').value;
+  notify(`🚀 Phishing Simulation Drill dispatched to ${dept.toUpperCase()} department. Live telemetry recording enabled.`, 'success');
+}
+
+function initSimCharts() {
+  const ctx = document.getElementById('simOutcomeDonut');
+  if (!ctx) return;
+
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Reported (76%)', 'Ignored (10%)', 'Clicked (14%)'],
+      datasets: [{
+        data: [76, 10, 14],
+        backgroundColor: ['#10b981', '#64748b', '#ef4444'],
+        borderColor: '#0f1422',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '65%',
+      plugins: {
+        legend: { display: false }
+      }
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initSimCharts();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛡️ Threat Intelligence Dossier — Threatline ETIP</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e5ff'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .report-hero {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .report-hero { grid-template-columns: 1fr; }
+    }
+
+    .factor-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+    @media (max-width: 900px) {
+      .factor-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .factor-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .factor-title {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--text-low);
+      text-transform: uppercase;
+    }
+    .factor-val {
+      font-size: 18px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: var(--text-high);
+    }
+    
+    .ioc-pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .ioc-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-high);
+    }
+
+    .rec-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .rec-icon {
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body data-page="report">
+<div class="shell">
+  <!-- Sidenav -->
+  <aside class="sidenav" id="sidenav"></aside>
+
+  <div class="main">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div>
+        <h1>Security Threat Intelligence Dossier</h1>
+        <div class="sub" id="reportSub">Report Ref: <span class="mono" id="reportRefText">—</span></div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-outline btn-sm btn-print-hide" onclick="window.print()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print Dossier
+        </button>
+        <button class="btn btn-primary btn-sm btn-print-hide" id="pdfBtn" onclick="downloadReportPdf()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF Report
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="content">
+      <!-- Loading Skeleton -->
+      <div id="loadingBox" class="card" style="padding:40px; text-align:center;">
+        <div class="skeleton" style="width:180px; height:28px; margin:0 auto 16px;"></div>
+        <div class="skeleton" style="width:340px; height:18px; margin:0 auto;"></div>
+      </div>
+
+      <!-- Report Container -->
+      <div id="reportContainer" style="display:none;">
+        
+        <!-- Hero Verdict & Gauge Card -->
+        <div class="card" id="heroCard">
+          <div class="report-hero">
+            <!-- Animated Circular Gauge -->
+            <div id="gaugeMount"></div>
+
+            <!-- Verdict Details -->
+            <div>
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                <span id="verdictBadge"></span>
+                <span class="badge badge-neutral mono" id="confidenceBadge">Confidence: 94%</span>
+                <span class="badge badge-neutral mono" id="modelSourceBadge">AI: Linear SVM</span>
+              </div>
+              <h2 style="font-size:22px; margin-bottom:6px;" id="threatSummaryTitle">Phishing Attack Signature Detected</h2>
+              <p style="color:var(--text-mid); font-size:13.5px; line-height:1.5;" id="threatSummaryDesc">
+                Multi-layer AI forensic analysis detected high-risk deceptive urgency patterns, spoofed sender SPF authentication headers, and malicious redirection links.
+              </p>
+            </div>
+          </div>
+
+          <!-- 4 Multi-Factor Score Pipelines -->
+          <div class="factor-grid">
+            <div class="factor-card">
+              <div class="factor-title">AI Threat Model (35%)</div>
+              <div class="factor-val mono" id="scoreAi">—</div>
+              <div class="progress-bar-wrap"><div class="progress-bar-fill" id="barAi"></div></div>
+            </div>
+            <div class="factor-card">
+              <div class="factor-title">Sender Reputation (25%)</div>
+              <div class="factor-val mono" id="scoreSender">—</div>
+              <div class="progress-bar-wrap"><div class="progress-bar-fill" id="barSender"></div></div>
+            </div>
+            <div class="factor-card">
+              <div class="factor-title">URL Risk Scanner (20%)</div>
+              <div class="factor-val mono" id="scoreUrl">—</div>
+              <div class="progress-bar-wrap"><div class="progress-bar-fill" id="barUrl"></div></div>
+            </div>
+            <div class="factor-card">
+              <div class="factor-title">Attachment Factor (20%)</div>
+              <div class="factor-val mono" id="scoreAtt">—</div>
+              <div class="progress-bar-wrap"><div class="progress-bar-fill" id="barAtt"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:20px; align-items:start;">
+          <!-- Explainable AI Forensic Reasons -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3>🔍 Explainable AI Forensic Reasoning</h3>
+                <div class="card-subtitle">Transparent feature attribution & decision explainability</div>
+              </div>
+            </div>
+            <div class="reasons-list" id="reasonsList">
+              <div class="reason-item">
+                <div class="reason-icon">⚠️</div>
+                <div>Analyzing explainability vectors...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sender & Header Intelligence -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3>📬 Sender Authentication & Domain Telemetry</h3>
+                <div class="card-subtitle">Cryptographic validation and domain age inspection</div>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px;" id="senderTelemetryList">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Indicators of Compromise (IOC) Dossier -->
+        <div class="card" style="margin-top:20px;">
+          <div class="card-header">
+            <div>
+              <h3>🚨 Indicators of Compromise (IOCs)</h3>
+              <div class="card-subtitle">Malicious artifacts extracted for SIEM / EDR ingestion and perimeter firewall rules</div>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="copyAllIocs()">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy All IOCs
+            </button>
+          </div>
+
+          <div id="iocsContainer">
+            <div class="ioc-pill-grid" id="iocsPillList">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Recommended SOC Incident Response Actions -->
+        <div class="card" style="margin-top:20px;">
+          <div class="card-header">
+            <div>
+              <h3>🛡️ Incident Response Mitigation Checklist</h3>
+              <div class="card-subtitle">Actionable security playbook recommendations for SOC Tier-1/2 Analysts</div>
+            </div>
+          </div>
+          <div id="recommendationsList">
+            <!-- Dynamically rendered -->
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Floating AI Chat Widget -->
+<button id="chat-fab" aria-label="AI Threat Assistant" onclick="toggleChat()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+<div id="chat-panel"></div>
+
+<!-- Scripts -->
+<script src="assets/api.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/notifications.js"></script>
+<script src="assets/chat.js"></script>
+<script src="assets/sidenav.js"></script>
+<script>
+requireAuth();
+
+const params = new URLSearchParams(window.location.search);
+const reportId = params.get('id');
+let currentReport = null;
+
+async function loadReportData() {
+  if (!reportId) {
+    document.getElementById('loadingBox').innerHTML = `
+      <div class="empty-state">
+        <h4>No Threat Report ID Provided</h4>
+        <p>Please select a scan from history or upload an email to generate a report.</p>
+        <div style="margin-top:14px;"><a href="history.html" class="btn btn-primary btn-sm">View History</a></div>
+      </div>
+    `;
+    return;
+  }
+
+  try {
+    const data = await ReportAPI.getReport(reportId);
+    currentReport = data;
+    renderThreatDossier(data);
+  } catch (err) {
+    document.getElementById('loadingBox').innerHTML = `
+      <div class="empty-state">
+        <h4>Could Not Retrieve Threat Dossier</h4>
+        <p>${escapeHtml(err.message)}</p>
+        <div style="margin-top:14px;"><a href="history.html" class="btn btn-outline btn-sm">Back to History</a></div>
+      </div>
+    `;
+  }
+}
+
+function renderThreatDossier(r) {
+  document.getElementById('loadingBox').style.display = 'none';
+  document.getElementById('reportContainer').style.display = 'block';
+  document.getElementById('reportRefText').textContent = r._id || reportId;
+
+  // Render Gauge
+  renderGauge(document.getElementById('gaugeMount'), r.riskScore || 0);
+
+  // Verdict & Confidence
+  document.getElementById('verdictBadge').innerHTML = badgeHtml(r.verdict);
+  document.getElementById('confidenceBadge').textContent = `Confidence: ${Math.round(r.confidence || 90)}%`;
+  document.getElementById('modelSourceBadge').textContent = `AI: ${r.aiAnalysis?.modelSource || 'Linear SVM (TF-IDF)'}`;
+
+  document.getElementById('threatSummaryTitle').textContent = `${(r.verdict || 'Threat').toUpperCase()} CLASSIFICATION — ${r.threatLevel || 'High'} Severity`;
+  document.getElementById('threatSummaryDesc').textContent = r.summary || 'Forensic model composite evaluation complete.';
+
+  // Multi-factor pipelines
+  const setFactor = (valId, barId, score, color) => {
+    const s = Math.round(score || 0);
+    document.getElementById(valId).textContent = `${s}/100`;
+    document.getElementById(valId).style.color = color;
+    const bar = document.getElementById(barId);
+    bar.style.width = `${s}%`;
+    bar.style.background = color;
+  };
+
+  setFactor('scoreAi', 'barAi', r.aiAnalysis?.risk_score || r.riskScore, riskColor(r.aiAnalysis?.risk_score || r.riskScore));
+  setFactor('scoreSender', 'barSender', r.senderAnalysis?.riskScore || 0, riskColor(r.senderAnalysis?.riskScore || 0));
+  
+  const urlAvg = (r.urlAnalysis && r.urlAnalysis.length > 0) ? (r.urlAnalysis[0].riskScore || 80) : 0;
+  setFactor('scoreUrl', 'barUrl', urlAvg, riskColor(urlAvg));
+  
+  const attAvg = (r.attachmentAnalysis && r.attachmentAnalysis.length > 0) ? 90 : 0;
+  setFactor('scoreAtt', 'barAtt', attAvg, riskColor(attAvg));
+
+  // Explainable AI Reasons
+  const reasons = r.aiAnalysis?.reasons || ['Combined heuristic and ML feature weights triggered threat verdict'];
+  document.getElementById('reasonsList').innerHTML = reasons.map(reason => `
+    <div class="reason-item">
+      <div class="reason-icon">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <div><strong>${escapeHtml(reason)}</strong></div>
+    </div>
+  `).join('');
+
+  // Sender Telemetry
+  const s = r.senderAnalysis || {};
+  document.getElementById('senderTelemetryList').innerHTML = `
+    <div class="meta-box"><span class="meta-label">Sender Address:</span> <span class="mono" style="color:var(--cyan);">${escapeHtml(s.senderEmail || '—')}</span></div>
+    <div class="meta-box"><span class="meta-label">Domain Reputation:</span> <strong>${escapeHtml(s.reputation || 'Unknown')}</strong> (Domain Age: ${escapeHtml(s.domainAge || 'Unknown')})</div>
+    <div class="meta-box" style="display:flex; gap:10px; align-items:center;">
+      <span class="meta-label">Authentication:</span>
+      <span class="badge ${s.spfStatus === 'PASS' ? 'badge-safe' : 'badge-phish'}">SPF: ${escapeHtml(s.spfStatus || 'NONE')}</span>
+      <span class="badge ${s.dkimStatus === 'PASS' ? 'badge-safe' : 'badge-phish'}">DKIM: ${escapeHtml(s.dkimStatus || 'NONE')}</span>
+      <span class="badge ${s.dmarcStatus === 'PASS' ? 'badge-safe' : 'badge-phish'}">DMARC: ${escapeHtml(s.dmarcStatus || 'NONE')}</span>
+    </div>
+  `;
+
+  // Indicators of Compromise (IOCs)
+  const iocs = r.indicatorsOfCompromise || {};
+  const allIocPills = [];
+
+  (iocs.maliciousDomains || []).forEach(d => allIocPills.push(`<span class="ioc-pill"><span class="ioc-badge">DOMAIN</span> <span class="ioc-val">${escapeHtml(d)}</span></span>`));
+  (iocs.maliciousURLs || []).forEach(u => allIocPills.push(`<span class="ioc-pill"><span class="ioc-badge">URL</span> <span class="ioc-val">${escapeHtml(u)}</span></span>`));
+  (iocs.maliciousIPs || []).forEach(ip => allIocPills.push(`<span class="ioc-pill"><span class="ioc-badge">IP</span> <span class="ioc-val">${escapeHtml(ip)}</span></span>`));
+  (iocs.suspiciousAttachments || []).forEach(a => allIocPills.push(`<span class="ioc-pill"><span class="ioc-badge">PAYLOAD</span> <span class="ioc-val">${escapeHtml(a)}</span></span>`));
+
+  const iocMount = document.getElementById('iocsPillList');
+  if (allIocPills.length > 0) {
+    iocMount.innerHTML = allIocPills.join('');
+  } else {
+    iocMount.innerHTML = '<div style="color:var(--text-low); font-size:12.5px; padding:10px;">No persistent malicious indicators extracted (Clean).</div>';
+  }
+
+  // Recommendations
+  const recs = r.recommendations || [
+    'Do NOT click or follow any external hyperlinks in this email',
+    'Add sender domain to gateway blocklist',
+    'Report this email to organizational SOC team'
+  ];
+
+  document.getElementById('recommendationsList').innerHTML = recs.map((rec, idx) => `
+    <div class="rec-item">
+      <div class="rec-icon">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <div><strong>Step ${idx + 1}:</strong> ${escapeHtml(rec)}</div>
+    </div>
+  `).join('');
+
+  // Pre-load context into AI Chat Assistant
+  setChatContext({
+    reportId: r._id,
+    verdict: r.verdict,
+    riskScore: r.riskScore,
+    reasons: reasons,
+    sender: s.senderEmail,
+    subject: r.emailId?.subject || 'Analyzed Threat Artifact',
+    urls: iocs.maliciousURLs || []
+  });
+}
+
+async function downloadReportPdf() {
+  const btn = document.getElementById('pdfBtn');
+  btn.disabled = true;
+  btn.textContent = 'Generating PDF...';
+
+  try {
+    await ReportAPI.downloadPdf(reportId, `SOC_Threat_Dossier_${reportId.slice(0, 8)}.pdf`);
+    notify('PDF threat report downloaded successfully.', 'success');
+  } catch (err) {
+    notify('Failed to generate PDF dossier.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download PDF Report`;
+  }
+}
+
+function copyAllIocs() {
+  if (!currentReport) return;
+  const iocs = currentReport.indicatorsOfCompromise || {};
+  const lines = [
+    '=== SIH26106 ETIP INDICATORS OF COMPROMISE (IOC) ===',
+    `Report ID: ${currentReport._id}`,
+    `Verdict: ${currentReport.verdict} (Risk: ${currentReport.riskScore}/100)`,
+    '\n[DOMAINS]',
+    ...(iocs.maliciousDomains || ['None']),
+    '\n[URLS]',
+    ...(iocs.maliciousURLs || ['None']),
+    '\n[IPS]',
+    ...(iocs.maliciousIPs || ['None']),
+    '\n[ATTACHMENT PAYLOADS]',
+    ...(iocs.suspiciousAttachments || ['None'])
+  ].join('\n');
+
+  navigator.clipboard.writeText(lines).then(() => {
+    notify('All IOCs copied to clipboard in standard forensic format.', 'success');
+  }).catch(() => {
+    notify('Could not copy to clipboard.', 'error');
+  });
+}
+
+loadReportData();
+</script>
+</body>
+</html>

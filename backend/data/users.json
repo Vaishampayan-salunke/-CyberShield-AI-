@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Chief Security Officer",
+    "email": "analyst@cybershield.ai",
+    "password": "39d9263b3b5e08566c9bbcc413a426b51df082d1ccbe960cfb1a7442f11524d0",
+    "organization": "CyberShield SOC Enterprise",
+    "role": "Lead Security Architect",
+    "safety_score": 94,
+    "id": "bf59af83-148b-4e66-a16a-50320462fdd2",
+    "created_at": "2026-10-08T20:46:46.296722"
+  },
+  {
+    "name": "Senior SOC Analyst",
+    "email": "testanalyst@cybershield.ai",
+    "password": "36573d6a3143fc79134e1028429953e57bf31e67fb3921a48abff0f6a3aa3895",
+    "organization": "SOC Team Alpha",
+    "role": "SOC Analyst",
+    "safety_score": 92,
+    "id": "bed4fca3-620c-4997-8cc5-83e408469060",
+    "created_at": "2026-10-08T20:53:43.401093"
+  },
+  {
+    "name": "Vaishampayan salunke",
+    "email": "vaisham81@gmail.com",
+    "password": "3b7d40be5bbda445fc93f2504236101fbd4ee3077e6bde07aa32dc68f0dd4c92",
+    "organization": "none",
+    "role": "SOC Analyst",
+    "safety_score": 92,
+    "id": "0ad73167-8fe2-4756-88b7-483d2dff59c0",
+    "created_at": "2026-10-09T06:34:39.584497"
+  }
+]

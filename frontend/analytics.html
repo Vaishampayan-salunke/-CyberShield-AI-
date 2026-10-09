@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛡️ Threat Analytics & Telemetry — Threatline ETIP</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e5ff'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  
+  <style>
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(20px) saturate(200%) brightness(1.06);
+      -webkit-backdrop-filter: blur(20px) saturate(200%) brightness(1.06);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.11),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.035);
+      transition: all 0.22s cubic-bezier(0.34, 1.2, 0.64, 1);
+      transform-style: preserve-3d;
+    }
+    .kpi-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      pointer-events: none;
+    }
+    .kpi-card:hover {
+      border-color: rgba(0, 229, 255, 0.28);
+      transform: translateY(-4px) rotateX(2deg);
+      box-shadow:
+        0 16px 48px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+    .kpi-title {
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      color: var(--text-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .kpi-val {
+      font-family: var(--font-mono);
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      margin: 4px 0 2px;
+    }
+    .kpi-sub {
+      font-size: 11px;
+      color: var(--text-low);
+    }
+
+    .chart-box {
+      height: 260px;
+      position: relative;
+      width: 100%;
+    }
+
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding: 12px 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(14px);
+    }
+
+    .mitre-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .mitre-badge {
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      font-size: 11px;
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+  </style>
+</head>
+<body data-page="analytics">
+<div class="shell">
+  <!-- Sidenav -->
+  <aside class="sidenav" id="sidenav"></aside>
+
+  <div class="main">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div>
+        <h1 style="display:flex; align-items:center; gap:8px;">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--cyan);">
+            <path d="M18 20V10M12 20V4M6 20v-6"/>
+          </svg>
+          DEEP THREAT TELEMETRY & ATTACK VECTORS
+        </h1>
+        <div class="sub">Advanced Statistical Telemetry, Department Vulnerability & MITRE ATT&CK Matrix</div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-outline btn-sm" onclick="exportAnalytics('csv')">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export CSV
+        </button>
+        <button class="btn btn-outline btn-sm" onclick="exportAnalytics('json')">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          Export JSON
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="content">
+      
+      <!-- Interactive Filter Controls -->
+      <div class="filter-bar">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span class="mono" style="font-size:11.5px; color:var(--text-mid); font-weight:600;">TIMEFRAME:</span>
+          <div class="chip-row">
+            <div class="chip active" onclick="setTimeframe(this, '24h')">Last 24 Hours</div>
+            <div class="chip" onclick="setTimeframe(this, '7d')">Last 7 Days</div>
+            <div class="chip" onclick="setTimeframe(this, '30d')">Last 30 Days</div>
+            <div class="chip" onclick="setTimeframe(this, '90d')">Quarter (90D)</div>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span class="mono" style="font-size:11.5px; color:var(--text-mid);">DEPT FILTER:</span>
+          <select class="input-control mono" id="deptFilterSelect" style="padding:4px 10px; font-size:12px;" onchange="applyFilters()">
+            <option value="all">All Departments (Enterprise)</option>
+            <option value="finance">Finance & Accounting</option>
+            <option value="exec">Executive Leadership</option>
+            <option value="hr">Human Resources</option>
+            <option value="engineering">Engineering & IT</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Protocol KPIs -->
+      <div class="kpi-grid">
+        <div class="kpi-card" style="border-top: 2px solid var(--phish);">
+          <div class="kpi-title">SPF Rejection Rate</div>
+          <div class="kpi-val" style="color:var(--phish);">86.4%</div>
+          <div class="kpi-sub">Threat headers failing SPF sender check</div>
+        </div>
+        <div class="kpi-card" style="border-top: 2px solid var(--spam);">
+          <div class="kpi-title">DKIM Signature Mismatch</div>
+          <div class="kpi-val" style="color:var(--spam);">79.8%</div>
+          <div class="kpi-sub">Forged or missing cryptographic keys</div>
+        </div>
+        <div class="kpi-card" style="border-top: 2px solid var(--purple);">
+          <div class="kpi-title">DMARC Policy Enforcement</div>
+          <div class="kpi-val" style="color:var(--purple);">92.1%</div>
+          <div class="kpi-sub">Domain alignment rejection policy</div>
+        </div>
+        <div class="kpi-card" style="border-top: 2px solid var(--cyan);">
+          <div class="kpi-title">Avg AI Inference Latency</div>
+          <div class="kpi-val" style="color:var(--cyan);">18 ms</div>
+          <div class="kpi-sub">FastAPI TF-IDF + SVM scoring engine</div>
+        </div>
+      </div>
+
+      <!-- Charts Row 1: Department Vulnerability & Vector Radar -->
+      <div class="grid-2" style="margin-bottom:20px;">
+        
+        <!-- Target Organizational Units Multi-Bar Chart -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3>🏢 Department Vulnerability & Incident Matrix</h3>
+              <div class="card-subtitle">Volume of Phishing vs Malware attacks intercepted by corporate unit</div>
+            </div>
+            <span class="badge badge-cyan">ORGANIZATIONAL RISK</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="deptChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Attack Vector Radar Chart -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3>📡 Multi-Vector Attack Methodology (Radar)</h3>
+              <div class="card-subtitle">Primary technical exploit categories detected in incoming messages</div>
+            </div>
+            <span class="badge badge-phish">TTP MATRIX</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="vectorRadar"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Charts Row 2: Inbound Threat Velocity Timeline & Top Threat Domains -->
+      <div class="grid-3-2" style="margin-bottom:20px;">
+        
+        <!-- Hourly Threat Velocity Area Spline -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3>📈 Inbound Threat Velocity & Interception Timeline</h3>
+              <div class="card-subtitle">Real-time correlation between total scanned emails and quarantined threats</div>
+            </div>
+            <span class="badge badge-safe">AUTONOMOUS MITIGATION</span>
+          </div>
+          <div class="chart-box">
+            <canvas id="velocityChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Top Attacking ASN / Domains Leaderboard -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3>🌐 Malicious ASNs & Threat Domains</h3>
+              <div class="card-subtitle">Persistent bulletproof hosting providers</div>
+            </div>
+          </div>
+          <div id="topDomainsList" style="display:flex; flex-direction:column; gap:8px;">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MITRE ATT&CK Matrix Alignment Card -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3>🛡️ MITRE ATT&CK® Enterprise Framework Alignment</h3>
+            <div class="card-subtitle">Mapped tactics, techniques, and procedures (TTPs) detected by SIH26106 Engine</div>
+          </div>
+          <span class="badge badge-purple">MITRE ATT&CK v14</span>
+        </div>
+
+        <div class="mitre-badge-row">
+          <div class="mitre-badge">
+            <span style="color:var(--cyan); font-weight:700;">T1566.001</span>
+            <span>Spearphishing Attachment (Invoice Droppers)</span>
+          </div>
+          <div class="mitre-badge">
+            <span style="color:var(--cyan); font-weight:700;">T1566.002</span>
+            <span>Spearphishing Link (Credential Harvesters)</span>
+          </div>
+          <div class="mitre-badge">
+            <span style="color:var(--spam); font-weight:700;">T1036.005</span>
+            <span>Masquerading (Double .pdf.exe Extensions)</span>
+          </div>
+          <div class="mitre-badge">
+            <span style="color:var(--phish); font-weight:700;">T1534</span>
+            <span>Internal Spearphishing (Compromised Mailbox)</span>
+          </div>
+          <div class="mitre-badge">
+            <span style="color:var(--purple); font-weight:700;">T1114</span>
+            <span>Email Collection (Automated Exfiltration)</span>
+          </div>
+          <div class="mitre-badge">
+            <span style="color:var(--safe); font-weight:700;">T1204</span>
+            <span>User Execution Prevention (Gateway Isolation)</span>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- Floating AI Chat Widget -->
+<button id="chat-fab" aria-label="AI Threat Assistant" onclick="toggleChat()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+<div id="chat-panel"></div>
+
+<!-- Scripts -->
+<script src="assets/api.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/notifications.js"></script>
+<script src="assets/chat.js"></script>
+<script src="assets/sidenav.js"></script>
+
+<script>
+requireAuth();
+
+let deptChart = null;
+let radarChart = null;
+let velocityChart = null;
+
+// Mock / Live Telemetry Dataset
+const TELEMETRY_DATA = {
+  domains: [
+    { domain: 'paypal-security-alert.com', asn: 'AS14061 DigitalOcean', risk: 94, type: 'Phishing' },
+    { domain: 'bankofamerica-secure-auth.top', asn: 'AS49877 Bulletproof C2', risk: 92, type: 'Banking Scam' },
+    { domain: 'docusign-envelope-review.xyz', asn: 'AS9009 M247 Ltd', risk: 88, type: 'DocuSign Spoof' },
+    { domain: 'fedex-shipment-delivery.com', asn: 'AS45102 Alibaba Cloud', risk: 96, type: 'Malware Dropper' },
+    { domain: 'darknet-node-99.onion.xyz', asn: 'AS200052 Tor Relay', risk: 98, type: 'Ransomware Extortion' }
+  ]
+};
+
+function setTimeframe(el, timeframe) {
+  document.querySelectorAll('.filter-bar .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  notify(`Loaded telemetry dataset for timeframe: ${timeframe.toUpperCase()}`, 'info');
+  initCharts();
+}
+
+function applyFilters() {
+  const dept = document.getElementById('deptFilterSelect').value;
+  notify(`Applied filter for department: ${dept.toUpperCase()}`, 'info');
+  initCharts();
+}
+
+function initCharts() {
+  // 1. Department Vulnerability Multi-Series Bar Chart
+  const deptCtx = document.getElementById('deptChart');
+  if (deptCtx) {
+    if (deptChart) deptChart.destroy();
+    deptChart = new Chart(deptCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Finance', 'HR', 'Engineering', 'Sales', 'Executive', 'Legal'],
+        datasets: [
+          {
+            label: 'Phishing Intercepts',
+            data: [42, 28, 14, 22, 38, 12],
+            backgroundColor: '#00e5ff',
+            borderRadius: 4
+          },
+          {
+            label: 'Malware / Droppers',
+            data: [18, 12, 6, 8, 24, 4],
+            backgroundColor: '#ef4444',
+            borderRadius: 4
+          },
+          {
+            label: 'Spam / BEC Lures',
+            data: [26, 34, 18, 42, 19, 15],
+            backgroundColor: '#3b82f6',
+            borderRadius: 4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { family: "'IBM Plex Mono', monospace" } } },
+          y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } }
+        },
+        plugins: {
+          legend: { labels: { color: '#f8fafc', font: { size: 11 } } }
+        }
+      }
+    });
+  }
+
+  // 2. Attack Vectors Radar Chart
+  const radarCtx = document.getElementById('vectorRadar');
+  if (radarCtx) {
+    if (radarChart) radarChart.destroy();
+    radarChart = new Chart(radarCtx, {
+      type: 'radar',
+      data: {
+        labels: ['Credential Phishing', 'Malware Droppers', 'Domain Typosquatting', 'CEO / BEC Fraud', 'MFA Push Fatigue', 'Urgency Manipulation'],
+        datasets: [
+          {
+            label: 'Observed Threat Pressure',
+            data: [92, 84, 76, 88, 65, 95],
+            borderColor: '#ef4444',
+            backgroundColor: 'rgba(239, 68, 68, 0.25)',
+            borderWidth: 2,
+            pointBackgroundColor: '#ef4444'
+          },
+          {
+            label: 'Mitigation Effectiveness',
+            data: [98, 96, 94, 90, 88, 97],
+            borderColor: '#00e5ff',
+            backgroundColor: 'rgba(0, 229, 255, 0.2)',
+            borderWidth: 2,
+            pointBackgroundColor: '#00e5ff'
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          r: {
+            angleLines: { color: 'rgba(255,255,255,0.08)' },
+            grid: { color: 'rgba(255,255,255,0.08)' },
+            pointLabels: { color: '#94a3b8', font: { size: 10, family: "'IBM Plex Mono', monospace" } },
+            ticks: { display: false, backdropColor: 'transparent' }
+          }
+        },
+        plugins: {
+          legend: { labels: { color: '#f8fafc', font: { size: 11 } } }
+        }
+      }
+    });
+  }
+
+  // 3. Hourly Threat Velocity Area Spline
+  const velCtx = document.getElementById('velocityChart');
+  if (velCtx) {
+    if (velocityChart) velocityChart.destroy();
+    velocityChart = new Chart(velCtx, {
+      type: 'line',
+      data: {
+        labels: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00', '24:00'],
+        datasets: [
+          {
+            label: 'Total Scanned Inbound Volume',
+            data: [120, 95, 180, 480, 720, 680, 540, 310, 190],
+            borderColor: '#3b82f6',
+            backgroundColor: 'rgba(59, 130, 246, 0.15)',
+            fill: true,
+            tension: 0.4,
+            borderWidth: 2
+          },
+          {
+            label: 'Intercepted Threats (Quarantined)',
+            data: [18, 14, 32, 142, 198, 185, 120, 45, 24],
+            borderColor: '#ef4444',
+            backgroundColor: 'rgba(239, 68, 68, 0.25)',
+            fill: true,
+            tension: 0.4,
+            borderWidth: 2
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#94a3b8' } },
+          y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } }
+        },
+        plugins: {
+          legend: { labels: { color: '#f8fafc', font: { size: 11 } } }
+        }
+      }
+    });
+  }
+
+  // Populate Top Threat Domains List
+  const listEl = document.getElementById('topDomainsList');
+  if (listEl) {
+    listEl.innerHTML = TELEMETRY_DATA.domains.map(d => `
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 12px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm);">
+        <div>
+          <strong class="mono" style="font-size:12px; color:var(--cyan);">${escapeHtml(d.domain)}</strong>
+          <div class="cell-sub mono" style="font-size:10.5px;">${escapeHtml(d.asn)} • ${escapeHtml(d.type)}</div>
+        </div>
+        <div style="text-align:right;">
+          <span class="badge badge-phish" style="font-size:10px;">RISK ${d.risk}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+function exportAnalytics(format) {
+  notify(`Exporting full SOC telemetry dossier in ${format.toUpperCase()} format...`, 'success');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initCharts();
+});
+</script>
+</body>
+</html>

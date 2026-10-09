@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛡️ Global Threat Intel — Real-Time Alert Status | Threatline ETIP</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e5ff'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>">
+  <link rel="stylesheet" href="assets/style.css">
+  
+  <!-- Leaflet Map CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <style>
+    /* Full-screen Cyber Map HUD Layout */
+    .map-dashboard-container {
+      position: relative;
+      width: 100%;
+      height: calc(100vh - 64px);
+      overflow: hidden;
+      background: #030712;
+    }
+
+    #world-map {
+      width: 100%;
+      height: 100%;
+      background: #030712;
+      z-index: 1;
+    }
+
+    /* Custom Leaflet Dark Theme Adjustments */
+    .leaflet-container {
+      background: #060913 !important;
+      font-family: var(--font-mono) !important;
+    }
+    .leaflet-tile {
+      filter: brightness(0.85) contrast(1.2) saturate(0.8);
+    }
+    .leaflet-control-zoom {
+      border: 1px solid var(--border) !important;
+      background: rgba(15, 20, 34, 0.9) !important;
+      border-radius: var(--radius-sm) !important;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+    .leaflet-control-zoom a {
+      background: rgba(15, 20, 34, 0.9) !important;
+      color: var(--cyan) !important;
+      border-color: var(--border) !important;
+    }
+    .leaflet-control-zoom a:hover {
+      background: var(--card) !important;
+      color: #fff !important;
+    }
+    .leaflet-popup-content-wrapper {
+      background: rgba(15, 20, 34, 0.95) !important;
+      border: 1px solid var(--border-glow) !important;
+      border-radius: var(--radius-md) !important;
+      color: var(--text-high) !important;
+      box-shadow: var(--shadow-glow-cyan) !important;
+      backdrop-filter: blur(8px);
+    }
+    .leaflet-popup-tip {
+      background: rgba(15, 20, 34, 0.95) !important;
+      border: 1px solid var(--border-glow) !important;
+    }
+
+    /* Floating HUD Panels with Glassmorphism */
+    .hud-panel {
+      position: absolute;
+      z-index: 10;
+      background: rgba(11, 17, 32, 0.78);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid rgba(0, 229, 255, 0.2);
+      border-radius: var(--radius-md);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+      color: var(--text-high);
+      pointer-events: auto;
+    }
+
+    /* Left Telemetry Sidebar Column */
+    .hud-left-col {
+      top: 14px;
+      left: 14px;
+      width: 270px;
+      bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 12px;
+      overflow-y: auto;
+    }
+
+    .hud-stat-box {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 229, 255, 0.12);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .hud-stat-box.danger-glow {
+      border-color: rgba(239, 68, 68, 0.4);
+      box-shadow: inset 0 0 15px rgba(239, 68, 68, 0.15);
+    }
+    .hud-stat-label {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-low);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hud-stat-val {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-top: 2px;
+    }
+
+    /* Top Control Bar */
+    .hud-top-bar {
+      top: 14px;
+      left: 300px;
+      right: 14px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+    }
+    .hud-title-text {
+      font-family: var(--font-display);
+      font-size: 14.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hud-radar-pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: radar-ping 1.5s infinite ease-out;
+    }
+    @keyframes radar-ping {
+      0% { transform: scale(0.9); opacity: 1; }
+      50% { transform: scale(1.6); opacity: 0.4; }
+      100% { transform: scale(0.9); opacity: 1; }
+    }
+
+    /* Top Right Floating Threat Feed HUD */
+    .hud-threat-feed {
+      top: 72px;
+      right: 14px;
+      width: 460px;
+      max-height: 290px;
+      display: flex;
+      flex-direction: column;
+    }
+    .threat-feed-header {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--cyan);
+      font-weight: 700;
+    }
+    .threat-feed-body {
+      flex: 1;
+      overflow-y: auto;
+      font-size: 11px;
+    }
+    .feed-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .feed-table th {
+      padding: 5px 8px;
+      font-size: 9px;
+      background: rgba(15, 20, 34, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .feed-table td {
+      padding: 6px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      white-space: nowrap;
+    }
+    .feed-row-new {
+      animation: feedHighlight 1.5s ease-out;
+    }
+    @keyframes feedHighlight {
+      0% { background: rgba(239, 68, 68, 0.35); }
+      100% { background: transparent; }
+    }
+
+    /* Bottom Right Vector & Telemetry (Positioned above Chat FAB with zero overlap) */
+    .hud-bottom-right {
+      bottom: 84px;
+      right: 18px;
+      width: 270px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+
+    /* Attack Vector Trajectory SVG Canvas Overlay */
+    #attack-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* Region Selector Chips */
+    .region-btn-group {
+      display: flex;
+      gap: 4px;
+    }
+    .region-chip {
+      padding: 3px 8px;
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: all 0.12s ease;
+    }
+    .region-chip:hover, .region-chip.active {
+      background: var(--cyan-dim);
+      color: var(--cyan);
+      border-color: var(--cyan);
+    }
+  </style>
+</head>
+<body data-page="realtime-map">
+<div class="shell">
+  <!-- Sidenav -->
+  <aside class="sidenav" id="sidenav"></aside>
+
+  <div class="main">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div>
+        <h1 style="display:flex; align-items:center; gap:8px;">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--cyan);">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+          GLOBAL THREAT RADAR & TELEMETRY
+        </h1>
+        <div class="sub">Active Intercepts, Origin Trajectories & Attack Vectors</div>
+      </div>
+      <div class="topbar-right">
+        <div class="chip-row">
+          <div class="chip active" id="btn-live-status">● LIVE STREAM ACTIVE</div>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="toggleFeedStream()" id="btn-stream-toggle">
+          ⏸️ Pause Stream
+        </button>
+        <button class="btn btn-primary btn-sm" onclick="window.location.href='upload-email.html'">
+          + Ingest New .EML
+        </button>
+      </div>
+    </header>
+
+    <!-- Map & HUD Interactive Canvas Container -->
+    <div class="map-dashboard-container">
+      
+      <!-- Interactive Leaflet World Map -->
+      <div id="world-map"></div>
+
+      <!-- Animated Attack Missile/Arc Canvas Overlay -->
+      <canvas id="attack-canvas"></canvas>
+
+      <!-- Top HUD Control Bar -->
+      <div class="hud-panel hud-top-bar">
+        <div class="hud-title-text">
+          <div class="hud-radar-pulse"></div>
+          <span>THREAT INTEL - GLOBAL ALERT STATUS</span>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div class="region-btn-group">
+            <button class="region-chip active" onclick="focusRegion('global')">Global</button>
+            <button class="region-chip" onclick="focusRegion('apac')">India & APAC</button>
+            <button class="region-chip" onclick="focusRegion('emea')">EMEA</button>
+            <button class="region-chip" onclick="focusRegion('amer')">North America</button>
+          </div>
+
+          <button class="btn btn-ghost btn-sm" onclick="toggleAudioPing()" id="audioToggleBtn" title="Toggle audio radar alarm" style="padding:4px 8px; font-size:11px; color:var(--cyan);">
+            🔊 Audio Ping: ON
+          </button>
+        </div>
+      </div>
+
+      <!-- Left Column Telemetry HUD -->
+      <div class="hud-panel hud-left-col">
+        <!-- Live Attacks -->
+        <div class="hud-stat-box">
+          <div class="hud-stat-label">
+            <span>LIVE ATTACKS</span>
+            <span style="color:var(--safe);">● SENSORS ONLINE</span>
+          </div>
+          <div class="hud-stat-val" id="liveAttacksCount" style="color:var(--cyan);">184,392</div>
+          <div style="font-size:10px; color:var(--text-low); margin-top:2px;" class="mono">+142 intercepts / min</div>
+        </div>
+
+        <!-- Critical Alerts -->
+        <div class="hud-stat-box danger-glow">
+          <div class="hud-stat-label">
+            <span>CRITICAL ALERTS</span>
+            <span style="color:var(--phish);">⚠️ PRIORITY</span>
+          </div>
+          <div class="hud-stat-val" id="critAlertsCount" style="color:var(--phish);">34</div>
+          <div style="font-size:10px; color:var(--phish); margin-top:2px;" class="mono">Malware droppers & zero-days</div>
+        </div>
+
+        <!-- Blocked Traffic -->
+        <div class="hud-stat-box">
+          <div class="hud-stat-label">
+            <span>BLOCKED TRAFFIC</span>
+            <span style="color:var(--text-low);">24H GATEWAY</span>
+          </div>
+          <div class="hud-stat-val" style="color:#fff;">2.1M</div>
+          <div style="font-size:10px; color:var(--text-low); margin-top:2px;" class="mono">99.4% filter efficiency</div>
+        </div>
+
+        <!-- Attack Type Distribution Donut -->
+        <div class="hud-stat-box" style="height:170px;">
+          <div class="hud-stat-label" style="margin-bottom:6px;">
+            <span>ATTACK DISTRIBUTION</span>
+          </div>
+          <div style="position:relative; width:100%; height:130px;">
+            <canvas id="attackTypeDonut"></canvas>
+          </div>
+        </div>
+
+        <!-- Regional Wave Chart -->
+        <div class="hud-stat-box" style="height:140px;">
+          <div class="hud-stat-label" style="margin-bottom:4px;">
+            <span>THREATS BY REGION</span>
+            <span class="mono" style="color:var(--phish); font-weight:700;">APAC PEAK</span>
+          </div>
+          <div style="position:relative; width:100%; height:100px;">
+            <canvas id="regionWaveChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Right Floating Live Threat Feed HUD -->
+      <div class="hud-panel hud-threat-feed">
+        <div class="threat-feed-header">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="status-dot"></div>
+            <span>REAL-TIME THREAT FEED</span>
+          </div>
+          <span class="mono" style="font-size:10px; color:var(--text-low);" id="feedEventCount">1,492 intercepted</span>
+        </div>
+
+        <div class="threat-feed-body">
+          <table class="feed-table">
+            <thead>
+              <tr>
+                <th>TIME (UTC)</th>
+                <th>EVENT ID</th>
+                <th>SEVERITY</th>
+                <th>INDICATORS / SENDER</th>
+                <th>MALWARE / VECTOR</th>
+                <th>STATUS</th>
+              </tr>
+            </thead>
+            <tbody id="liveFeedTableBody">
+              <!-- Dynamically streamed rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Bottom Right Vector Bar Chart -->
+      <div class="hud-panel hud-bottom-right">
+        <div class="hud-stat-label">
+          <span>TOP ATTACK VECTORS</span>
+          <span style="color:var(--cyan);" class="mono">LIVE METRICS</span>
+        </div>
+        <div style="position:relative; width:100%; height:95px;">
+          <canvas id="vectorBarChart"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Floating AI Chat Widget -->
+<button id="chat-fab" aria-label="AI Threat Assistant" onclick="toggleChat()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+<div id="chat-panel"></div>
+
+<!-- Scripts -->
+<script src="assets/api.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/notifications.js"></script>
+<script src="assets/chat.js"></script>
+<script src="assets/sidenav.js"></script>
+
+<script>
+requireAuth();
+
+// ── Global State & Configurations ─────────────────────────────
+let map = null;
+let attackCanvas = null;
+let ctx2d = null;
+let isStreaming = true;
+let isAudioPing = true;
+let liveAttackCount = 184392;
+let criticalAlertCount = 34;
+let activeMissiles = [];
+
+// High-Value Threat Nodes (45+ Global Locations across all Continents)
+const THREAT_LOCATIONS = [
+  // ── INDIA & SOUTH ASIA (Dense Coverage) ──────────────────────
+  { name: 'New Delhi (HQ SOC Center)', lat: 28.6139, lng: 77.2090, intensity: 1.0, isTarget: true },
+  { name: 'Mumbai Financial Exchange', lat: 19.0760, lng: 72.8777, intensity: 0.95, isTarget: true },
+  { name: 'Bengaluru Tech Corridor', lat: 12.9716, lng: 77.5946, intensity: 0.9, isTarget: true },
+  { name: 'Hyderabad Cyberabad', lat: 17.3850, lng: 78.4867, intensity: 0.85, isTarget: true },
+  { name: 'Chennai Gateway Node', lat: 13.0827, lng: 80.2707, intensity: 0.8, isTarget: true },
+  { name: 'Kolkata Regional Sub-Hub', lat: 22.5726, lng: 88.3639, intensity: 0.75, isTarget: true },
+  { name: 'Pune Software Corridor', lat: 18.5204, lng: 73.8567, intensity: 0.75, isTarget: true },
+  { name: 'Ahmedabad Business Center', lat: 23.0225, lng: 72.5714, intensity: 0.7, isTarget: true },
+  { name: 'Kochi Subsea Cable Station', lat: 9.9312, lng: 76.2673, intensity: 0.65, isTarget: true },
+  { name: 'Dhaka Enterprise SOC', lat: 23.8103, lng: 90.4125, intensity: 0.7, isTarget: true },
+  { name: 'Colombo Telecom Landing', lat: 6.9271, lng: 79.8612, intensity: 0.6, isTarget: true },
+
+  // ── ASIA-PACIFIC ──────────────────────────────────────────────
+  { name: 'Singapore Datacenter Hub', lat: 1.3521, lng: 103.8198, intensity: 0.9, isTarget: true },
+  { name: 'Tokyo Financial Exchange', lat: 35.6762, lng: 139.6503, intensity: 0.85, isTarget: true },
+  { name: 'Seoul High-Tech Node', lat: 37.5665, lng: 126.9780, intensity: 0.8, isTarget: true },
+  { name: 'Hong Kong Commercial Port', lat: 22.3193, lng: 114.1694, intensity: 0.85, isTarget: true },
+  { name: 'Taipei Semiconductor Core', lat: 25.0330, lng: 121.5654, intensity: 0.8, isTarget: true },
+  { name: 'Sydney Cloud Gateway', lat: -33.8688, lng: 151.2093, intensity: 0.75, isTarget: true },
+  { name: 'Melbourne Enterprise Node', lat: -37.8136, lng: 144.9631, intensity: 0.7, isTarget: true },
+  { name: 'Auckland Regional Hub', lat: -36.8485, lng: 174.7633, intensity: 0.6, isTarget: true },
+
+  // ── EUROPE & MIDDLE EAST ──────────────────────────────────────
+  { name: 'London Banking Gateway', lat: 51.5074, lng: -0.1278, intensity: 0.9, isTarget: true },
+  { name: 'Frankfurt European Exchange', lat: 50.1109, lng: 8.6821, intensity: 0.85, isTarget: true },
+  { name: 'Paris Cyber Defense Center', lat: 48.8566, lng: 2.3522, intensity: 0.8, isTarget: true },
+  { name: 'Amsterdam AMS-IX Node', lat: 52.3676, lng: 4.9041, intensity: 0.85, isTarget: true },
+  { name: 'Zurich Financial Hub', lat: 47.3769, lng: 8.5417, intensity: 0.75, isTarget: true },
+  { name: 'Stockholm Nordic Gateway', lat: 59.3293, lng: 18.0686, intensity: 0.7, isTarget: true },
+  { name: 'Madrid Mediterranean Node', lat: 40.4168, lng: -3.7038, intensity: 0.7, isTarget: true },
+  { name: 'Warsaw Central Command', lat: 52.2297, lng: 21.0122, intensity: 0.75, isTarget: true },
+  { name: 'Dubai Telecom Terminal', lat: 25.2048, lng: 55.2708, intensity: 0.85, isTarget: true },
+  { name: 'Riyadh Financial Sector', lat: 24.7136, lng: 46.6753, intensity: 0.75, isTarget: true },
+  { name: 'Tel Aviv Cyber Incubator', lat: 32.0853, lng: 34.7818, intensity: 0.8, isTarget: true },
+
+  // ── AMERICAS & AFRICA ─────────────────────────────────────────
+  { name: 'New York Enterprise SOC', lat: 40.7128, lng: -74.0060, intensity: 0.95, isTarget: true },
+  { name: 'Washington D.C. Fed Hub', lat: 38.9072, lng: -77.0369, intensity: 0.9, isTarget: true },
+  { name: 'Silicon Valley San Jose', lat: 37.3382, lng: -121.8863, intensity: 0.9, isTarget: true },
+  { name: 'Chicago Mercantile Node', lat: 41.8781, lng: -87.6298, intensity: 0.8, isTarget: true },
+  { name: 'Toronto Financial Corridor', lat: 43.6532, lng: -79.3832, intensity: 0.75, isTarget: true },
+  { name: 'São Paulo Enterprise Hub', lat: -23.5505, lng: -46.6333, intensity: 0.8, isTarget: true },
+  { name: 'Buenos Aires Node', lat: -34.6037, lng: -58.3816, intensity: 0.65, isTarget: true },
+  { name: 'Johannesburg Regional SOC', lat: -26.2041, lng: 28.0473, intensity: 0.7, isTarget: true },
+  { name: 'Cairo Subsea Landing', lat: 30.0444, lng: 31.2357, intensity: 0.65, isTarget: true },
+
+  // ── GLOBAL THREAT ORIGIN / ADVERSARY C2 HUBS ──────────────────
+  { name: 'St. Petersburg Botnet C2', lat: 59.9343, lng: 30.3351, intensity: 0.95, isOrigin: true },
+  { name: 'Moscow APT Gateway', lat: 55.7558, lng: 37.6173, intensity: 0.9, isOrigin: true },
+  { name: 'Beijing Cyber Syndicate', lat: 39.9042, lng: 116.4074, intensity: 0.95, isOrigin: true },
+  { name: 'Shanghai Phish Farm', lat: 31.2304, lng: 121.4737, intensity: 0.85, isOrigin: true },
+  { name: 'Pyongyang APT38 Cluster', lat: 39.0392, lng: 125.7625, intensity: 0.9, isOrigin: true },
+  { name: 'Bucharest Scam Hub', lat: 44.4268, lng: 26.1025, intensity: 0.8, isOrigin: true },
+  { name: 'Lagos BEC Syndicate', lat: 6.5244, lng: 3.3792, intensity: 0.85, isOrigin: true },
+  { name: 'São Paulo Carding Proxy', lat: -23.5505, lng: -46.6333, intensity: 0.75, isOrigin: true },
+  { name: 'Frankfurt Bulletproof Host', lat: 50.1109, lng: 8.6821, intensity: 0.8, isOrigin: true },
+  { name: 'Seattle Compromised VPS', lat: 47.6062, lng: -122.3321, intensity: 0.7, isOrigin: true },
+  { name: 'Kyiv Darknet Node', lat: 50.4501, lng: 30.5234, intensity: 0.75, isOrigin: true },
+  { name: 'Nairobi Mobile Phish Hub', lat: -1.2921, lng: 36.8219, intensity: 0.65, isOrigin: true },
+  // ── ADDITIONAL COVERAGE NODES ─────────────────────────────────
+  { name: 'Jakarta Telecom Node', lat: -6.2088, lng: 106.8456, intensity: 0.7, isTarget: true },
+  { name: 'Karachi Enterprise Hub', lat: 24.8607, lng: 67.0011, intensity: 0.65, isTarget: true },
+  { name: 'Manila Regional SOC', lat: 14.5995, lng: 120.9842, intensity: 0.68, isTarget: true },
+  { name: 'Bangkok Finance Node', lat: 13.7563, lng: 100.5018, intensity: 0.72, isTarget: true },
+  { name: 'Kuala Lumpur Cloud Hub', lat: 3.1390, lng: 101.6869, intensity: 0.7, isTarget: true },
+  { name: 'Ho Chi Minh City Node', lat: 10.8231, lng: 106.6297, intensity: 0.62, isTarget: true },
+  { name: 'Lima Enterprise Node', lat: -12.0464, lng: -77.0428, intensity: 0.6, isTarget: true },
+  { name: 'Mexico City Datacenter', lat: 19.4326, lng: -99.1332, intensity: 0.72, isTarget: true },
+  { name: 'Dallas Backbone Hub', lat: 32.7767, lng: -96.7970, intensity: 0.8, isTarget: true },
+  { name: 'Miami Regional Gateway', lat: 25.7617, lng: -80.1918, intensity: 0.75, isTarget: true },
+  { name: 'Cape Town Subsea Node', lat: -33.9249, lng: 18.4241, intensity: 0.6, isTarget: true },
+  { name: 'Accra West Africa Hub', lat: 5.6037, lng: -0.1870, intensity: 0.58, isTarget: true },
+  { name: 'Istanbul Eurasia Gateway', lat: 41.0082, lng: 28.9784, intensity: 0.74, isTarget: true },
+  { name: 'Rome Mediterranean Node', lat: 41.9028, lng: 12.4964, intensity: 0.68, isTarget: true },
+  { name: 'Vienna Central Europe Hub', lat: 48.2082, lng: 16.3738, intensity: 0.65, isTarget: true },
+  // Additional Origins (Adversary C2)
+  { name: 'Minsk Botnet Relay', lat: 53.9045, lng: 27.5615, intensity: 0.78, isOrigin: true },
+  { name: 'Tehran APT Node', lat: 35.6892, lng: 51.3890, intensity: 0.82, isOrigin: true },
+  { name: 'Harbin Cyber Cluster', lat: 45.8038, lng: 126.5349, intensity: 0.78, isOrigin: true },
+  { name: 'Caracas Darkweb Proxy', lat: 10.4806, lng: -66.9036, intensity: 0.65, isOrigin: true },
+  { name: 'Ankara Rogue ISP', lat: 39.9334, lng: 32.8597, intensity: 0.7, isOrigin: true }
+];
+
+// Simulated Live Threat Stream Items matching reference UI
+const SAMPLE_STREAM_EVENTS = [
+  { severity: 'critical', ip: '115.69.21.144', origin: 'St. Petersburg, RU', malware: 'Ransomware.RedLine', status: 'Active', target: 'New Delhi' },
+  { severity: 'high', ip: '183.82.12.96', origin: 'Bucharest, RO', malware: 'Trojan.Mirai', status: 'Mitigated', target: 'Mumbai' },
+  { severity: 'high', ip: '202.141.156.7', origin: 'Beijing, CN', malware: 'Spyware.Anubis', status: 'Active', target: 'Bengaluru' },
+  { severity: 'critical', ip: '9e3e2f...4c7b8d', origin: 'Lagos, NG', malware: 'BEC.WireSettlement', status: 'Active', target: 'Hyderabad' },
+  { severity: 'low', ip: 'indiaserv.com', origin: 'Frankfurt, DE', malware: 'Phishing.PayPalSpoof', status: 'Mitigated', target: 'Chennai' },
+  { severity: 'high', ip: '103.25.1.41', origin: 'Moscow, RU', malware: 'Trojan.Qakbot', status: 'Active', target: 'New Delhi' },
+  { severity: 'critical', ip: 'glittheik...net', origin: 'São Paulo, BR', malware: 'Dropper.InvoiceExe', status: 'Mitigated', target: 'Singapore' },
+  { severity: 'high', ip: '194.26.29.110', origin: 'Seattle, US', malware: 'CredentialHarvest.M365', status: 'Active', target: 'Tokyo' },
+  { severity: 'critical', ip: '45.142.195.88', origin: 'Pyongyang, KP', malware: 'Lazarus.MacroDropper', status: 'Active', target: 'London' },
+  { severity: 'high', ip: '185.220.101.5', origin: 'Shanghai, CN', malware: 'Phishing.DocuSignFake', status: 'Mitigated', target: 'New York' }
+];
+
+// ── Initialize Map & Overlays ─────────────────────────────────
+function initMap() {
+  map = L.map('world-map', {
+    center: [22.0, 78.0],
+    zoom: 4,
+    minZoom: 2,
+    maxZoom: 12,
+    zoomControl: true,
+    attributionControl: false
+  });
+
+  // Esri World Dark Gray Base Layer (Free, No API Key Required, No Watermark)
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 16,
+    subdomains: ['server', 'services'],
+    errorTileUrl: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+  }).addTo(map);
+
+  // Draw Glowing Pulsing Heatmap Circles on Threat Locations
+  THREAT_LOCATIONS.forEach(loc => {
+    const isTarget = loc.isTarget;
+    const color = isTarget ? '#ef4444' : '#00e5ff';
+    const fillColor = isTarget ? '#ef4444' : '#f59e0b';
+
+    // Pulsing Outer Aura
+    const aura = L.circleMarker([loc.lat, loc.lng], {
+      radius: isTarget ? 16 : 10,
+      color: color,
+      fillColor: fillColor,
+      fillOpacity: 0.28,
+      weight: 1.5,
+      className: 'pulse-aura'
+    }).addTo(map);
+
+    // Solid Core Node
+    const core = L.circleMarker([loc.lat, loc.lng], {
+      radius: isTarget ? 5 : 3.5,
+      color: '#fff',
+      fillColor: color,
+      fillOpacity: 0.95,
+      weight: 1.5
+    }).addTo(map);
+
+    core.bindPopup(`
+      <div style="font-family:var(--font-mono); font-size:12px;">
+        <strong style="color:${color}; font-size:13px;">${loc.name}</strong>
+        <div style="margin-top:4px; font-size:11px; color:var(--text-mid);">
+          Node Role: <strong>${isTarget ? '🛡️ Protected Endpoint / SOC Target' : '☣️ Adversary Origin C2'}</strong><br>
+          Threat Pressure: <span style="color:var(--phish); font-weight:700;">${Math.round(loc.intensity * 100)}%</span>
+        </div>
+      </div>
+    `);
+  });
+
+  // Resize canvas when map moves/zooms
+  map.on('move', updateMissilePositions);
+  map.on('zoom', updateMissilePositions);
+  map.on('resize', resizeCanvas);
+}
+
+// ── Particle / Missile Trajectory Engine ──────────────────────
+function initCanvas() {
+  attackCanvas = document.getElementById('attack-canvas');
+  ctx2d = attackCanvas.getContext('2d');
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // Launch 36 concurrent travelling missile streams across the globe
+  for (let i = 0; i < 36; i++) {
+    spawnMissile(Math.random() * 0.9);
+  }
+
+  requestAnimationFrame(animateMissiles);
+}
+
+function resizeCanvas() {
+  const container = document.querySelector('.map-dashboard-container');
+  if (!container || !attackCanvas) return;
+  attackCanvas.width = container.clientWidth;
+  attackCanvas.height = container.clientHeight;
+}
+
+function spawnMissile(initialProgress = 0) {
+  const origins = THREAT_LOCATIONS.filter(l => l.isOrigin);
+  const targets = THREAT_LOCATIONS.filter(l => l.isTarget);
+
+  const startLoc = origins[Math.floor(Math.random() * origins.length)];
+  const endLoc = targets[Math.floor(Math.random() * targets.length)];
+
+  const isCritical = Math.random() > 0.55;
+  const isBec = Math.random() > 0.75;
+
+  activeMissiles.push({
+    startLat: startLoc.lat,
+    startLng: startLoc.lng,
+    endLat: endLoc.lat,
+    endLng: endLoc.lng,
+    progress: initialProgress,
+    speed: 0.005 + Math.random() * 0.009,
+    color: isCritical ? '#ef4444' : (isBec ? '#a855f7' : '#00e5ff'),
+    arcHeight: 0.18 + Math.random() * 0.28,
+    originName: startLoc.name,
+    targetName: endLoc.name
+  });
+}
+
+
+function updateMissilePositions() {
+  // handled in animation loop via map.latLngToContainerPoint
+}
+
+function animateMissiles() {
+  if (!map || !ctx2d) return;
+
+  ctx2d.clearRect(0, 0, attackCanvas.width, attackCanvas.height);
+
+  for (let i = activeMissiles.length - 1; i >= 0; i--) {
+    const m = activeMissiles[i];
+    if (isStreaming) {
+      m.progress += m.speed;
+    }
+
+    const startPt = map.latLngToContainerPoint([m.startLat, m.startLng]);
+    const endPt = map.latLngToContainerPoint([m.endLat, m.endLng]);
+
+    // Calculate Quadratic Bezier Curve with elevated arch
+    const midX = (startPt.x + endPt.x) / 2;
+    const midY = (startPt.y + endPt.y) / 2 - Math.hypot(endPt.x - startPt.x, endPt.y - startPt.y) * m.arcHeight;
+
+    // Draw Faint Glowing Trajectory Line
+    ctx2d.beginPath();
+    ctx2d.moveTo(startPt.x, startPt.y);
+    ctx2d.quadraticCurveTo(midX, midY, endPt.x, endPt.y);
+    ctx2d.strokeStyle = m.color;
+    ctx2d.globalAlpha = 0.25;
+    ctx2d.lineWidth = 1.5;
+    ctx2d.stroke();
+
+    // Calculate Current Head Position on Quadratic Curve
+    const t = Math.min(1, m.progress);
+    const headX = (1 - t) * (1 - t) * startPt.x + 2 * (1 - t) * t * midX + t * t * endPt.x;
+    const headY = (1 - t) * (1 - t) * startPt.y + 2 * (1 - t) * t * midY + t * t * endPt.y;
+
+    // Draw Animated Glowing Missile Particle Head
+    ctx2d.beginPath();
+    ctx2d.arc(headX, headY, 3.5, 0, Math.PI * 2);
+    ctx2d.fillStyle = '#ffffff';
+    ctx2d.shadowColor = m.color;
+    ctx2d.shadowBlur = 12;
+    ctx2d.globalAlpha = 0.95;
+    ctx2d.fill();
+    ctx2d.shadowBlur = 0;
+
+    // If finished trajectory, spawn explosion ring & new missile
+    if (m.progress >= 1) {
+      activeMissiles.splice(i, 1);
+      spawnMissile();
+      onAttackImpact(m);
+    }
+  }
+
+  requestAnimationFrame(animateMissiles);
+}
+
+function onAttackImpact(missile) {
+  if (!isStreaming) return;
+  liveAttackCount++;
+  document.getElementById('liveAttacksCount').textContent = liveAttackCount.toLocaleString();
+
+  // If critical, trigger audio ping
+  if (missile.color === '#ef4444' && isAudioPing) {
+    criticalAlertCount++;
+    document.getElementById('critAlertsCount').textContent = criticalAlertCount;
+  }
+}
+
+// ── Real-Time Streaming Feed Table ────────────────────────────
+function initThreatFeed() {
+  const tbody = document.getElementById('liveFeedTableBody');
+  tbody.innerHTML = '';
+
+  // Seed initial rows
+  SAMPLE_STREAM_EVENTS.forEach(ev => appendFeedRow(ev, false));
+
+  // Stream new events every 2.5 seconds
+  setInterval(() => {
+    if (!isStreaming) return;
+    const ev = SAMPLE_STREAM_EVENTS[Math.floor(Math.random() * SAMPLE_STREAM_EVENTS.length)];
+    const timeStr = new Date().toISOString().slice(11, 19);
+    const eventId = Math.floor(1000 + Math.random() * 8999);
+    
+    appendFeedRow({
+      ...ev,
+      time: timeStr,
+      eventId: eventId
+    }, true);
+  }, 2400);
+}
+
+function appendFeedRow(item, isNew = false) {
+  const tbody = document.getElementById('liveFeedTableBody');
+  if (!tbody) return;
+
+  const tr = document.createElement('tr');
+  if (isNew) tr.className = 'feed-row-new';
+
+  const sevClass = item.severity === 'critical' ? 'badge-malware' : (item.severity === 'high' ? 'badge-phish' : 'badge-safe');
+  const statusColor = item.status === 'Active' ? 'var(--phish)' : 'var(--safe)';
+
+  tr.innerHTML = `
+    <td class="mono cell-sub">${item.time || new Date().toISOString().slice(11, 19)}</td>
+    <td class="mono cell-sub" style="color:var(--text-mid);">${item.eventId || Math.floor(1000 + Math.random() * 8999)}</td>
+    <td><span class="badge ${sevClass}" style="font-size:9.5px; padding:2px 5px;">${item.severity.toUpperCase()}</span></td>
+    <td class="mono" style="font-size:11px; color:var(--cyan);">${escapeHtml(item.ip)}</td>
+    <td><strong>${escapeHtml(item.malware)}</strong></td>
+    <td style="color:${statusColor}; font-weight:600; font-size:10.5px;">● ${item.status}</td>
+  `;
+
+  tbody.insertBefore(tr, tbody.firstChild);
+
+  // Keep table at max 14 rows
+  if (tbody.children.length > 14) {
+    tbody.removeChild(tbody.lastChild);
+  }
+}
+
+// ── Chart.js HUD Graphs ───────────────────────────────────────
+function initHUDCharts() {
+  // 1. Attack Type Distribution Donut
+  const donutCtx = document.getElementById('attackTypeDonut');
+  if (donutCtx) {
+    new Chart(donutCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Phishing (42%)', 'Ransomware (28%)', 'Trojan/Mirai (16%)', 'Spyware/BEC (14%)'],
+        datasets: [{
+          data: [42, 28, 16, 14],
+          backgroundColor: ['#00e5ff', '#ef4444', '#f59e0b', '#a855f7'],
+          borderColor: '#0f1422',
+          borderWidth: 2,
+          hoverOffset: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '70%',
+        plugins: { legend: { display: false } }
+      }
+    });
+  }
+
+  // 2. Threats by Region Wave Chart
+  const waveCtx = document.getElementById('regionWaveChart');
+  if (waveCtx) {
+    new Chart(waveCtx, {
+      type: 'line',
+      data: {
+        labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'],
+        datasets: [{
+          label: 'APAC Threat Wave',
+          data: [45, 120, 95, 230, 310, 590, 420],
+          borderColor: '#ef4444',
+          backgroundColor: 'rgba(239, 68, 68, 0.25)',
+          fill: true,
+          tension: 0.45,
+          borderWidth: 2,
+          pointRadius: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { display: false },
+          y: { display: false, suggestedMax: 650 }
+        },
+        plugins: { legend: { display: false } }
+      }
+    });
+  }
+
+  // 3. Top Attack Vectors Bar Chart
+  const barCtx = document.getElementById('vectorBarChart');
+  if (barCtx) {
+    new Chart(barCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Phishing', 'DDoS', 'Malware', 'SQLi', 'BEC'],
+        datasets: [{
+          data: [18500, 14200, 9800, 6900, 4800],
+          backgroundColor: '#00e5ff',
+          borderRadius: 3,
+          barThickness: 12
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { color: '#64748b', font: { size: 9, family: "'IBM Plex Mono', monospace" } }
+          },
+          y: {
+            grid: { color: 'rgba(255,255,255,0.04)' },
+            ticks: { color: '#64748b', font: { size: 9 }, callback: v => v >= 1000 ? (v/1000)+'K' : v }
+          }
+        },
+        plugins: { legend: { display: false } }
+      }
+    });
+  }
+}
+
+// ── Region Focus Handler ──────────────────────────────────────
+function focusRegion(region) {
+  document.querySelectorAll('.region-chip').forEach(c => c.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+
+  if (region === 'apac') {
+    map.flyTo([22.0, 78.0], 5, { duration: 1.5 });
+  } else if (region === 'emea') {
+    map.flyTo([50.0, 15.0], 4, { duration: 1.5 });
+  } else if (region === 'amer') {
+    map.flyTo([38.0, -97.0], 4, { duration: 1.5 });
+  } else {
+    map.flyTo([20.0, 40.0], 3, { duration: 1.5 });
+  }
+}
+
+function toggleFeedStream() {
+  isStreaming = !isStreaming;
+  const btn = document.getElementById('btn-stream-toggle');
+  const badge = document.getElementById('btn-live-status');
+
+  if (isStreaming) {
+    btn.textContent = '⏸️ Pause Stream';
+    badge.textContent = '● LIVE STREAM ACTIVE';
+    badge.className = 'chip active';
+  } else {
+    btn.textContent = '▶️ Resume Stream';
+    badge.textContent = '⏸️ STREAM PAUSED';
+    badge.className = 'chip';
+  }
+}
+
+function toggleAudioPing() {
+  isAudioPing = !isAudioPing;
+  const btn = document.getElementById('audioToggleBtn');
+  btn.textContent = isAudioPing ? '🔊 Audio Ping: ON' : '🔇 Audio Ping: OFF';
+}
+
+// ── DOM Ready ─────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  initMap();
+  initCanvas();
+  initThreatFeed();
+  initHUDCharts();
+});
+</script>
+</body>
+</html>

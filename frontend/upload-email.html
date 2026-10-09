@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛡️ Ingest & Scan Email — Threatline ETIP</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e5ff'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .upload-box-wrapper { max-width: 860px; margin: 0 auto; }
+
+    .tab-bar {
+      display: flex; gap: 8px; margin-bottom: 16px;
+      border-bottom: 1px solid var(--border); padding-bottom: 8px;
+    }
+    .tab-btn {
+      background: transparent; border: none; color: var(--text-mid);
+      font-size: 13px; font-weight: 600; padding: 8px 16px;
+      border-radius: var(--radius-sm); cursor: pointer;
+      display: flex; align-items: center; gap: 8px; transition: all 0.15s ease;
+    }
+    .tab-btn.active { background: var(--card); color: var(--cyan); border: 1px solid var(--border); }
+
+    .sample-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px; margin-top: 12px;
+    }
+    .sample-card {
+      background: rgba(15,23,42,0.5);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-md); padding: 14px;
+      cursor: pointer; transition: all 0.18s ease;
+      display: flex; flex-direction: column; gap: 5px;
+    }
+    .sample-card:hover {
+      border-color: var(--cyan);
+      background: rgba(0,229,255,0.07);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .sample-tag { font-size: 10px; font-family: var(--font-mono); font-weight: 700; text-transform: uppercase; }
+    .sample-title { font-size: 12.5px; font-weight: 600; color: var(--text-high); }
+    .sample-desc { font-size: 11px; color: var(--text-low); line-height: 1.4; }
+
+    /* ── inline pipeline progress ──────────────────── */
+    .pipeline-inline {
+      margin-top: 20px;
+      background: rgba(10,14,26,0.75);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(0,229,255,0.22);
+      border-radius: var(--radius-lg);
+      padding: 22px 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.55), 0 0 20px rgba(0,229,255,0.06);
+    }
+    .pipeline-inline-title {
+      font-family: var(--font-display); font-size: 15px; font-weight: 700;
+      color: #fff; display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+    }
+    .pi-bar { height: 5px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; margin-bottom: 16px; }
+    .pi-fill {
+      height: 100%; border-radius: 3px;
+      background: linear-gradient(90deg, var(--cyan), #3b82f6);
+      transition: width 0.55s ease;
+      box-shadow: 0 0 8px rgba(0,229,255,0.45);
+    }
+    .pi-steps { display: flex; flex-direction: column; gap: 7px; }
+    .pi-step {
+      display: flex; align-items: center; gap: 12px;
+      padding: 8px 12px; border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+      font-size: 12.5px; color: var(--text-low);
+      transition: all 0.3s ease;
+    }
+    .pi-step.ps-active { background: rgba(0,229,255,0.07); border-color: rgba(0,229,255,0.28); color: var(--text-high); }
+    .pi-step.ps-done   { background: rgba(16,185,129,0.07); border-color: rgba(16,185,129,0.25); color: var(--safe); }
+    .pi-step.ps-error  { background: rgba(239,68,68,0.07); border-color: rgba(239,68,68,0.25); color: var(--phish); }
+    .pi-dot {
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 10px; font-family: var(--font-mono); font-weight: 700;
+      transition: all 0.3s ease;
+    }
+    .pi-step.ps-active .pi-dot { border-color: var(--cyan); color: var(--cyan); animation: pulseDot 1.1s infinite; }
+    .pi-step.ps-done   .pi-dot { background: rgba(16,185,129,0.2); border-color: var(--safe); }
+    .pi-step.ps-error  .pi-dot { background: rgba(239,68,68,0.2); border-color: var(--phish); }
+    @keyframes pulseDot {
+      0%,100% { box-shadow: 0 0 0 0 rgba(0,229,255,0.5); }
+      50%      { box-shadow: 0 0 0 5px rgba(0,229,255,0); }
+    }
+  </style>
+</head>
+<body data-page="upload">
+<div class="shell">
+  <aside class="sidenav" id="sidenav"></aside>
+  <div class="main">
+
+    <header class="topbar">
+      <div>
+        <h1>Email Ingestion Pipeline</h1>
+        <div class="sub">Upload RFC 822 .eml artifacts or paste raw threat stream for full AI analysis</div>
+      </div>
+      <div class="topbar-right">
+        <a href="index.html" class="btn btn-outline btn-sm">← Dashboard</a>
+      </div>
+    </header>
+
+    <main class="content">
+      <div class="upload-box-wrapper">
+
+        <!-- Tab selector -->
+        <div class="tab-bar">
+          <button class="tab-btn active" id="tab-btn-file" onclick="switchTab('file')">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Upload .EML File
+          </button>
+          <button class="tab-btn" id="tab-btn-raw" onclick="switchTab('raw')">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+            Paste Raw Email
+          </button>
+        </div>
+
+        <!-- ── Tab 1: File Dropzone ──────────────────── -->
+        <div class="card" id="panel-file">
+          <div class="card-header">
+            <div>
+              <h2>Dropzone Ingestion</h2>
+              <div class="card-subtitle">Drop an .eml file — full AI analysis runs automatically</div>
+            </div>
+          </div>
+
+          <div class="dropzone" id="fileDropzone">
+            <div class="dropzone-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <h3>Drag &amp; Drop .eml File Here</h3>
+            <p>or click to browse your filesystem</p>
+            <div class="mono" style="font-size:11px;color:var(--text-mid);margin-top:6px;" id="selectedFileName">
+              Accepts .eml · .msg · .txt · raw MIME · Max 25 MB
+            </div>
+            <input type="file" id="fileInput" accept=".eml,.txt,.msg" style="display:none;" />
+          </div>
+        </div>
+
+        <!-- ── Inline analysis pipeline (shown during processing) ── -->
+        <div class="pipeline-inline" id="pipelineBox" style="display:none;">
+          <div class="pipeline-inline-title">
+            <div class="status-dot"></div>
+            <span id="plTitle">Uploading &amp; analysing…</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-low);font-family:var(--font-mono);margin-bottom:4px;">
+            <span id="plLabel">Starting…</span>
+            <span id="plPct">0%</span>
+          </div>
+          <div class="pi-bar"><div class="pi-fill" id="plBar" style="width:0%"></div></div>
+          <div class="pi-steps">
+            <div class="pi-step" id="pi1"><div class="pi-dot">1</div><div><strong>Reading &amp; uploading email file</strong><div class="mono" style="font-size:10.5px;margin-top:1px;opacity:.7;">Binary transfer to MIME parser</div></div></div>
+            <div class="pi-step" id="pi2"><div class="pi-dot">2</div><div><strong>MIME parsing &amp; header extraction</strong><div class="mono" style="font-size:10.5px;margin-top:1px;opacity:.7;">RFC 822 · SPF / DKIM / DMARC</div></div></div>
+            <div class="pi-step" id="pi3"><div class="pi-dot">3</div><div><strong>Sender reputation &amp; URL scanner</strong><div class="mono" style="font-size:10.5px;margin-top:1px;opacity:.7;">Domain age · blacklist lookup · phishing TLDs</div></div></div>
+            <div class="pi-step" id="pi4"><div class="pi-dot">4</div><div><strong>AI / ML classification (TF-IDF + SVM)</strong><div class="mono" style="font-size:10.5px;margin-top:1px;opacity:.7;">NLP threat scoring · heuristic fallback</div></div></div>
+            <div class="pi-step" id="pi5"><div class="pi-dot">5</div><div><strong>Composite risk score &amp; IOC extraction</strong><div class="mono" style="font-size:10.5px;margin-top:1px;opacity:.7;">Weighted verdict · malicious domains / URLs / IPs</div></div></div>
+          </div>
+        </div>
+
+        <!-- ── Tab 2: Raw paste ──────────────────────── -->
+        <div class="card" id="panel-raw" style="display:none;">
+          <div class="card-header">
+            <div>
+              <h2>Raw RFC 822 Email Stream</h2>
+              <div class="card-subtitle">Paste email headers + body — instant full-pipeline analysis</div>
+            </div>
+          </div>
+
+          <form onsubmit="handleRawSubmit(event)" id="rawForm">
+            <div class="grid-2">
+              <div class="input-group">
+                <label class="input-label">Subject Line</label>
+                <input type="text" class="input-control" id="rawSubject" placeholder="e.g. Urgent: Verify Account Access" required />
+              </div>
+              <div class="input-group">
+                <label class="input-label">Sender Address (From)</label>
+                <input type="text" class="input-control" id="rawSender" placeholder="e.g. security-alert@paypal-login.com" required />
+              </div>
+            </div>
+            <div class="input-group">
+              <label class="input-label">Email Body</label>
+              <textarea class="input-control" id="rawBody" rows="7" placeholder="Paste full email body…" required></textarea>
+            </div>
+            <div class="input-group">
+              <label class="input-label">Authentication Headers (optional JSON)</label>
+              <textarea class="input-control" id="rawHeaders" rows="2" placeholder='{"spf":"fail","dkim":"fail","dmarc":"fail"}'></textarea>
+            </div>
+            <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:8px;">
+              <button type="button" class="btn btn-outline" onclick="clearRawForm()">Clear</button>
+              <button type="submit" class="btn btn-primary" id="rawSubmitBtn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Analyse Now
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- ── Sample presets ──────────────────────────── -->
+        <div class="card" style="margin-top:20px;" id="sampleCard">
+          <div class="card-header">
+            <div>
+              <h3>🧪 Instant Test Scenarios</h3>
+              <div class="card-subtitle">Pre-built forensic email samples — one click triggers full analysis</div>
+            </div>
+          </div>
+          <div class="sample-grid">
+            <div class="sample-card" onclick="runSample('phishing_paypal')">
+              <span class="sample-tag" style="color:var(--phish);">PHISHING</span>
+              <div class="sample-title">PayPal Account Limited</div>
+              <div class="sample-desc">Spoofed domain · coercive urgency · credential harvest link</div>
+            </div>
+            <div class="sample-card" onclick="runSample('malware_invoice')">
+              <span class="sample-tag" style="color:var(--malware);">MALWARE</span>
+              <div class="sample-title">Invoice_Q3.pdf.exe</div>
+              <div class="sample-desc">Double-extension ransomware dropper · malicious attachment</div>
+            </div>
+            <div class="sample-card" onclick="runSample('phishing_microsoft')">
+              <span class="sample-tag" style="color:var(--phish);">CREDENTIAL HARVEST</span>
+              <div class="sample-title">M365 Password Expiry</div>
+              <div class="sample-desc">Fake Microsoft portal · harvesting Active Directory creds</div>
+            </div>
+            <div class="sample-card" onclick="runSample('spam_lottery')">
+              <span class="sample-tag" style="color:var(--spam);">SPAM</span>
+              <div class="sample-title">Lottery Winner</div>
+              <div class="sample-desc">Advance-fee scam · financial lure · BEC vector</div>
+            </div>
+            <div class="sample-card" onclick="runSample('safe_internal')">
+              <span class="sample-tag" style="color:var(--safe);">SAFE</span>
+              <div class="sample-title">Internal Standup</div>
+              <div class="sample-desc">Valid SPF / DKIM / DMARC · legitimate corporate mail</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /upload-box-wrapper -->
+    </main>
+  </div>
+</div>
+
+<button id="chat-fab" aria-label="AI Threat Assistant" onclick="toggleChat()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+<div id="chat-panel"></div>
+
+<script src="assets/api.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/notifications.js"></script>
+<script src="assets/chat.js"></script>
+<script src="assets/sidenav.js"></script>
+<script>
+requireAuth();
+
+/* ── Helpers ──────────────────────────────────────────── */
+function switchTab(tab) {
+  const isFile = tab === 'file';
+  document.getElementById('tab-btn-file').classList.toggle('active', isFile);
+  document.getElementById('tab-btn-raw').classList.toggle('active', !isFile);
+  document.getElementById('panel-file').style.display  = isFile ? 'block' : 'none';
+  document.getElementById('panel-raw').style.display   = isFile ? 'none'  : 'block';
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+/* ── Pipeline animation ───────────────────────────────── */
+const PI_IDS  = ['pi1','pi2','pi3','pi4','pi5'];
+const PI_PCTS = [10, 28, 50, 72, 90];
+const PI_LBLS = [
+  'Uploading file to parser…',
+  'Extracting MIME headers & auth records…',
+  'Scanning URLs · sender reputation…',
+  'Running AI classification engine…',
+  'Consolidating risk score & verdict…'
+];
+
+function piSet(idx, state) {
+  const el = document.getElementById(PI_IDS[idx]);
+  if (!el) return;
+  el.className = 'pi-step ps-' + state;
+  const dot = el.querySelector('.pi-dot');
+  if (!dot) return;
+  if (state === 'done')  dot.innerHTML = '<svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+  if (state === 'error') dot.innerHTML = '<svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+  if (state === 'active') dot.textContent = (idx + 1);
+}
+
+function piProgress(pct, label) {
+  document.getElementById('plBar').style.width  = pct + '%';
+  document.getElementById('plPct').textContent  = pct + '%';
+  document.getElementById('plLabel').textContent = label;
+}
+
+function showPipeline(titleText) {
+  document.getElementById('plTitle').textContent = titleText || 'Analysing email…';
+  document.getElementById('pipelineBox').style.display = 'block';
+  document.getElementById('sampleCard').style.display  = 'none';
+  // Reset all steps
+  PI_IDS.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) { el.className = 'pi-step'; const d = el.querySelector('.pi-dot'); if (d) d.textContent = i+1; }
+  });
+  piProgress(0, 'Starting…');
+}
+
+function hidePipeline() {
+  document.getElementById('pipelineBox').style.display = 'none';
+  document.getElementById('sampleCard').style.display  = 'block';
+}
+
+async function animateAndWait(apiPromise) {
+  const delays = [0, 500, 1050, 1650, 2300];
+  for (let i = 0; i < PI_IDS.length; i++) {
+    if (i > 0) await sleep(delays[i]);
+    if (i > 0) piSet(i - 1, 'done');
+    piSet(i, 'active');
+    piProgress(PI_PCTS[i], PI_LBLS[i]);
+  }
+  // Wait for real result
+  const result = await apiPromise;
+  // Mark all done
+  piSet(PI_IDS.length - 1, 'done');
+  piProgress(100, 'Analysis complete — opening threat dossier…');
+  return result;
+}
+
+/* ── Shared "what to do with result" handler ─────────── */
+async function handleAnalysisResult(report) {
+  notify('Threat analysis complete!', 'success');
+
+  const rid = report.reportId || report.id || report._id;
+  if (!rid) {
+    throw new Error('Backend did not return a report ID. Check /api/email/analyze response.');
+  }
+
+  const isHigh = report.riskScore >= 70 || report.verdict === 'phishing' || report.verdict === 'malware';
+  if (isHigh && typeof ThreatAlert !== 'undefined') {
+    ThreatAlert.trigger({
+      reportId:  rid,
+      verdict:   report.verdict,
+      riskScore: report.riskScore,
+      subject:   report.subject || report.emailId?.subject,
+      sender:    report.sender  || report.senderAnalysis?.senderEmail,
+      aiAnalysis: report.aiAnalysis
+    });
+    await sleep(1600);
+  } else {
+    await sleep(400);
+  }
+
+  window.location.href = `threat-report.html?id=${rid}`;
+}
+
+/* ── Shared error handler ──────────────────────────────── */
+function handleAnalysisError(err) {
+  // Turn active steps red
+  PI_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (el?.classList.contains('ps-active')) el.className = 'pi-step ps-error';
+  });
+  piProgress(0, 'Pipeline failed');
+  hidePipeline();
+
+  const msg = err.message || 'Unknown error — is the backend running on port 5000?';
+  notify(msg, 'error');
+  console.error('Analysis error:', err);
+}
+
+/* ═══════════════════════════════════════════════════════
+   FILE UPLOAD FLOW
+   ═══════════════════════════════════════════════════════ */
+const dropzone = document.getElementById('fileDropzone');
+const fileInput = document.getElementById('fileInput');
+
+wireDropzone(dropzone, fileInput, async (file) => {
+  if (!file) return;
+
+  // Show selected filename
+  document.getElementById('selectedFileName').innerHTML =
+    `<strong style="color:var(--cyan);">${escapeHtml(file.name)}</strong> &nbsp;(${(file.size/1024).toFixed(1)} KB) — running full analysis…`;
+
+  showPipeline(`Analysing: ${file.name}`);
+
+  try {
+    /* Single-shot: upload file AND run full analysis pipeline */
+    const apiCall = EmailAPI.uploadAndAnalyzeFile(file);
+    const report  = await animateAndWait(apiCall);
+    await handleAnalysisResult(report);
+  } catch (err) {
+    handleAnalysisError(err);
+  }
+});
+
+/* ═══════════════════════════════════════════════════════
+   RAW TEXT FLOW
+   ═══════════════════════════════════════════════════════ */
+async function handleRawSubmit(e) {
+  e.preventDefault();
+  const subject       = document.getElementById('rawSubject').value.trim();
+  const sender        = document.getElementById('rawSender').value.trim();
+  const body          = document.getElementById('rawBody').value.trim();
+  const rawHeadersStr = document.getElementById('rawHeaders').value.trim();
+
+  let headers = {};
+  if (rawHeadersStr) {
+    try   { headers = JSON.parse(rawHeadersStr); }
+    catch { headers = { raw: rawHeadersStr }; }
+  }
+
+  const btn = document.getElementById('rawSubmitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="status-dot"></span> Analysing…';
+
+  showPipeline(`Analysing: ${subject.slice(0, 40)}`);
+
+  try {
+    const apiCall = EmailAPI.uploadAndAnalyzeRaw({ subject, sender, body, headers });
+    const report  = await animateAndWait(apiCall);
+    await handleAnalysisResult(report);
+  } catch (err) {
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg> Analyse Now';
+    handleAnalysisError(err);
+  }
+}
+
+function clearRawForm() {
+  ['rawSubject','rawSender','rawBody','rawHeaders'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+}
+
+/* ═══════════════════════════════════════════════════════
+   SAMPLE PRESETS
+   ═══════════════════════════════════════════════════════ */
+const SAMPLES = {
+  phishing_paypal: {
+    subject: 'Urgent: Your PayPal account has been limited',
+    sender:  'service@paypal-security-alert.com',
+    body:    'Dear Customer,\n\nWe detected unusual activity on your PayPal account. Access has been restricted.\nVerify immediately at http://paypal-security-alert.com/verify-login?token=abc123 within 24 hours to prevent permanent suspension.',
+    headers: { spf: 'fail', dkim: 'fail', dmarc: 'fail', 'received-spf': 'fail client-ip=185.212.44.19' }
+  },
+  malware_invoice: {
+    subject: 'OVERDUE: Invoice_Q3_99482.pdf.exe — immediate settlement required',
+    sender:  'billing-dept@global-supply-invoices.xyz',
+    body:    'Please find attached the overdue Q3 payment statement.\nExecute Invoice_Q3_99482.pdf.exe to confirm receipt and review ledger reconciliation.',
+    headers: { spf: 'fail', dkim: 'fail', dmarc: 'fail' }
+  },
+  phishing_microsoft: {
+    subject: 'Action Required: Microsoft 365 Password Expiring in 2 Hours',
+    sender:  'admin@microsoft-security-auth.top',
+    body:    'Your Microsoft 365 business password expires today.\nKeep your current password by re-authenticating at http://login-microsoft365-portal.top/auth',
+    headers: { spf: 'fail', dkim: 'fail', dmarc: 'fail' }
+  },
+  spam_lottery: {
+    subject: 'CONGRATULATIONS: You won $2,500,000 — International Euro Sweepstakes',
+    sender:  'claims@euro-mega-jackpot-winner.info',
+    body:    'You are the lucky winner of the 2026 International Mega Lottery.\nClaim your tax-free payout by sending your bank wire details and full legal identity.',
+    headers: { spf: 'neutral', dkim: 'none', dmarc: 'none' }
+  },
+  safe_internal: {
+    subject: 'Engineering Sprint 42 — Architecture Sync & Planning',
+    sender:  'alex.chen@cyber-defense.corp',
+    body:    'Hi Team,\nPlease review the updated SIH26106 architecture diagrams on the internal wiki before tomorrow\'s sprint standup. All pipeline tests are passing.',
+    headers: { spf: 'pass', dkim: 'pass', dmarc: 'pass' }
+  }
+};
+
+async function runSample(key) {
+  const preset = SAMPLES[key];
+  if (!preset) return;
+
+  showPipeline(`Analysing sample: ${preset.subject.slice(0, 40)}…`);
+  notify(`Running analysis on "${preset.subject.slice(0,35)}…"`, 'info');
+
+  try {
+    const apiCall = EmailAPI.uploadAndAnalyzeRaw(preset);
+    const report  = await animateAndWait(apiCall);
+    await handleAnalysisResult(report);
+  } catch (err) {
+    handleAnalysisError(err);
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛡️ Scan History Ledger — Threatline ETIP</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300e5ff'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 240px;
+      max-width: 400px;
+      position: relative;
+    }
+    .search-box input {
+      padding-left: 36px;
+    }
+    .search-box svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-low);
+      width: 16px;
+      height: 16px;
+    }
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body data-page="history">
+<div class="shell">
+  <!-- Sidenav -->
+  <aside class="sidenav" id="sidenav"></aside>
+
+  <div class="main">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div>
+        <h1>Historical Threat Scan Ledger</h1>
+        <div class="sub">Audited Log of All Processed Inbound Email Threat Artifacts</div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn btn-danger btn-sm" onclick="clearAllScans()" id="clearBtn">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          Clear Ledger
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="content">
+      <!-- Search & Filters -->
+      <div class="filter-bar">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" class="input-control" id="searchInput" placeholder="Search by subject, sender, or email ID..." oninput="handleSearch(this.value)" />
+        </div>
+
+        <div class="chip-row" id="verdictChips">
+          <div class="chip active" data-verdict="all" onclick="filterVerdict(this)">All Scans</div>
+          <div class="chip" data-verdict="phishing" onclick="filterVerdict(this)">Phishing</div>
+          <div class="chip" data-verdict="malware" onclick="filterVerdict(this)">Malware</div>
+          <div class="chip" data-verdict="spam" onclick="filterVerdict(this)">Spam</div>
+          <div class="chip" data-verdict="safe" onclick="filterVerdict(this)">Safe</div>
+        </div>
+      </div>
+
+      <!-- History Table Card -->
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Subject & Identifier</th>
+                <th>Sender Address</th>
+                <th>Classification Verdict</th>
+                <th>Risk Score</th>
+                <th>Scan Timestamp</th>
+                <th style="text-align:right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="historyTableBody">
+              <tr><td colspan="6" class="skeleton" style="height:48px;"></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="historyEmpty" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <h4>No Scan Records Found</h4>
+          <p>No historical scans match your current filter or query. Ingest an email to record a new scan.</p>
+          <div style="margin-top:14px;">
+            <a href="upload-email.html" class="btn btn-primary btn-sm">Scan Email Now</a>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="paginationBar">
+          <div style="font-size:12px; color:var(--text-low); font-family:var(--font-mono);" id="pageInfoText">
+            Showing 0 of 0 records
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-outline btn-sm" id="btnPrevPage" onclick="changePage(-1)">← Previous</button>
+            <button class="btn btn-outline btn-sm" id="btnNextPage" onclick="changePage(1)">Next →</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Floating AI Chat Widget -->
+<button id="chat-fab" aria-label="AI Threat Assistant" onclick="toggleChat()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+<div id="chat-panel"></div>
+
+<!-- Scripts -->
+<script src="assets/api.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/notifications.js"></script>
+<script src="assets/chat.js"></script>
+<script src="assets/sidenav.js"></script>
+<script>
+requireAuth();
+
+let currentPage = 1;
+let currentVerdict = 'all';
+let currentSearch = '';
+let searchTimer = null;
+
+async function loadHistory() {
+  const body = document.getElementById('historyTableBody');
+  const empty = document.getElementById('historyEmpty');
+
+  try {
+    const data = await HistoryAPI.list({
+      page: currentPage,
+      limit: 10,
+      search: currentSearch,
+      verdict: currentVerdict
+    });
+
+    const items = data.history || [];
+    const pag = data.pagination || { totalRecords: items.length, totalPages: 1 };
+
+    if (!items || items.length === 0) {
+      body.innerHTML = '';
+      empty.style.display = 'block';
+      document.getElementById('pageInfoText').textContent = 'Showing 0 records';
+      document.getElementById('btnPrevPage').disabled = true;
+      document.getElementById('btnNextPage').disabled = true;
+      return;
+    }
+
+    empty.style.display = 'none';
+    body.innerHTML = items.map(item => {
+      const reportId = item.reportId || item.id || item._id;
+      const score = item.riskScore || 0;
+      return `
+        <tr onclick="window.location.href='threat-report.html?id=${reportId}'" style="cursor:pointer;">
+          <td>
+            <strong>${escapeHtml(item.subject || '(No Subject)')}</strong>
+            <div class="cell-sub mono">${escapeHtml(item.emailId || reportId)}</div>
+          </td>
+          <td class="mono cell-sub" style="color:var(--cyan);">${escapeHtml(item.sender || '—')}</td>
+          <td>${badgeHtml(item.verdict)}</td>
+          <td>
+            <span class="mono" style="font-weight:700; color:${riskColor(score)}">${score}</span>
+            <div class="progress-inline"><i style="width:${score}%; background:${riskColor(score)};"></i></div>
+          </td>
+          <td class="cell-sub">${fmtDate(item.createdAt || item.date)}</td>
+          <td style="text-align:right;">
+            <button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); window.location.href='threat-report.html?id=${reportId}'" style="padding:3px 8px;">Dossier</button>
+            <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation(); deleteScan('${item.id || item._id}')" title="Delete record" style="padding:3px 6px; color:var(--phish);">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    document.getElementById('pageInfoText').textContent = `Showing page ${pag.page || currentPage} of ${pag.totalPages || 1} (${pag.totalRecords || items.length} total records)`;
+    document.getElementById('btnPrevPage').disabled = !pag.hasPrevPage;
+    document.getElementById('btnNextPage').disabled = !pag.hasNextPage;
+  } catch (err) {
+    body.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--text-low);padding:24px;">Could not load history (${escapeHtml(err.message)})</td></tr>`;
+  }
+}
+
+function handleSearch(val) {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    currentSearch = val.trim();
+    currentPage = 1;
+    loadHistory();
+  }, 300);
+}
+
+function filterVerdict(el) {
+  document.querySelectorAll('#verdictChips .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  currentVerdict = el.dataset.verdict || 'all';
+  currentPage = 1;
+  loadHistory();
+}
+
+function changePage(delta) {
+  currentPage = Math.max(1, currentPage + delta);
+  loadHistory();
+}
+
+async function deleteScan(id) {
+  if (!confirm('Are you sure you want to delete this scan entry?')) return;
+  try {
+    await HistoryAPI.deleteItem(id);
+    notify('Scan entry deleted from ledger.', 'info');
+    loadHistory();
+  } catch (err) {
+    notify('Delete failed: ' + err.message, 'error');
+  }
+}
+
+async function clearAllScans() {
+  if (!confirm('⚠️ WARNING: This will permanently wipe all scan records from the database. Continue?')) return;
+  try {
+    await HistoryAPI.clearAll();
+    notify('All scan history cleared.', 'success');
+    loadHistory();
+  } catch (err) {
+    notify('Clear failed: ' + err.message, 'error');
+  }
+}
+
+loadHistory();
+</script>
+</body>
+</html>

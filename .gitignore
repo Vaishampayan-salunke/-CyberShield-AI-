@@ -42,9 +42,6 @@ Thumbs.db
 .vscode/settings.json
 .idea/
 
-# Trained ML models (large binary files - use Git LFS or cloud storage)
-models/
-
 # Uploaded files / temp
 uploads/
 temp/

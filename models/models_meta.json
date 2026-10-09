@@ -1,0 +1,27 @@
+{
+  "version": "2.0.0",
+  "email_model": {
+    "path": "models/email_threat_model.joblib",
+    "type": "TF-IDF + Logistic Regression",
+    "classes": [
+      "Safe",
+      "Threat"
+    ]
+  },
+  "sms_model": {
+    "path": "models/sms_scam_model.joblib",
+    "type": "TF-IDF + Random Forest",
+    "classes": [
+      "Ham",
+      "Scam"
+    ]
+  },
+  "url_model": {
+    "path": "models/url_threat_model.joblib",
+    "type": "Char N-gram TF-IDF + Random Forest",
+    "classes": [
+      "Legitimate",
+      "Phishing"
+    ]
+  }
+}
